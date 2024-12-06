@@ -182,11 +182,7 @@
         "spaceID": "new-space",
         "_id": "_ne7rk2f_qwuxwti",
         "title": "main",
-        "position": [
-          -2.3079220139312033,
-          0,
-          -2.2751058609650268
-        ],
+        "position": [-2.3079220139312033, 0, -2.2751058609650268],
         "inputs": [
           {
             "_id": "_jryjlwi_5v5h9n5",
@@ -256,11 +252,7 @@
         "spaceID": "new-space",
         "_id": "_q77qs09_mwqkfse",
         "title": "mesh",
-        "position": [
-          2.2842356736268012,
-          0,
-          2.006983677792563
-        ],
+        "position": [0.26773446904972864, 0, 1.8059352347946551],
         "inputs": [
           {
             "_id": "_qiynf9j_6a60fn3",
@@ -330,11 +322,7 @@
         "spaceID": "new-space",
         "_id": "_ck2nyne_fksh47i",
         "title": "light",
-        "position": [
-          -2.2072062198549522,
-          0,
-          -0.4325156476501327
-        ],
+        "position": [-2.4000876249429397, 0, -0.4589140573283582],
         "inputs": [
           {
             "_id": "_xa0pr15_13dvvis",
@@ -404,11 +392,7 @@
         "spaceID": "new-space",
         "_id": "_5zdzfzx_t2sevtt",
         "title": "camera",
-        "position": [
-          0.8645902646087905,
-          0,
-          -2.109231273116839
-        ],
+        "position": [0.8645902646087905, 0, -2.109231273116839],
         "inputs": [
           {
             "_id": "_afnl8q0_ostxx2k",
@@ -478,11 +462,7 @@
         "spaceID": "new-space",
         "_id": "_x801t0d_2qm4x7k",
         "title": "color",
-        "position": [
-          0.7793650191922831,
-          0,
-          -0.34119537664124916
-        ],
+        "position": [0.8424579353476414, 0, -0.2669094297126314],
         "inputs": [
           {
             "_id": "_k31qdzs_dvuk8qj",
