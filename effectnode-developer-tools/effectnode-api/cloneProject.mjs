@@ -4,7 +4,10 @@ import fs from "fs/promises";
 import slugify from "slugify";
 import copydir from "copy-dir";
 
-export const cloneProject = async ({ oldTitle, title = "yoyo" }) => {
+export const cloneProject = async ({
+  oldTitle,
+  title = "new-project-title",
+}) => {
   const __dirname = dirname(fileURLToPath(import.meta.url));
 
   let oldSlugStr = slugify(oldTitle, {

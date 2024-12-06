@@ -17,9 +17,7 @@ export function ToolBox({ projectName, useStore }) {
 export function Runtime({ files, useStore, io }) {
   return (
     <>
-      <group scale={0.2} position={[1, 0, 0]}>
-        <Gltf src={files["/yoyo/portal.glb"]}></Gltf>
-      </group>
+      <group scale={0.2} position={[1, 0, 0]}></group>
     </>
   );
 }

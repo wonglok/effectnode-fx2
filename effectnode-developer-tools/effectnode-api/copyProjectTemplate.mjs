@@ -4,7 +4,7 @@ import fs from "fs/promises";
 import slugify from "slugify";
 import copydir from "copy-dir";
 
-export const copyProjectTemplate = async ({ title = "yoyo" }) => {
+export const copyProjectTemplate = async ({ title = "new-project-title" }) => {
   const __dirname = dirname(fileURLToPath(import.meta.url));
   let sourceDir = `${join(
     __dirname,
