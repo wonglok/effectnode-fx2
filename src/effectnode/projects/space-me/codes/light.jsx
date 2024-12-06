@@ -32,6 +32,8 @@ export function ToolBox({ useAutoSaveData }) {
 export function Runtime({ useAutoSaveData, io, files }) {
   let lightColor = useAutoSaveData((r) => r.lightColor) || "#ffffff";
   let intensity = useAutoSaveData((r) => r.intensity) || 1;
+
+  //
   return (
     <>
       <pointLight

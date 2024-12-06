@@ -266,16 +266,19 @@ export function CodeRun({
   }, [mode, nodeID]);
 
   useEffect(() => {
-    if (mode === "toolbox") {
-      useAutoSaveData.setState(extendAPI.boxData);
-      let tt = 0;
-      return useAutoSaveData.subscribe((now, b4) => {
-        clearTimeout(tt);
-        tt = setTimeout(() => {
+    useAutoSaveData.setState(extendAPI.boxData);
+  }, [extendAPI, useAutoSaveData]);
+
+  useEffect(() => {
+    let tt = 0;
+    return useAutoSaveData.subscribe((now, b4) => {
+      clearTimeout(tt);
+      tt = setTimeout(() => {
+        if (mode === "toolbox") {
           extendAPI.saveBoxData();
-        }, 100);
-      });
-    }
+        }
+      }, 100);
+    });
   }, [extendAPI, mode, useAutoSaveData]);
 
   //
