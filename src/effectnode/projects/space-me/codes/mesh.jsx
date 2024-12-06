@@ -34,7 +34,6 @@ export function Runtime({ io, onLoop }) {
 
   useEffect(() => {
     io.in(0, (color) => {
-      console.log(color);
       setColor(color);
     });
   }, [io]);
