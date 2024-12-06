@@ -1,3 +1,4 @@
+import { Gltf } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { EffectNode } from "effectnode-developer-tools/effectnode-runtime/EffectNode";
 
@@ -13,6 +14,12 @@ export function ToolBox({ projectName, useStore }) {
   );
 }
 
-export function Runtime({ ui, useStore, io }) {
-  return <></>;
+export function Runtime({ files, useStore, io }) {
+  return (
+    <>
+      <group scale={0.2} position={[1, 0, 0]}>
+        <Gltf src={files["/yoyo/portal.glb"]}></Gltf>
+      </group>
+    </>
+  );
 }
