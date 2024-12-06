@@ -266,15 +266,17 @@ export function CodeRun({
   }, [mode, nodeID]);
 
   useEffect(() => {
-    useAutoSaveData.setState(extendAPI.boxData);
-    let tt = 0;
-    return useAutoSaveData.subscribe((now, b4) => {
-      clearTimeout(tt);
-      tt = setTimeout(() => {
-        extendAPI.saveBoxData();
-      }, 100);
-    });
-  }, [extendAPI, useAutoSaveData]);
+    if (mode === "toolbox") {
+      useAutoSaveData.setState(extendAPI.boxData);
+      let tt = 0;
+      return useAutoSaveData.subscribe((now, b4) => {
+        clearTimeout(tt);
+        tt = setTimeout(() => {
+          extendAPI.saveBoxData();
+        }, 100);
+      });
+    }
+  }, [extendAPI, mode, useAutoSaveData]);
 
   //
   let setToolboxFullScreen = useCallback(
