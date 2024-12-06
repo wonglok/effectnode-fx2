@@ -1,3 +1,4 @@
+import { Environment } from "@react-three/drei";
 import { useEffect } from "react";
 
 export function ToolBox({ useAutoSaveData }) {
@@ -13,6 +14,7 @@ export function ToolBox({ useAutoSaveData }) {
           useAutoSaveData.setState({ lightColor: e.target.value });
         }}
       ></input>
+      {/*  */}
       <input
         type="range"
         min={0}
@@ -27,7 +29,7 @@ export function ToolBox({ useAutoSaveData }) {
   );
 }
 
-export function Runtime({ useAutoSaveData, io }) {
+export function Runtime({ useAutoSaveData, io, files }) {
   let lightColor = useAutoSaveData((r) => r.lightColor) || "#ffffff";
   let intensity = useAutoSaveData((r) => r.intensity) || 1;
   return (
@@ -37,6 +39,10 @@ export function Runtime({ useAutoSaveData, io }) {
         color={lightColor}
         position={[-1.5, 0.5, 1]}
       ></pointLight>
+
+      <Environment
+        files={[files["/yoyo/sunflowers_puresky_1k.hdr"]]}
+      ></Environment>
     </>
   );
 }
