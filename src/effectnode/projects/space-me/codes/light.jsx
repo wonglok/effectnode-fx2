@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 
-export function ToolBox({ useBoxData }) {
-  let lightColor = useBoxData((r) => r.lightColor) || "#ffffff";
-  let intensity = useBoxData((r) => r.intensity) || 1;
+export function ToolBox({ useAutoSaveData }) {
+  let lightColor = useAutoSaveData((r) => r.lightColor) || "#ffffff";
+  let intensity = useAutoSaveData((r) => r.intensity) || 1;
 
   return (
     <>
@@ -10,7 +10,7 @@ export function ToolBox({ useBoxData }) {
         type="color"
         value={lightColor}
         onChange={(e) => {
-          useBoxData.setState({ lightColor: e.target.value });
+          useAutoSaveData.setState({ lightColor: e.target.value });
         }}
       ></input>
       <input
@@ -20,16 +20,16 @@ export function ToolBox({ useBoxData }) {
         step={0.01}
         value={intensity}
         onChange={(e) => {
-          useBoxData.setState({ intensity: e.target.value });
+          useAutoSaveData.setState({ intensity: e.target.value });
         }}
       ></input>
     </>
   );
 }
 
-export function Runtime({ useBoxData, io }) {
-  let lightColor = useBoxData((r) => r.lightColor) || "#ffffff";
-  let intensity = useBoxData((r) => r.intensity) || 1;
+export function Runtime({ useAutoSaveData, io }) {
+  let lightColor = useAutoSaveData((r) => r.lightColor) || "#ffffff";
+  let intensity = useAutoSaveData((r) => r.intensity) || 1;
   return (
     <>
       <pointLight

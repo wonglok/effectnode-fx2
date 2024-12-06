@@ -14,7 +14,7 @@ export function CodeRun({
   onLoop,
   useEditorStore,
   mode,
-  useBoxData,
+  useAutoSaveData,
 }) {
   let graph = useStore((r) => r.graph) || {};
   let nodes = graph.nodes;
@@ -266,15 +266,15 @@ export function CodeRun({
   }, [mode, nodeID]);
 
   useEffect(() => {
-    useBoxData.setState(extendAPI.boxData);
+    useAutoSaveData.setState(extendAPI.boxData);
     let tt = 0;
-    return useBoxData.subscribe((now, b4) => {
+    return useAutoSaveData.subscribe((now, b4) => {
       clearTimeout(tt);
       tt = setTimeout(() => {
         extendAPI.saveBoxData();
       }, 100);
     });
-  }, [extendAPI, useBoxData]);
+  }, [extendAPI, useAutoSaveData]);
 
   //
   let setToolboxFullScreen = useCallback(
@@ -306,7 +306,7 @@ export function CodeRun({
           domElement={domElement}
           // ui={ui}
           io={io}
-          useBoxData={useBoxData}
+          useAutoSaveData={useAutoSaveData}
           //
           {...extendAPI}
         ></Algorithm>

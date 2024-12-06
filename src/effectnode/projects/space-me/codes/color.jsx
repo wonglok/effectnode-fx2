@@ -1,14 +1,14 @@
 import { useEffect } from "react";
 
-export function ToolBox({ useStore, useBoxData }) {
-  let baseColor = useBoxData((r) => r.baseColor);
+export function ToolBox({ useStore, useAutoSaveData }) {
+  let baseColor = useAutoSaveData((r) => r.baseColor);
   return (
     <>
       <input
         type="color"
         value={baseColor}
         onChange={(va) => {
-          useBoxData.setState({
+          useAutoSaveData.setState({
             baseColor: va.target.value,
           });
         }}
@@ -17,9 +17,9 @@ export function ToolBox({ useStore, useBoxData }) {
   );
 }
 
-export function Runtime({ useBoxData, io }) {
+export function Runtime({ useAutoSaveData, io }) {
   // let Insert3D = useStore((r) => r.Insert3D) || (() => null);
-  let baseColor = useBoxData((r) => r.baseColor);
+  let baseColor = useAutoSaveData((r) => r.baseColor);
   useEffect(() => {
     io.output(0, baseColor);
   }, [io, baseColor]);

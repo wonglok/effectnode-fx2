@@ -22,7 +22,7 @@ export function EffectNode({
   // projectName = projectName.toLowerCase();
   //
 
-  let useBoxData = useMemo(() => {
+  let useAutoSaveData = useMemo(() => {
     let make = () => {
       return create((set, get) => {
         //
@@ -248,7 +248,7 @@ export function EffectNode({
 
                 return (
                   <CodeRun
-                    useBoxData={useBoxData}
+                    useAutoSaveData={useAutoSaveData}
                     projectName={projectName}
                     mode={"runtime"}
                     key={node?._id + codeImple?._id}
@@ -265,7 +265,7 @@ export function EffectNode({
 
           {mode === "toolbox" && nodeID && (
             <CodeRun
-              useBoxData={useBoxData}
+              useAutoSaveData={useAutoSaveData}
               projectName={projectName}
               mode={"toolbox"}
               key={nodeID + codeImple?._id}
