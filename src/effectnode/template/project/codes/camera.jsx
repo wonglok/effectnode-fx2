@@ -1,17 +1,18 @@
 import { PerspectiveCamera } from "@react-three/drei";
 
 export function ToolBox({}) {
-  return <>camera</>;
+  return <></>;
 }
 
-export function Runtime({ ui, useStore, io }) {
-  let Insert3D = useStore((r) => r.Insert3D) || (() => null);
-
+export function Runtime({ io }) {
   return (
     <>
-      <Insert3D>
-        <PerspectiveCamera makeDefault></PerspectiveCamera>
-      </Insert3D>
+      <>
+        <PerspectiveCamera
+          makeDefault
+          position={[0, 0, 2.5]}
+        ></PerspectiveCamera>
+      </>
     </>
   );
 }

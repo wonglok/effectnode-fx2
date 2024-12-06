@@ -14,7 +14,8 @@
           "value": "my webgl canvas"
         }
       ],
-      "title": "main"
+      "title": "main",
+      "metaData": {}
     },
     {
       "codeID": "_6wwhxoe_fp2fg97",
@@ -70,7 +71,8 @@
           "value": -2.0000000000000004
         }
       ],
-      "title": "edge"
+      "title": "edge",
+      "metaData": {}
     },
     {
       "codeID": "_x027a1w_24c0grb",
@@ -95,7 +97,8 @@
           "value": 2.999999999999999
         }
       ],
-      "title": "light"
+      "title": "light",
+      "metaData": {}
     },
     {
       "codeID": "_hbuh2ad_05kot3i",
@@ -123,7 +126,7 @@
           "min": 0,
           "max": 1,
           "step": 0.01,
-          "value": 5
+          "value": 4.9799999999999995
         },
         {
           "_id": "_e1h29nd_2x7vny0",
@@ -135,7 +138,8 @@
           "value": 0
         }
       ],
-      "title": "camera"
+      "title": "camera",
+      "metaData": {}
     },
     {
       "codeID": "_e7jaen2_0bdd9xz",
@@ -157,7 +161,7 @@
           "_id": "_1ko0o77_i9qjb4e",
           "label": "baseColor",
           "type": "color",
-          "value": "#ff0000"
+          "value": "#f72ccc"
         },
         {
           "_id": "_yykfz1w_owrte7e",
@@ -166,7 +170,10 @@
           "value": "hi dear"
         }
       ],
-      "title": "color"
+      "title": "color",
+      "metaData": {
+        "baseColor": "#9b0de7"
+      }
     }
   ],
   "graph": {
@@ -175,7 +182,11 @@
         "spaceID": "new-space",
         "_id": "_ne7rk2f_qwuxwti",
         "title": "main",
-        "position": [-1.7006856272122886, 0, -1.8969405952485876],
+        "position": [
+          -2.3079220139312033,
+          0,
+          -2.2751058609650268
+        ],
         "inputs": [
           {
             "_id": "_jryjlwi_5v5h9n5",
@@ -245,7 +256,11 @@
         "spaceID": "new-space",
         "_id": "_q77qs09_mwqkfse",
         "title": "mesh",
-        "position": [1.2636051557000552, 0, 1.1360580254530026],
+        "position": [
+          2.2842356736268012,
+          0,
+          2.006983677792563
+        ],
         "inputs": [
           {
             "_id": "_qiynf9j_6a60fn3",
@@ -315,7 +330,11 @@
         "spaceID": "new-space",
         "_id": "_ck2nyne_fksh47i",
         "title": "light",
-        "position": [-1.786693306968683, 0, -0.39258691543429564],
+        "position": [
+          -2.2072062198549522,
+          0,
+          -0.4325156476501327
+        ],
         "inputs": [
           {
             "_id": "_xa0pr15_13dvvis",
@@ -385,7 +404,11 @@
         "spaceID": "new-space",
         "_id": "_5zdzfzx_t2sevtt",
         "title": "camera",
-        "position": [0.8179862775025857, 0, -1.9482504594686674],
+        "position": [
+          0.8645902646087905,
+          0,
+          -2.109231273116839
+        ],
         "inputs": [
           {
             "_id": "_afnl8q0_ostxx2k",
@@ -455,7 +478,11 @@
         "spaceID": "new-space",
         "_id": "_x801t0d_2qm4x7k",
         "title": "color",
-        "position": [0.7200005008108574, 0, -0.48284184755976817],
+        "position": [
+          0.7793650191922831,
+          0,
+          -0.34119537664124916
+        ],
         "inputs": [
           {
             "_id": "_k31qdzs_dvuk8qj",
@@ -524,7 +551,7 @@
     ],
     "edges": [
       {
-        "id": "_jvkchzy_myjb85m",
+        "id": "_wti1806_",
         "input": {
           "_id": "_qiynf9j_6a60fn3",
           "type": "input",
@@ -540,5 +567,5 @@
       }
     ]
   },
-  "title": "new-space"
+  "title": "space-me"
 }
