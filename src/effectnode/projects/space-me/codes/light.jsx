@@ -75,8 +75,29 @@ export function NodeBox({ useAutoSaveData }) {
           name={`intensity`}
           useAutoSaveData={useAutoSaveData}
         ></InputRange>
+        <InputColor
+          name={`lightColor`}
+          useAutoSaveData={useAutoSaveData}
+        ></InputColor>
       </div>
     </Html>
+  );
+}
+
+function InputColor({ name, useAutoSaveData }) {
+  let value = useAutoSaveData((r) => r[name]);
+
+  return (
+    <input
+      className=""
+      type="color"
+      value={value}
+      onChange={(va) => {
+        useAutoSaveData.setState({
+          [name]: va.target.value,
+        });
+      }}
+    />
   );
 }
 

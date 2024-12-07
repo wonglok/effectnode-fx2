@@ -56,8 +56,9 @@
       ],
       "title": "edge",
       "metaData": {
-        "baseColor": "#0400ff",
-        "intensity": "11.9"
+        "baseColor": "#5cffec",
+        "intensity": "17.3",
+        "lightColor": "#ff1414"
       }
     },
     {
@@ -85,8 +86,9 @@
       ],
       "title": "light",
       "metaData": {
-        "baseColor": "#0400ff",
-        "intensity": "11.9"
+        "baseColor": "#5cffec",
+        "intensity": "17.3",
+        "lightColor": "#ff1414"
       }
     },
     {
@@ -120,8 +122,9 @@
       ],
       "title": "color",
       "metaData": {
-        "baseColor": "#0400ff",
-        "intensity": "11.9"
+        "baseColor": "#5cffec",
+        "intensity": "17.3",
+        "lightColor": "#ff1414"
       }
     }
   ],
@@ -131,7 +134,11 @@
         "spaceID": "new-space",
         "_id": "_q77qs09_mwqkfse",
         "title": "mesh",
-        "position": [1.9980931807318925, 0, 1.067879799223672],
+        "position": [
+          0.8184114618217162,
+          0,
+          1.396645343670775
+        ],
         "inputs": [
           {
             "_id": "_qiynf9j_6a60fn3",
@@ -201,7 +208,11 @@
         "spaceID": "new-space",
         "_id": "_ck2nyne_fksh47i",
         "title": "light",
-        "position": [-1.6856288300588629, 0, 0.015022367450492331],
+        "position": [
+          -3.2179942643907817,
+          0,
+          -0.5525623751536927
+        ],
         "inputs": [
           {
             "_id": "_xa0pr15_13dvvis",
@@ -271,7 +282,11 @@
         "spaceID": "new-space",
         "_id": "_x801t0d_2qm4x7k",
         "title": "color",
-        "position": [1.9377746351708214, 0, -0.5427118914835529],
+        "position": [
+          -0.45988648376584873,
+          0,
+          -1.2673892147433015
+        ],
         "inputs": [
           {
             "_id": "_k31qdzs_dvuk8qj",
@@ -340,7 +355,7 @@
     ],
     "edges": [
       {
-        "id": "_wf5jqtv_",
+        "id": "_eg5horn_",
         "input": {
           "_id": "_qiynf9j_6a60fn3",
           "type": "input",
