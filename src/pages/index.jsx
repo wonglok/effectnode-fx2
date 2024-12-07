@@ -60,8 +60,7 @@ function PostProcessing() {
       <EffectComposer>
         <SSR
           //
-          temporalResolve={true}
-          ior={2.8}
+          temporalResolve={false}
           intensity={1.0}
           jitter={0.15}
           scene={scene}
