@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { Pass } from "postprocessing";
+import { Pass } from "../../../../postprocessing/build/index";
 import { Buffer } from "buffer";
 import { FullScreenTriangle } from "./FullScreenTriangle.js";
 import { EffectShader } from "./EffectShader.js";
@@ -57,7 +57,7 @@ class N8AOPostPass extends Pass {
         screenSpaceRadius: false,
         halfRes: false,
         depthAwareUpsampling: true,
-        colorMultiply: true
+        colorMultiply: true,
       },
       {
         set: (target, propName, value) => {
@@ -67,22 +67,28 @@ class N8AOPostPass extends Pass {
             this.configureAOPass(this.configuration.logarithmicDepthBuffer);
           }
           if (propName === "denoiseSamples" && oldProp !== value) {
-            this.configureDenoisePass(this.configuration.logarithmicDepthBuffer);
+            this.configureDenoisePass(
+              this.configuration.logarithmicDepthBuffer
+            );
           }
           if (propName === "halfRes" && oldProp !== value) {
             this.configureAOPass(this.configuration.logarithmicDepthBuffer);
             this.configureHalfResTargets();
-            this.configureEffectCompositer(this.configuration.logarithmicDepthBuffer);
+            this.configureEffectCompositer(
+              this.configuration.logarithmicDepthBuffer
+            );
             this.setSize(this.width, this.height);
           }
           if (propName === "depthAwareUpsampling" && oldProp !== value) {
-            this.configureEffectCompositer(this.configuration.logarithmicDepthBuffer);
+            this.configureEffectCompositer(
+              this.configuration.logarithmicDepthBuffer
+            );
           }
           if (propName === "gammaCorrection") {
             this.autosetGamma = false;
           }
           return true;
-        }
+        },
       }
     );
     this.samples = [];
@@ -95,8 +101,8 @@ class N8AOPostPass extends Pass {
       new THREE.ShaderMaterial({
         uniforms: {
           tDiffuse: {
-            value: null
-          }
+            value: null,
+          },
         },
         depthWrite: false,
         vertexShader: `
@@ -112,26 +118,38 @@ class N8AOPostPass extends Pass {
             void main() {
                 gl_FragColor = texture2D(tDiffuse, vUv);
             }
-            `
+            `,
       })
     );
-    this.writeTargetInternal = new THREE.WebGLRenderTarget(this.width, this.height, {
-      minFilter: THREE.LinearFilter,
-      magFilter: THREE.LinearFilter,
-      depthBuffer: false
-    });
-    this.readTargetInternal = new THREE.WebGLRenderTarget(this.width, this.height, {
-      minFilter: THREE.LinearFilter,
-      magFilter: THREE.LinearFilter,
-      depthBuffer: false
-    });
-    this.outputTargetInternal = new THREE.WebGLRenderTarget(this.width, this.height, {
-      minFilter: THREE.LinearFilter,
-      magFilter: THREE.LinearFilter,
-      depthBuffer: false
-    });
+    this.writeTargetInternal = new THREE.WebGLRenderTarget(
+      this.width,
+      this.height,
+      {
+        minFilter: THREE.LinearFilter,
+        magFilter: THREE.LinearFilter,
+        depthBuffer: false,
+      }
+    );
+    this.readTargetInternal = new THREE.WebGLRenderTarget(
+      this.width,
+      this.height,
+      {
+        minFilter: THREE.LinearFilter,
+        magFilter: THREE.LinearFilter,
+        depthBuffer: false,
+      }
+    );
+    this.outputTargetInternal = new THREE.WebGLRenderTarget(
+      this.width,
+      this.height,
+      {
+        minFilter: THREE.LinearFilter,
+        magFilter: THREE.LinearFilter,
+        depthBuffer: false,
+      }
+    );
     this.bluenoise = //bluenoise;
-    new THREE.DataTexture(bluenoiseBits, 128, 128);
+      new THREE.DataTexture(bluenoiseBits, 128, 128);
     this.bluenoise.colorSpace = THREE.NoColorSpace;
     this.bluenoise.wrapS = THREE.RepeatWrapping;
     this.bluenoise.wrapT = THREE.RepeatWrapping;
@@ -146,14 +164,19 @@ class N8AOPostPass extends Pass {
   }
   configureHalfResTargets() {
     if (this.configuration.halfRes) {
-      this.depthDownsampleTarget = /*new THREE.WebGLRenderTarget(this.width / 2, this.height / 2, {
+      this.depthDownsampleTarget =
+        /*new THREE.WebGLRenderTarget(this.width / 2, this.height / 2, {
                              minFilter: THREE.NearestFilter,
                              magFilter: THREE.NearestFilter,
                              depthBuffer: false,
                              format: THREE.RedFormat,
                              type: THREE.FloatType
                          });*/
-      new THREE.WebGLMultipleRenderTargets(this.width / 2, this.height / 2, 2);
+        new THREE.WebGLMultipleRenderTargets(
+          this.width / 2,
+          this.height / 2,
+          2
+        );
       this.depthDownsampleTarget.texture[0].format = THREE.RedFormat;
       this.depthDownsampleTarget.texture[0].type = THREE.FloatType;
       this.depthDownsampleTarget.texture[0].minFilter = THREE.NearestFilter;
@@ -164,7 +187,9 @@ class N8AOPostPass extends Pass {
       this.depthDownsampleTarget.texture[1].minFilter = THREE.NearestFilter;
       this.depthDownsampleTarget.texture[1].magFilter = THREE.NearestFilter;
       this.depthDownsampleTarget.texture[1].depthBuffer = false;
-      this.depthDownsampleQuad = new FullScreenTriangle(new THREE.ShaderMaterial(DepthDownSample));
+      this.depthDownsampleQuad = new FullScreenTriangle(
+        new THREE.ShaderMaterial(DepthDownSample)
+      );
     } else {
       if (this.depthDownsampleTarget) {
         this.depthDownsampleTarget.dispose();
@@ -182,9 +207,13 @@ class N8AOPostPass extends Pass {
   }
   configureAOPass(logarithmicDepthBuffer = false) {
     this.samples = this.generateHemisphereSamples(this.configuration.aoSamples);
-    this.samplesR = this.generateHemisphereSamplesR(this.configuration.aoSamples);
+    this.samplesR = this.generateHemisphereSamplesR(
+      this.configuration.aoSamples
+    );
     const e = { ...EffectShader };
-    e.fragmentShader = e.fragmentShader.replace("16", this.configuration.aoSamples).replace("16.0", this.configuration.aoSamples + ".0");
+    e.fragmentShader = e.fragmentShader
+      .replace("16", this.configuration.aoSamples)
+      .replace("16.0", this.configuration.aoSamples + ".0");
     if (logarithmicDepthBuffer) {
       e.fragmentShader = "#define LOGDEPTH\n" + e.fragmentShader;
     }
@@ -195,13 +224,21 @@ class N8AOPostPass extends Pass {
       this.effectShaderQuad.material.dispose();
       this.effectShaderQuad.material = new THREE.ShaderMaterial(e);
     } else {
-      this.effectShaderQuad = new FullScreenTriangle(new THREE.ShaderMaterial(e));
+      this.effectShaderQuad = new FullScreenTriangle(
+        new THREE.ShaderMaterial(e)
+      );
     }
   }
   configureDenoisePass(logarithmicDepthBuffer = false) {
-    this.samplesDenoise = this.generateDenoiseSamples(this.configuration.denoiseSamples, 11);
+    this.samplesDenoise = this.generateDenoiseSamples(
+      this.configuration.denoiseSamples,
+      11
+    );
     const p = { ...PoissionBlur };
-    p.fragmentShader = p.fragmentShader.replace("16", this.configuration.denoiseSamples);
+    p.fragmentShader = p.fragmentShader.replace(
+      "16",
+      this.configuration.denoiseSamples
+    );
     if (logarithmicDepthBuffer) {
       p.fragmentShader = "#define LOGDEPTH\n" + p.fragmentShader;
     }
@@ -209,7 +246,9 @@ class N8AOPostPass extends Pass {
       this.poissonBlurQuad.material.dispose();
       this.poissonBlurQuad.material = new THREE.ShaderMaterial(p);
     } else {
-      this.poissonBlurQuad = new FullScreenTriangle(new THREE.ShaderMaterial(p));
+      this.poissonBlurQuad = new FullScreenTriangle(
+        new THREE.ShaderMaterial(p)
+      );
     }
   }
   configureEffectCompositer(logarithmicDepthBuffer = false) {
@@ -224,7 +263,9 @@ class N8AOPostPass extends Pass {
       this.effectCompositerQuad.material.dispose();
       this.effectCompositerQuad.material = new THREE.ShaderMaterial(e);
     } else {
-      this.effectCompositerQuad = new FullScreenTriangle(new THREE.ShaderMaterial(e));
+      this.effectCompositerQuad = new FullScreenTriangle(
+        new THREE.ShaderMaterial(e)
+      );
     }
   }
   /**
@@ -263,14 +304,18 @@ class N8AOPostPass extends Pass {
    * @returns {THREE.Vector2[]}
    */
   generateDenoiseSamples(numSamples, numRings) {
-    const angleStep = 2 * Math.PI * numRings / numSamples;
+    const angleStep = (2 * Math.PI * numRings) / numSamples;
     const invNumSamples = 1 / numSamples;
     const radiusStep = invNumSamples;
     const samples = [];
     let radius = invNumSamples;
     let angle = 0;
     for (let i = 0; i < numSamples; i++) {
-      samples.push(new THREE.Vector2(Math.cos(angle), Math.sin(angle)).multiplyScalar(Math.pow(radius, 0.75)));
+      samples.push(
+        new THREE.Vector2(Math.cos(angle), Math.sin(angle)).multiplyScalar(
+          Math.pow(radius, 0.75)
+        )
+      );
       radius += radiusStep;
       angle += angleStep;
     }
@@ -293,8 +338,12 @@ class N8AOPostPass extends Pass {
   render(renderer, inputBuffer, outputBuffer) {
     const xrEnabled = renderer.xr.enabled;
     renderer.xr.enabled = false;
-    if (renderer.capabilities.logarithmicDepthBuffer !== this.configuration.logarithmicDepthBuffer) {
-      this.configuration.logarithmicDepthBuffer = renderer.capabilities.logarithmicDepthBuffer;
+    if (
+      renderer.capabilities.logarithmicDepthBuffer !==
+      this.configuration.logarithmicDepthBuffer
+    ) {
+      this.configuration.logarithmicDepthBuffer =
+        renderer.capabilities.logarithmicDepthBuffer;
       this.configureAOPass(this.configuration.logarithmicDepthBuffer);
       this.configureDenoisePass(this.configuration.logarithmicDepthBuffer);
       this.configureEffectCompositer(this.configuration.logarithmicDepthBuffer);
@@ -310,7 +359,9 @@ class N8AOPostPass extends Pass {
       gl = renderer.getContext();
       ext = gl.getExtension("EXT_disjoint_timer_query_webgl2");
       if (ext === null) {
-        console.error("EXT_disjoint_timer_query_webgl2 not available, disabling debug mode.");
+        console.error(
+          "EXT_disjoint_timer_query_webgl2 not available, disabling debug mode."
+        );
         this.debugMode = false;
       }
     }
@@ -326,94 +377,179 @@ class N8AOPostPass extends Pass {
     }
     if (this.configuration.halfRes) {
       renderer.setRenderTarget(this.depthDownsampleTarget);
-      this.depthDownsampleQuad.material.uniforms.sceneDepth.value = this.depthTexture;
+      this.depthDownsampleQuad.material.uniforms.sceneDepth.value =
+        this.depthTexture;
       this.depthDownsampleQuad.material.uniforms.resolution.value = this._r;
-      this.depthDownsampleQuad.material.uniforms["near"].value = this.camera.near;
+      this.depthDownsampleQuad.material.uniforms["near"].value =
+        this.camera.near;
       this.depthDownsampleQuad.material.uniforms["far"].value = this.camera.far;
-      this.depthDownsampleQuad.material.uniforms["projectionMatrixInv"].value = this.camera.projectionMatrixInverse;
-      this.depthDownsampleQuad.material.uniforms["viewMatrixInv"].value = this.camera.matrixWorld;
-      this.depthDownsampleQuad.material.uniforms["logDepth"].value = this.configuration.logarithmicDepthBuffer;
+      this.depthDownsampleQuad.material.uniforms["projectionMatrixInv"].value =
+        this.camera.projectionMatrixInverse;
+      this.depthDownsampleQuad.material.uniforms["viewMatrixInv"].value =
+        this.camera.matrixWorld;
+      this.depthDownsampleQuad.material.uniforms["logDepth"].value =
+        this.configuration.logarithmicDepthBuffer;
       this.depthDownsampleQuad.render(renderer);
     }
-    this.effectShaderQuad.material.uniforms["sceneDiffuse"].value = inputBuffer.texture;
-    this.effectShaderQuad.material.uniforms["sceneDepth"].value = this.configuration.halfRes ? this.depthDownsampleTarget.texture[0] : this.depthTexture;
-    this.effectShaderQuad.material.uniforms["sceneNormal"].value = this.configuration.halfRes ? this.depthDownsampleTarget.texture[1] : null;
-    this.effectShaderQuad.material.uniforms["projMat"].value = this.camera.projectionMatrix;
-    this.effectShaderQuad.material.uniforms["viewMat"].value = this.camera.matrixWorldInverse;
-    this.effectShaderQuad.material.uniforms["projViewMat"].value = this.camera.projectionMatrix.clone().multiply(this.camera.matrixWorldInverse.clone());
-    this.effectShaderQuad.material.uniforms["projectionMatrixInv"].value = this.camera.projectionMatrixInverse;
-    this.effectShaderQuad.material.uniforms["viewMatrixInv"].value = this.camera.matrixWorld;
-    this.effectShaderQuad.material.uniforms["cameraPos"].value = this.camera.getWorldPosition(new THREE.Vector3());
-    this.effectShaderQuad.material.uniforms["resolution"].value = this.configuration.halfRes ? this._r.clone().multiplyScalar(1 / 2).floor() : this._r;
-    this.effectShaderQuad.material.uniforms["time"].value = performance.now() / 1e3;
+    this.effectShaderQuad.material.uniforms["sceneDiffuse"].value =
+      inputBuffer.texture;
+    this.effectShaderQuad.material.uniforms["sceneDepth"].value = this
+      .configuration.halfRes
+      ? this.depthDownsampleTarget.texture[0]
+      : this.depthTexture;
+    this.effectShaderQuad.material.uniforms["sceneNormal"].value = this
+      .configuration.halfRes
+      ? this.depthDownsampleTarget.texture[1]
+      : null;
+    this.effectShaderQuad.material.uniforms["projMat"].value =
+      this.camera.projectionMatrix;
+    this.effectShaderQuad.material.uniforms["viewMat"].value =
+      this.camera.matrixWorldInverse;
+    this.effectShaderQuad.material.uniforms["projViewMat"].value =
+      this.camera.projectionMatrix
+        .clone()
+        .multiply(this.camera.matrixWorldInverse.clone());
+    this.effectShaderQuad.material.uniforms["projectionMatrixInv"].value =
+      this.camera.projectionMatrixInverse;
+    this.effectShaderQuad.material.uniforms["viewMatrixInv"].value =
+      this.camera.matrixWorld;
+    this.effectShaderQuad.material.uniforms["cameraPos"].value =
+      this.camera.getWorldPosition(new THREE.Vector3());
+    this.effectShaderQuad.material.uniforms["resolution"].value = this
+      .configuration.halfRes
+      ? this._r
+          .clone()
+          .multiplyScalar(1 / 2)
+          .floor()
+      : this._r;
+    this.effectShaderQuad.material.uniforms["time"].value =
+      performance.now() / 1e3;
     this.effectShaderQuad.material.uniforms["samples"].value = this.samples;
     this.effectShaderQuad.material.uniforms["samplesR"].value = this.samplesR;
     this.effectShaderQuad.material.uniforms["bluenoise"].value = this.bluenoise;
     this.effectShaderQuad.material.uniforms["radius"].value = trueRadius;
-    this.effectShaderQuad.material.uniforms["distanceFalloff"].value = this.configuration.distanceFalloff;
+    this.effectShaderQuad.material.uniforms["distanceFalloff"].value =
+      this.configuration.distanceFalloff;
     this.effectShaderQuad.material.uniforms["near"].value = this.camera.near;
     this.effectShaderQuad.material.uniforms["far"].value = this.camera.far;
-    this.effectShaderQuad.material.uniforms["logDepth"].value = renderer.capabilities.logarithmicDepthBuffer;
-    this.effectShaderQuad.material.uniforms["ortho"].value = this.camera.isOrthographicCamera;
-    this.effectShaderQuad.material.uniforms["screenSpaceRadius"].value = this.configuration.screenSpaceRadius;
+    this.effectShaderQuad.material.uniforms["logDepth"].value =
+      renderer.capabilities.logarithmicDepthBuffer;
+    this.effectShaderQuad.material.uniforms["ortho"].value =
+      this.camera.isOrthographicCamera;
+    this.effectShaderQuad.material.uniforms["screenSpaceRadius"].value =
+      this.configuration.screenSpaceRadius;
     renderer.setRenderTarget(this.writeTargetInternal);
     this.effectShaderQuad.render(renderer);
     for (let i = 0; i < this.configuration.denoiseIterations; i++) {
-      [this.writeTargetInternal, this.readTargetInternal] = [this.readTargetInternal, this.writeTargetInternal];
-      this.poissonBlurQuad.material.uniforms["tDiffuse"].value = this.readTargetInternal.texture;
-      this.poissonBlurQuad.material.uniforms["sceneDepth"].value = this.configuration.halfRes ? this.depthDownsampleTarget.texture[0] : this.depthTexture;
-      this.poissonBlurQuad.material.uniforms["projMat"].value = this.camera.projectionMatrix;
-      this.poissonBlurQuad.material.uniforms["viewMat"].value = this.camera.matrixWorldInverse;
-      this.poissonBlurQuad.material.uniforms["projectionMatrixInv"].value = this.camera.projectionMatrixInverse;
-      this.poissonBlurQuad.material.uniforms["viewMatrixInv"].value = this.camera.matrixWorld;
-      this.poissonBlurQuad.material.uniforms["cameraPos"].value = this.camera.getWorldPosition(new THREE.Vector3());
-      this.poissonBlurQuad.material.uniforms["resolution"].value = this.configuration.halfRes ? this._r.clone().multiplyScalar(1 / 2).floor() : this._r;
-      this.poissonBlurQuad.material.uniforms["time"].value = performance.now() / 1e3;
-      this.poissonBlurQuad.material.uniforms["blueNoise"].value = this.bluenoise;
-      this.poissonBlurQuad.material.uniforms["radius"].value = this.configuration.denoiseRadius * (this.configuration.halfRes ? 1 / 2 : 1);
+      [this.writeTargetInternal, this.readTargetInternal] = [
+        this.readTargetInternal,
+        this.writeTargetInternal,
+      ];
+      this.poissonBlurQuad.material.uniforms["tDiffuse"].value =
+        this.readTargetInternal.texture;
+      this.poissonBlurQuad.material.uniforms["sceneDepth"].value = this
+        .configuration.halfRes
+        ? this.depthDownsampleTarget.texture[0]
+        : this.depthTexture;
+      this.poissonBlurQuad.material.uniforms["projMat"].value =
+        this.camera.projectionMatrix;
+      this.poissonBlurQuad.material.uniforms["viewMat"].value =
+        this.camera.matrixWorldInverse;
+      this.poissonBlurQuad.material.uniforms["projectionMatrixInv"].value =
+        this.camera.projectionMatrixInverse;
+      this.poissonBlurQuad.material.uniforms["viewMatrixInv"].value =
+        this.camera.matrixWorld;
+      this.poissonBlurQuad.material.uniforms["cameraPos"].value =
+        this.camera.getWorldPosition(new THREE.Vector3());
+      this.poissonBlurQuad.material.uniforms["resolution"].value = this
+        .configuration.halfRes
+        ? this._r
+            .clone()
+            .multiplyScalar(1 / 2)
+            .floor()
+        : this._r;
+      this.poissonBlurQuad.material.uniforms["time"].value =
+        performance.now() / 1e3;
+      this.poissonBlurQuad.material.uniforms["blueNoise"].value =
+        this.bluenoise;
+      this.poissonBlurQuad.material.uniforms["radius"].value =
+        this.configuration.denoiseRadius *
+        (this.configuration.halfRes ? 1 / 2 : 1);
       this.poissonBlurQuad.material.uniforms["worldRadius"].value = trueRadius;
-      this.poissonBlurQuad.material.uniforms["distanceFalloff"].value = this.configuration.distanceFalloff;
+      this.poissonBlurQuad.material.uniforms["distanceFalloff"].value =
+        this.configuration.distanceFalloff;
       this.poissonBlurQuad.material.uniforms["index"].value = i;
-      this.poissonBlurQuad.material.uniforms["poissonDisk"].value = this.samplesDenoise;
+      this.poissonBlurQuad.material.uniforms["poissonDisk"].value =
+        this.samplesDenoise;
       this.poissonBlurQuad.material.uniforms["near"].value = this.camera.near;
       this.poissonBlurQuad.material.uniforms["far"].value = this.camera.far;
-      this.poissonBlurQuad.material.uniforms["logDepth"].value = renderer.capabilities.logarithmicDepthBuffer;
-      this.poissonBlurQuad.material.uniforms["screenSpaceRadius"].value = this.configuration.screenSpaceRadius;
+      this.poissonBlurQuad.material.uniforms["logDepth"].value =
+        renderer.capabilities.logarithmicDepthBuffer;
+      this.poissonBlurQuad.material.uniforms["screenSpaceRadius"].value =
+        this.configuration.screenSpaceRadius;
       renderer.setRenderTarget(this.writeTargetInternal);
       this.poissonBlurQuad.render(renderer);
     }
-    this.effectCompositerQuad.material.uniforms["sceneDiffuse"].value = inputBuffer.texture;
-    this.effectCompositerQuad.material.uniforms["sceneDepth"].value = this.depthTexture;
-    this.effectCompositerQuad.material.uniforms["near"].value = this.camera.near;
+    this.effectCompositerQuad.material.uniforms["sceneDiffuse"].value =
+      inputBuffer.texture;
+    this.effectCompositerQuad.material.uniforms["sceneDepth"].value =
+      this.depthTexture;
+    this.effectCompositerQuad.material.uniforms["near"].value =
+      this.camera.near;
     this.effectCompositerQuad.material.uniforms["far"].value = this.camera.far;
-    this.effectCompositerQuad.material.uniforms["projectionMatrixInv"].value = this.camera.projectionMatrixInverse;
-    this.effectCompositerQuad.material.uniforms["viewMatrixInv"].value = this.camera.matrixWorld;
-    this.effectCompositerQuad.material.uniforms["logDepth"].value = renderer.capabilities.logarithmicDepthBuffer;
-    this.effectCompositerQuad.material.uniforms["ortho"].value = this.camera.isOrthographicCamera;
-    this.effectCompositerQuad.material.uniforms["downsampledDepth"].value = this.configuration.halfRes ? this.depthDownsampleTarget.texture[0] : this.depthTexture;
+    this.effectCompositerQuad.material.uniforms["projectionMatrixInv"].value =
+      this.camera.projectionMatrixInverse;
+    this.effectCompositerQuad.material.uniforms["viewMatrixInv"].value =
+      this.camera.matrixWorld;
+    this.effectCompositerQuad.material.uniforms["logDepth"].value =
+      renderer.capabilities.logarithmicDepthBuffer;
+    this.effectCompositerQuad.material.uniforms["ortho"].value =
+      this.camera.isOrthographicCamera;
+    this.effectCompositerQuad.material.uniforms["downsampledDepth"].value = this
+      .configuration.halfRes
+      ? this.depthDownsampleTarget.texture[0]
+      : this.depthTexture;
     this.effectCompositerQuad.material.uniforms["resolution"].value = this._r;
-    this.effectCompositerQuad.material.uniforms["blueNoise"].value = this.bluenoise;
-    this.effectCompositerQuad.material.uniforms["intensity"].value = this.configuration.intensity;
-    this.effectCompositerQuad.material.uniforms["renderMode"].value = this.configuration.renderMode;
-    this.effectCompositerQuad.material.uniforms["screenSpaceRadius"].value = this.configuration.screenSpaceRadius;
+    this.effectCompositerQuad.material.uniforms["blueNoise"].value =
+      this.bluenoise;
+    this.effectCompositerQuad.material.uniforms["intensity"].value =
+      this.configuration.intensity;
+    this.effectCompositerQuad.material.uniforms["renderMode"].value =
+      this.configuration.renderMode;
+    this.effectCompositerQuad.material.uniforms["screenSpaceRadius"].value =
+      this.configuration.screenSpaceRadius;
     this.effectCompositerQuad.material.uniforms["radius"].value = trueRadius;
-    this.effectCompositerQuad.material.uniforms["distanceFalloff"].value = this.configuration.distanceFalloff;
-    this.effectCompositerQuad.material.uniforms["gammaCorrection"].value = this.autosetGamma ? this.renderToScreen : this.configuration.gammaCorrection;
-    this.effectCompositerQuad.material.uniforms["tDiffuse"].value = this.writeTargetInternal.texture;
-    this.effectCompositerQuad.material.uniforms["color"].value = this._c.copy(this.configuration.color).convertSRGBToLinear();
-    this.effectCompositerQuad.material.uniforms["colorMultiply"].value = this.configuration.colorMultiply;
-    this.effectCompositerQuad.material.uniforms["cameraPos"].value = this.camera.getWorldPosition(new THREE.Vector3());
+    this.effectCompositerQuad.material.uniforms["distanceFalloff"].value =
+      this.configuration.distanceFalloff;
+    this.effectCompositerQuad.material.uniforms["gammaCorrection"].value = this
+      .autosetGamma
+      ? this.renderToScreen
+      : this.configuration.gammaCorrection;
+    this.effectCompositerQuad.material.uniforms["tDiffuse"].value =
+      this.writeTargetInternal.texture;
+    this.effectCompositerQuad.material.uniforms["color"].value = this._c
+      .copy(this.configuration.color)
+      .convertSRGBToLinear();
+    this.effectCompositerQuad.material.uniforms["colorMultiply"].value =
+      this.configuration.colorMultiply;
+    this.effectCompositerQuad.material.uniforms["cameraPos"].value =
+      this.camera.getWorldPosition(new THREE.Vector3());
     this.effectCompositerQuad.material.uniforms["fog"].value = !!this.scene.fog;
     if (this.scene.fog) {
       if (this.scene.fog.isFog) {
         this.effectCompositerQuad.material.uniforms["fogExp"].value = false;
-        this.effectCompositerQuad.material.uniforms["fogNear"].value = this.scene.fog.near;
-        this.effectCompositerQuad.material.uniforms["fogFar"].value = this.scene.fog.far;
+        this.effectCompositerQuad.material.uniforms["fogNear"].value =
+          this.scene.fog.near;
+        this.effectCompositerQuad.material.uniforms["fogFar"].value =
+          this.scene.fog.far;
       } else if (this.scene.fog.isFogExp2) {
         this.effectCompositerQuad.material.uniforms["fogExp"].value = true;
-        this.effectCompositerQuad.material.uniforms["fogDensity"].value = this.scene.fog.density;
+        this.effectCompositerQuad.material.uniforms["fogDensity"].value =
+          this.scene.fog.density;
       } else {
-        console.error(`Unsupported fog type ${this.scene.fog.constructor.name} in SSAOPass.`);
+        console.error(
+          `Unsupported fog type ${this.scene.fog.constructor.name} in SSAOPass.`
+        );
       }
     }
     renderer.setRenderTarget(
@@ -423,7 +559,8 @@ class N8AOPostPass extends Pass {
     );
     this.effectCompositerQuad.render(renderer);
     renderer.setRenderTarget(this.renderToScreen ? null : outputBuffer);
-    this.copyQuad.material.uniforms["tDiffuse"].value = this.outputTargetInternal.texture;
+    this.copyQuad.material.uniforms["tDiffuse"].value =
+      this.outputTargetInternal.texture;
     this.copyQuad.render(renderer);
     if (this.debugMode) {
       gl.endQuery(ext.TIME_ELAPSED_EXT);
@@ -448,7 +585,13 @@ class N8AOPostPass extends Pass {
    * @param {"Combined" | "AO" | "No AO" | "Split" | "Split AO"} mode - The display mode.
    */
   setDisplayMode(mode) {
-    this.configuration.renderMode = ["Combined", "AO", "No AO", "Split", "Split AO"].indexOf(mode);
+    this.configuration.renderMode = [
+      "Combined",
+      "AO",
+      "No AO",
+      "Split",
+      "Split AO",
+    ].indexOf(mode);
   }
   /**
    *
@@ -478,7 +621,5 @@ class N8AOPostPass extends Pass {
     }
   }
 }
-export {
-  N8AOPostPass
-};
+export { N8AOPostPass };
 //# sourceMappingURL=N8AOPostPass.js.map

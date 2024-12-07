@@ -6,6 +6,9 @@ import { EffectNode } from "effectnode-developer-tools/effectnode-runtime/Effect
 import { Suspense } from "react";
 import { SSR } from "../vendor/r3f-postprocessing/dist/effects/SSR/index";
 import { N8AO } from "../vendor/r3f-postprocessing/dist/effects/N8AO/index";
+
+//
+
 export default function Page() {
   return (
     <>
