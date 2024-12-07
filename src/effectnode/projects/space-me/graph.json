@@ -63,8 +63,8 @@
       "title": "light",
       "metaData": {
         "baseColor": "#ffffff",
-        "intensity": "200",
-        "lightColor": "#ffbb00"
+        "intensity": "148.2",
+        "lightColor": "#ffcd61"
       }
     },
     {
@@ -99,8 +99,8 @@
       "title": "mesh",
       "metaData": {
         "baseColor": "#ffffff",
-        "intensity": "200",
-        "lightColor": "#ffbb00"
+        "intensity": "148.2",
+        "lightColor": "#ffcd61"
       }
     }
   ],
