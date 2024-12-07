@@ -131,11 +131,7 @@
         "spaceID": "new-space",
         "_id": "_q77qs09_mwqkfse",
         "title": "mesh",
-        "position": [
-          1.9980931807318925,
-          0,
-          1.067879799223672
-        ],
+        "position": [1.9980931807318925, 0, 1.067879799223672],
         "inputs": [
           {
             "_id": "_qiynf9j_6a60fn3",
@@ -205,11 +201,7 @@
         "spaceID": "new-space",
         "_id": "_ck2nyne_fksh47i",
         "title": "light",
-        "position": [
-          -1.6856288300588629,
-          0,
-          0.015022367450492331
-        ],
+        "position": [-1.6856288300588629, 0, 0.015022367450492331],
         "inputs": [
           {
             "_id": "_xa0pr15_13dvvis",
@@ -279,11 +271,7 @@
         "spaceID": "new-space",
         "_id": "_x801t0d_2qm4x7k",
         "title": "color",
-        "position": [
-          1.9377746351708214,
-          0,
-          -0.5427118914835529
-        ],
+        "position": [1.9377746351708214, 0, -0.5427118914835529],
         "inputs": [
           {
             "_id": "_k31qdzs_dvuk8qj",

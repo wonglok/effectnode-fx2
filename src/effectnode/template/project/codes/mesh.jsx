@@ -1,5 +1,6 @@
 // import { Box, PerspectiveCamera } from "@react-three/drei";
 // import { useFrame } from "@react-three/fiber";
+import { Environment, PerspectiveCamera } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { EffectNode } from "effectnode-developer-tools/effectnode-runtime/EffectNode";
 import { useEffect, useRef, useState } from "react";
@@ -11,6 +12,12 @@ export function ToolBox({ projectName }) {
     <>
       <Canvas>
         <EffectNode projectName={projectName}></EffectNode>
+        <PerspectiveCamera
+          makeDefault
+          position={[0, 0, 2.5]}
+        ></PerspectiveCamera>
+
+        <Environment files={[`/hdr/studiolighting.hdr`]}></Environment>
       </Canvas>
     </>
   );
