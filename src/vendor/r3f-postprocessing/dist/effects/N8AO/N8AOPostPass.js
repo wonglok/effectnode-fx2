@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { Pass } from "../../../../postprocessing/build/index";
+import { Pass } from "postprocessing";
 import { Buffer } from "buffer";
 import { FullScreenTriangle } from "./FullScreenTriangle.js";
 import { EffectShader } from "./EffectShader.js";
