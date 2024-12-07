@@ -1,36 +1,20 @@
 // import { Box, PerspectiveCamera } from "@react-three/drei";
 // import { useFrame } from "@react-three/fiber";
 import {
-  Environment,
+  // Environment,
   Gltf,
-  OrbitControls,
-  PerspectiveCamera,
+  // OrbitControls,
+  // PerspectiveCamera,
 } from "@react-three/drei";
-import { Canvas } from "@react-three/fiber";
-import { Bloom, EffectComposer } from "@react-three/postprocessing";
-import { EffectNode } from "effectnode-developer-tools/effectnode-runtime/EffectNode";
+// import { Canvas } from "@react-three/fiber";
+// import { Bloom, EffectComposer } from "@react-three/postprocessing";
+// import { EffectNode } from "effectnode-developer-tools/effectnode-runtime/EffectNode";
 import { useEffect, useRef, useState } from "react";
 import { Clock } from "three";
 
 export function ToolBox({ projectName }) {
   ///
-  return (
-    <>
-      <Canvas>
-        <EffectNode projectName={projectName}></EffectNode>
-        <PerspectiveCamera
-          makeDefault
-          position={[0, 0, 2.5]}
-        ></PerspectiveCamera>
-        <OrbitControls></OrbitControls>
-
-        <EffectComposer>
-          <Bloom mipmapBlur></Bloom>
-        </EffectComposer>
-        <Environment files={[`/hdr/studiolighting.hdr`]}></Environment>
-      </Canvas>
-    </>
-  );
+  return <>{/*  */}</>;
 }
 
 export function Runtime({ io, files, onLoop }) {

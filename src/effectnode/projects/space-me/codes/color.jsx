@@ -16,7 +16,7 @@ export function Runtime({ useAutoSaveData, io }) {
 
 export function NodeBox({ useAutoSaveData }) {
   return (
-    <Html center className="bg-white">
+    <Html position={[0, 0, -1]} center className="bg-white">
       <InputColor useAutoSaveData={useAutoSaveData}></InputColor>
     </Html>
   );

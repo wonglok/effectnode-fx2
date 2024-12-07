@@ -58,7 +58,7 @@
       "metaData": {
         "baseColor": "#ffffff",
         "intensity": "200",
-        "lightColor": "#14ff86"
+        "lightColor": "#00ff7b"
       }
     },
     {
@@ -88,7 +88,7 @@
       "metaData": {
         "baseColor": "#ffffff",
         "intensity": "200",
-        "lightColor": "#14ff86"
+        "lightColor": "#00ff7b"
       }
     },
     {
@@ -124,42 +124,7 @@
       "metaData": {
         "baseColor": "#ffffff",
         "intensity": "200",
-        "lightColor": "#14ff86"
-      }
-    },
-    {
-      "codeID": "_oha0x64_",
-      "nodeID": "_0k2x75a_",
-      "nodeTitle": "node",
-      "spaceID": "space-me",
-      "code": "",
-      "data": [
-        {
-          "_id": "_8s6djfq_",
-          "label": "speed",
-          "type": "range",
-          "min": 0,
-          "max": 1,
-          "step": 0.01,
-          "value": 0
-        },
-        {
-          "_id": "_f3lk6ub_",
-          "label": "baseColor",
-          "type": "color",
-          "value": "#ff0000"
-        },
-        {
-          "_id": "_sn6nfp0_",
-          "label": "name",
-          "type": "text",
-          "value": "hi dear"
-        }
-      ],
-      "metaData": {
-        "baseColor": "#ffffff",
-        "intensity": "200",
-        "lightColor": "#14ff86"
+        "lightColor": "#00ff7b"
       }
     }
   ],
@@ -170,9 +135,9 @@
         "_id": "_q77qs09_mwqkfse",
         "title": "mesh",
         "position": [
-          0.1520827957628591,
+          0.5082614449746592,
           0,
-          1.1531266191172387
+          1.131990468310875
         ],
         "inputs": [
           {
@@ -244,9 +209,9 @@
         "_id": "_ck2nyne_fksh47i",
         "title": "light",
         "position": [
-          -3.2099653865765214,
+          -3.4995520476483053,
           0,
-          0.0673394919003511
+          -1.3394157743703843
         ],
         "inputs": [
           {
@@ -318,9 +283,9 @@
         "_id": "_x801t0d_2qm4x7k",
         "title": "color",
         "position": [
-          -0.37996330776076775,
+          -0.7856924518592068,
           0,
-          -1.6721794907646157
+          -0.9666975897766577
         ],
         "inputs": [
           {
@@ -383,80 +348,6 @@
             "_id": "_4ozne9k_4vikpzd",
             "type": "output",
             "nodeID": "_x801t0d_2qm4x7k",
-            "label": ""
-          }
-        ]
-      },
-      {
-        "spaceID": "space-me",
-        "_id": "_0k2x75a_",
-        "title": "happy",
-        "position": [
-          2.1371101362315565,
-          0,
-          -1.3802879035708768
-        ],
-        "inputs": [
-          {
-            "_id": "_3znyepl_",
-            "type": "input",
-            "nodeID": "_0k2x75a_",
-            "label": ""
-          },
-          {
-            "_id": "_eoc8s77_",
-            "type": "input",
-            "nodeID": "_0k2x75a_",
-            "label": ""
-          },
-          {
-            "_id": "_zy4ws9d_",
-            "type": "input",
-            "nodeID": "_0k2x75a_",
-            "label": ""
-          },
-          {
-            "_id": "_srqtg66_",
-            "type": "input",
-            "nodeID": "_0k2x75a_",
-            "label": ""
-          },
-          {
-            "_id": "_m72x6ce_",
-            "type": "input",
-            "nodeID": "_0k2x75a_",
-            "label": ""
-          }
-        ],
-        "outputs": [
-          {
-            "_id": "_8c131mt_",
-            "type": "output",
-            "nodeID": "_0k2x75a_",
-            "label": ""
-          },
-          {
-            "_id": "_ddunbwt_",
-            "type": "output",
-            "nodeID": "_0k2x75a_",
-            "label": ""
-          },
-          {
-            "_id": "_72jtr1q_",
-            "type": "output",
-            "nodeID": "_0k2x75a_",
-            "label": ""
-          },
-          {
-            "_id": "_adn36va_",
-            "type": "output",
-            "nodeID": "_0k2x75a_",
-            "label": ""
-          },
-          {
-            "_id": "_b7e5ox1_",
-            "type": "output",
-            "nodeID": "_0k2x75a_",
             "label": ""
           }
         ]
