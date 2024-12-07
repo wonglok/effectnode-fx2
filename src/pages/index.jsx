@@ -33,7 +33,7 @@ function Content({}) {
 
         <OrbitControls
           target={[0, -3, -7]}
-          object-position={[0, 0, 30]}
+          object-position={[0, 0, 20]}
           makeDefault
         ></OrbitControls>
       </Canvas>
