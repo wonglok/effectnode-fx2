@@ -58,7 +58,7 @@
       "metaData": {
         "baseColor": "#ffffff",
         "intensity": "200",
-        "lightColor": "#00ff7b"
+        "lightColor": "#ffc64d"
       }
     },
     {
@@ -88,7 +88,7 @@
       "metaData": {
         "baseColor": "#ffffff",
         "intensity": "200",
-        "lightColor": "#00ff7b"
+        "lightColor": "#ffc64d"
       }
     },
     {
@@ -124,7 +124,7 @@
       "metaData": {
         "baseColor": "#ffffff",
         "intensity": "200",
-        "lightColor": "#00ff7b"
+        "lightColor": "#ffc64d"
       }
     }
   ],
@@ -209,9 +209,9 @@
         "_id": "_ck2nyne_fksh47i",
         "title": "light",
         "position": [
-          -3.4995520476483053,
+          -3.498500902046223,
           0,
-          -1.3394157743703843
+          -1.32386874663536
         ],
         "inputs": [
           {
@@ -283,9 +283,9 @@
         "_id": "_x801t0d_2qm4x7k",
         "title": "color",
         "position": [
-          -0.7856924518592068,
+          -0.7770850348034097,
           0,
-          -0.9666975897766577
+          -0.6042322327254109
         ],
         "inputs": [
           {
@@ -355,7 +355,7 @@
     ],
     "edges": [
       {
-        "id": "_eg5horn_",
+        "id": "_qru3ory_",
         "input": {
           "_id": "_qiynf9j_6a60fn3",
           "type": "input",

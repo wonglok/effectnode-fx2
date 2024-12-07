@@ -44,8 +44,6 @@ export function Runtime({ useAutoSaveData, io, files }) {
   );
 }
 
-//
-
 export function NodeBox({ useAutoSaveData }) {
   return (
     <Html

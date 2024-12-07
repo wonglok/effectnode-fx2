@@ -6,9 +6,6 @@ import {
   // OrbitControls,
   // PerspectiveCamera,
 } from "@react-three/drei";
-// import { Canvas } from "@react-three/fiber";
-// import { Bloom, EffectComposer } from "@react-three/postprocessing";
-// import { EffectNode } from "effectnode-developer-tools/effectnode-runtime/EffectNode";
 import { useEffect, useRef, useState } from "react";
 import { Clock } from "three";
 
