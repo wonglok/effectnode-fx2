@@ -2,13 +2,7 @@ import { Box, Html } from "@react-three/drei";
 import { useEffect } from "react";
 
 export function ToolBox({ useStore, useAutoSaveData }) {
-  return (
-    <>
-      {/*  */}
-
-      {/*  */}
-    </>
-  );
+  return <>{/*  */}</>;
 }
 
 export function Runtime({ useAutoSaveData, io }) {
