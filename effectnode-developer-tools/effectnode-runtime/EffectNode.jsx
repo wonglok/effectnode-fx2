@@ -255,7 +255,6 @@ export function EffectNode({
                     onLoop={onLoop}
                     nodeID={node._id}
                     socketMap={socketMap}
-                    // domElement={api.domElement}
                     useStore={useRuntime}
                     Algorithm={codeImple?.mod?.Runtime}
                     useEditorStore={useEditorStore}
@@ -272,9 +271,23 @@ export function EffectNode({
               onLoop={onLoop}
               nodeID={nodeID}
               socketMap={socketMap}
-              // domElement={api.domElement}
               useStore={useRuntime}
               Algorithm={codeImple?.mod?.ToolBox}
+              useEditorStore={useEditorStore}
+            ></CodeRun>
+          )}
+
+          {mode === "node" && nodeID && (
+            <CodeRun
+              useAutoSaveData={useAutoSaveData}
+              projectName={projectName}
+              mode={"node"}
+              key={nodeID + codeImple?._id}
+              onLoop={onLoop}
+              nodeID={nodeID}
+              socketMap={socketMap}
+              useStore={useRuntime}
+              Algorithm={codeImple?.mod?.NodeBox}
               useEditorStore={useEditorStore}
             ></CodeRun>
           )}

@@ -210,16 +210,19 @@ export function CodeRun({
     return () => {};
   }, [domElement, nodeOne, socketMap, useStore, edges?.length]);
 
-  if (!useEditorStore) {
-    useEditorStore = create(() => {
-      return {};
-    });
-  }
+  useEditorStore = useMemo(() => {
+    return (
+      useEditorStore ||
+      create(() => {
+        return {};
+      })
+    );
+  }, [useEditorStore]);
 
   let extendAPI = useMemo(() => {
     let eAPI = {
       get boxData() {
-        if (mode === "toolbox") {
+        if (mode === "toolbox" || mode === "node") {
           let diskSettings = useEditorStore.getState().settings;
           let diskSetting = diskSettings.find((r) => r.nodeID === nodeID);
 
@@ -237,7 +240,7 @@ export function CodeRun({
 
       tt: 0,
       saveBoxData: () => {
-        if (mode === "toolbox") {
+        if (mode === "toolbox" || mode === "node") {
           console.log("[OK] Saving in Toolbox Phase");
           let diskSettings = useEditorStore.getState().settings;
           let diskSetting = diskSettings.find((r) => r.nodeID === nodeID);
@@ -282,18 +285,25 @@ export function CodeRun({
   }, [extendAPI, mode, useAutoSaveData]);
 
   //
-  let setToolboxFullScreen = useCallback(
-    (value) => {
-      if (mode === "toolbox") {
-        let diskSettings = useEditorStore.getState().settings;
-        let diskSetting = diskSettings.find((r) => r.nodeID === nodeID);
+  // let setToolboxFullScreen = useCallback(
+  //   (value) => {
+  //     if (mode === "toolbox") {
+  //       let diskSettings = useEditorStore.getState().settings;
+  //       let diskSetting = diskSettings.find((r) => r.nodeID === nodeID);
 
-        diskSetting.enableFullScreen = value;
-        extendAPI.saveBoxData();
-      }
-    },
-    [extendAPI, mode, nodeID, useEditorStore]
-  );
+  //       diskSetting.enableFullScreen = value;
+  //       extendAPI.saveBoxData();
+  //     }
+  //     if (mode === "node") {
+  //       let diskSettings = useEditorStore.getState().settings;
+  //       let diskSetting = diskSettings.find((r) => r.nodeID === nodeID);
+
+  //       diskSetting.enableFullScreen = value;
+  //       extendAPI.saveBoxData();
+  //     }
+  //   },
+  //   [extendAPI, mode, nodeID, useEditorStore]
+  // );
 
   //
   return (
@@ -302,18 +312,17 @@ export function CodeRun({
         <Algorithm
           //
           projectName={projectName}
-          setToolboxFullScreen={setToolboxFullScreen}
           files={files}
           nodeID={nodeID}
           onLoop={onLoop}
           onClean={onClean}
           useStore={useStore}
           domElement={domElement}
-          // ui={ui}
+          //
+
           io={io}
           useAutoSaveData={useAutoSaveData}
           //
-          {...extendAPI}
         ></Algorithm>
       )}
     </>

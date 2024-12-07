@@ -20,6 +20,7 @@ import { SocketInputs, SocketOutputs } from "./Sockets/Sockets";
 import { DisplayCreateEdge } from "./Edge/DisplayCreateEdge";
 import { DisplayAllEdges } from "./Edge/DisplayAllEdges";
 import { useDeveloper } from "effectnode-developer-tools/effectnode-gui/store/useDeveloper";
+import { GUI } from "./GUI";
 
 //
 
@@ -267,6 +268,8 @@ function Content({ useStore }) {
                 color={"#ffffff"}
               ></meshStandardMaterial>
             </RoundedBox>
+
+            <GUI useStore={useStore} node={n}></GUI>
 
             <SocketInputs useStore={useStore} node={n}></SocketInputs>
             <SocketOutputs useStore={useStore} node={n}></SocketOutputs>
