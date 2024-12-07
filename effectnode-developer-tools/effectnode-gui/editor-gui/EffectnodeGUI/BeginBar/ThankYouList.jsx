@@ -1,5 +1,5 @@
-import Lottie from "lottie-react";
-import blow from "./lottie/confetti.json";
+// import Lottie from "lottie-react";
+// import blow from "./lottie/confetti.json";
 
 export function ThankYouList({ useStore }) {
   let overlayPop = useStore((r) => r.overlayPop);
@@ -30,11 +30,11 @@ export function ThankYouList({ useStore }) {
           }}
         >
           <div className="bg-white p-3 w-full h-full rounded-xl shadow-inner border-gray-300 border overflow-scroll">
-            <Lottie
+            {/* <Lottie
               className="w-full h-1/3 my-10"
               loop={true}
               animationData={blow}
-            ></Lottie>
+            ></Lottie> */}
             <div className="w-full">
               <div className="text-xl  text-center  my-10">
                 Thank you Internet for Freebies!
@@ -77,7 +77,7 @@ export function ThankYouList({ useStore }) {
                       React Three Fiber
                     </a>
                   </li>
-                  <li className=" underline   list-decimal">
+                  {/* <li className=" underline   list-decimal">
                     <a
                       target="_blank"
                       className="text-blue-500"
@@ -85,7 +85,7 @@ export function ThankYouList({ useStore }) {
                     >
                       Lottie Files
                     </a>
-                  </li>
+                  </li> */}
                 </ol>
               </div>
             </div>

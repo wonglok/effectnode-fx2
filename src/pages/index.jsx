@@ -1,11 +1,7 @@
 import { Environment, OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { Bloom, EffectComposer } from "@react-three/postprocessing";
-import {
-  EditorRoot,
-  Insert2D,
-  Output2D,
-} from "effectnode-developer-tools/effectnode-gui/editor-gui/EffectnodeGUI/EditorRoot";
+import { EditorRoot } from "effectnode-developer-tools/effectnode-gui/editor-gui/EffectnodeGUI/EditorRoot";
 import { EffectNode } from "effectnode-developer-tools/effectnode-runtime/EffectNode";
 
 export default function Page() {
