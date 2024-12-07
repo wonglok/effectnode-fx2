@@ -17,35 +17,35 @@ export function ToolBox({ projectName }) {
 }
 
 export function Runtime({ io, files, onLoop }) {
-  let ref = useRef();
+  // let ref = useRef();
 
-  useEffect(() => {
-    let clock = new Clock();
-    return onLoop(() => {
-      let dt = clock.getDelta();
+  // useEffect(() => {
+  //   let clock = new Clock();
+  //   return onLoop(() => {
+  //     let dt = clock.getDelta();
 
-      if (ref.current) {
-        ref.current.rotation.y += dt * 1.0;
-      }
-    });
-  }, [onLoop]);
+  //     if (ref.current) {
+  //       ref.current.rotation.y += dt * 1.0;
+  //     }
+  //   });
+  // }, [onLoop]);
 
-  let [color, setColor] = useState("#ffffff");
+  // let [color, setColor] = useState("#ffffff");
 
-  useEffect(() => {
-    io.in(0, (color) => {
-      setColor(color);
-    });
-  }, [io]);
+  // useEffect(() => {
+  //   io.in(0, (color) => {
+  //     setColor(color);
+  //   });
+  // }, [io]);
 
   return (
     <>
-      <group ref={ref}>
+      {/* <group ref={ref}>
         <mesh position={[0, 0, 0]}>
           <boxGeometry></boxGeometry>
           <meshStandardMaterial color={color}></meshStandardMaterial>
         </mesh>
-      </group>
+      </group> */}
 
       <group
         onClick={(ev) => {
