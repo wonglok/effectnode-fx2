@@ -29,7 +29,7 @@ function Content({}) {
           <Environment files={[`/hdr/studiolighting.hdr`]}></Environment>
         </Suspense>
 
-        <Post></Post>
+        <PostProcessing></PostProcessing>
 
         <OrbitControls
           target={[0, -3, -7]}
@@ -52,7 +52,7 @@ function Content({}) {
   );
 }
 
-function Post() {
+function PostProcessing() {
   let scene = useThree((s) => s.scene);
   let camera = useThree((s) => s.camera);
   return (

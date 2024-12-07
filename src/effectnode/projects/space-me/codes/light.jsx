@@ -1,4 +1,4 @@
-import { Html } from "@react-three/drei";
+import { Html, PivotControls } from "@react-three/drei";
 
 export function ToolBox({ useAutoSaveData }) {
   let lightColor = useAutoSaveData((r) => r.lightColor) || "#ffffff";
@@ -38,8 +38,18 @@ export function Runtime({ useAutoSaveData, io, files }) {
       <pointLight
         intensity={intensity}
         color={lightColor}
-        position={[-1.5, 0.5, 1]}
+        position={[
+          -14.104092376040242, -2.0109753853309202, -20.02041405731383,
+        ]}
       ></pointLight>
+
+      <pointLight
+        intensity={intensity}
+        color={lightColor}
+        position={[20.555347175202243, -5.176636030575688, -19.958917671668054]}
+      ></pointLight>
+
+      {/*   */}
     </>
   );
 }

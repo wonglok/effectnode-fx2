@@ -3,6 +3,8 @@
 import {
   // Environment,
   Gltf,
+  PivotControls,
+  TransformControls,
   // OrbitControls,
   // PerspectiveCamera,
 } from "@react-three/drei";
@@ -45,7 +47,13 @@ export function Runtime({ io, files, onLoop }) {
         </mesh>
       </group>
 
-      <Gltf src={files["/env/interior.glb"]}></Gltf>
+      <group
+        onClick={(ev) => {
+          console.log("clicked", ev.point.toArray(), ev.object.name);
+        }}
+      >
+        <Gltf src={files["/env/interior.glb"]}></Gltf>
+      </group>
     </>
   );
 }
