@@ -1,10 +1,11 @@
+import { SSR } from "@/vendor/r3f-postprocessing/dist/effects/SSR";
 import { Environment, OrbitControls } from "@react-three/drei";
 import { Canvas, useThree } from "@react-three/fiber";
 import { Bloom, EffectComposer, N8AO } from "@react-three/postprocessing";
 import { EditorShell } from "effectnode-developer-tools/effectnode-gui/editor-gui/EffectnodeGUI/EditorShell";
 import { EffectNode } from "effectnode-developer-tools/effectnode-runtime/EffectNode";
 import { Suspense } from "react";
-import { SSR } from "../vendor/r3f-postprocessing/dist/effects/SSR/index";
+// import { SSR } from "../vendor/r3f-postprocessing/dist/effects/SSR/index";
 
 //
 
@@ -57,14 +58,14 @@ function PostProcessing() {
   return (
     <>
       <EffectComposer>
-        {/* <SSR
+        <SSR
           //
           temporalResolve={false}
           intensity={1.0}
           jitter={0.15}
           scene={scene}
           camera={camera}
-        ></SSR> */}
+        ></SSR>
 
         <N8AO intensity={4.0}></N8AO>
         <Bloom mipmapBlur></Bloom>
