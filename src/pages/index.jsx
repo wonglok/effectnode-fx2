@@ -1,10 +1,11 @@
 import { Environment, OrbitControls } from "@react-three/drei";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useThree } from "@react-three/fiber";
 import { Bloom, EffectComposer } from "@react-three/postprocessing";
 import { EditorShell } from "effectnode-developer-tools/effectnode-gui/editor-gui/EffectnodeGUI/EditorShell";
 import { EffectNode } from "effectnode-developer-tools/effectnode-runtime/EffectNode";
 import { Suspense } from "react";
-
+import { SSR } from "../vendor/r3f-postprocessing/dist/effects/SSR/index";
+import { N8AO } from "../vendor/r3f-postprocessing/dist/effects/N8AO/index";
 export default function Page() {
   return (
     <>
@@ -25,9 +26,7 @@ function Content({}) {
           <Environment files={[`/hdr/studiolighting.hdr`]}></Environment>
         </Suspense>
 
-        <EffectComposer>
-          <Bloom mipmapBlur></Bloom>
-        </EffectComposer>
+        <Post></Post>
 
         <OrbitControls
           target={[0, 0, 29]}
@@ -47,5 +46,28 @@ function Content({}) {
         </div>
       </div>
     </div>
+  );
+}
+
+function Post() {
+  let scene = useThree((s) => s.scene);
+  let camera = useThree((s) => s.camera);
+  return (
+    <>
+      <EffectComposer>
+        <SSR
+          //
+          intensity={1.0}
+          jitter={0.25}
+          scene={scene}
+          camera={camera}
+        >
+          {/*  */}
+        </SSR>
+
+        <N8AO intensity={4.0}></N8AO>
+        <Bloom mipmapBlur></Bloom>
+      </EffectComposer>
+    </>
   );
 }
