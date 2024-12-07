@@ -255,7 +255,7 @@ export function EffectNode({
                     onLoop={onLoop}
                     nodeID={node._id}
                     socketMap={socketMap}
-                    useStore={useRuntime}
+                    useRuntime={useRuntime}
                     Algorithm={codeImple?.mod?.Runtime}
                     useEditorStore={useEditorStore}
                   ></CodeRun>
@@ -271,7 +271,7 @@ export function EffectNode({
               onLoop={onLoop}
               nodeID={nodeID}
               socketMap={socketMap}
-              useStore={useRuntime}
+              useRuntime={useRuntime}
               Algorithm={codeImple?.mod?.ToolBox}
               useEditorStore={useEditorStore}
             ></CodeRun>
@@ -286,7 +286,7 @@ export function EffectNode({
               onLoop={onLoop}
               nodeID={nodeID}
               socketMap={socketMap}
-              useStore={useRuntime}
+              useRuntime={useRuntime}
               Algorithm={codeImple?.mod?.NodeBox}
               useEditorStore={useEditorStore}
             ></CodeRun>

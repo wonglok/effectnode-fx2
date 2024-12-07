@@ -7,7 +7,7 @@ import md5 from "md5";
 export function CodeRun({
   projectName,
   Algorithm = () => null,
-  useStore,
+  useRuntime,
   nodeID,
   domElement,
   socketMap,
@@ -16,14 +16,15 @@ export function CodeRun({
   mode,
   useAutoSaveData,
 }) {
-  let graph = useStore((r) => r.graph) || {};
+  let graph = useRuntime((r) => r.graph) || {};
   let nodes = graph.nodes;
   let edges = graph.edges;
   let nodeOne = nodes?.find((r) => r._id === nodeID);
 
   //
-  let files = useStore((r) => r.files);
-  let settings = useStore((r) => r.settings);
+  let files = useRuntime((r) => r.files);
+  let settings = useRuntime((r) => r.settings);
+
   let setting = settings.find((r) => r.nodeID === nodeID);
 
   //
@@ -52,7 +53,7 @@ export function CodeRun({
   //   return {
   //     on: (label, fnc) => {
   //       onClean(
-  //         useStore.subscribe((state) => {
+  //         useRuntime.subscribe((state) => {
   //           let settings = state.settings;
   //           let setting = settings.find((r) => r.nodeID === nodeID);
   //           let datas = setting.data.filter((r) => r.label === label);
@@ -67,8 +68,8 @@ export function CodeRun({
   //         })
   //       );
 
-  //       useStore.setState({
-  //         settings: [...useStore.getState().settings],
+  //       useRuntime.setState({
+  //         settings: [...useRuntime.getState().settings],
   //       });
   //     },
   //     useSet: (
@@ -89,7 +90,7 @@ export function CodeRun({
   //           finalType = "range";
   //         }
 
-  //         let useAdapter = useEditorStore || useStore;
+  //         let useAdapter = useEditorStore || useRuntime;
 
   //         let tt = setInterval(() => {
   //           let settings = useAdapter.getState().settings;
@@ -130,13 +131,7 @@ export function CodeRun({
   //       return value;
   //     },
   //   };
-  // }, [nodeID, onClean, useEditorStore, useStore]);
-
-  // if (setting && setting?.data) {
-  //   for (let userInput of setting.data) {
-  //     ui[userInput.label] = userInput.value;
-  //   }
-  // }
+  // }, [nodeID, onClean, useEditorStore, useRuntime]);
 
   let [io, setIO] = useState(false);
   useEffect(() => {
@@ -156,7 +151,7 @@ export function CodeRun({
               let node = nodeOne;
               let output = node.outputs[idx];
 
-              let edges = useStore?.getState()?.graph?.edges || [];
+              let edges = useRuntime?.getState()?.graph?.edges || [];
 
               let destEdges = edges.filter((r) => r.output._id === output._id);
               destEdges.forEach((edge) => {
@@ -208,16 +203,53 @@ export function CodeRun({
     setIO(ioPXY);
 
     return () => {};
-  }, [domElement, nodeOne, socketMap, useStore, edges?.length]);
+  }, [domElement, nodeOne, socketMap, useRuntime, edges?.length]);
 
-  useEditorStore = useMemo(() => {
-    return (
-      useEditorStore ||
-      create(() => {
-        return {};
-      })
-    );
-  }, [useEditorStore]);
+  // useEditorStore = useMemo(() => {
+  //   return (
+  //     useEditorStore ||
+  //     create(() => {
+  //       return {};
+  //     })
+  //   );
+  // }, [useEditorStore]);
+
+  // useEffect(() => {
+  //   useAutoSaveData.setState(extendAPI.boxData);
+  // }, [extendAPI, useAutoSaveData]);
+
+  // useEffect(() => {
+  //   let tt = 0;
+  //   return useAutoSaveData.subscribe((now, b4) => {
+  //     clearTimeout(tt);
+  //     tt = setTimeout(() => {
+  //       if (mode === "toolbox") {
+  //         extendAPI.saveBoxData();
+  //       }
+  //     }, 100);
+  //   });
+  // }, [extendAPI, mode, useAutoSaveData]);
+
+  //
+  // let setToolboxFullScreen = useCallback(
+  //   (value) => {
+  //     if (mode === "toolbox") {
+  //       let diskSettings = useEditorStore.getState().settings;
+  //       let diskSetting = diskSettings.find((r) => r.nodeID === nodeID);
+
+  //       diskSetting.enableFullScreen = value;
+  //       extendAPI.saveBoxData();
+  //     }
+  //     if (mode === "node") {
+  //       let diskSettings = useEditorStore.getState().settings;
+  //       let diskSetting = diskSettings.find((r) => r.nodeID === nodeID);
+
+  //       diskSetting.enableFullScreen = value;
+  //       extendAPI.saveBoxData();
+  //     }
+  //   },
+  //   [extendAPI, mode, nodeID, useEditorStore]
+  // );
 
   let extendAPI = useMemo(() => {
     let eAPI = {
@@ -230,7 +262,7 @@ export function CodeRun({
           return diskSetting.metaData;
         }
         if (mode === "runtime") {
-          let runtimeSettings = useStore.getState().settings;
+          let runtimeSettings = useRuntime.getState().settings;
           let runtimeSetting = runtimeSettings.find((r) => r.nodeID === nodeID);
 
           runtimeSetting.metaData = runtimeSetting.metaData || {};
@@ -268,47 +300,34 @@ export function CodeRun({
     return eAPI;
   }, [mode, nodeID]);
 
+  // let useAutoSaveData = useMemo(() => {
+  //   let useAutoSaveData = create(() => {
+  //     return extendAPI.boxData || {};
+  //   });
+
+  //   return useAutoSaveData;
+  // }, [extendAPI]);
+
   useEffect(() => {
     useAutoSaveData.setState(extendAPI.boxData);
   }, [extendAPI, useAutoSaveData]);
 
+  //useAutoSaveData
   useEffect(() => {
-    let tt = 0;
+    let timer = 0;
     return useAutoSaveData.subscribe((now, b4) => {
-      clearTimeout(tt);
-      tt = setTimeout(() => {
-        if (mode === "toolbox") {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        if (mode === "toolbox" || mode === "node") {
           extendAPI.saveBoxData();
         }
-      }, 100);
+      }, 300);
     });
-  }, [extendAPI, mode, useAutoSaveData]);
+  }, [useAutoSaveData, mode, nodeID, useEditorStore]);
 
-  //
-  // let setToolboxFullScreen = useCallback(
-  //   (value) => {
-  //     if (mode === "toolbox") {
-  //       let diskSettings = useEditorStore.getState().settings;
-  //       let diskSetting = diskSettings.find((r) => r.nodeID === nodeID);
-
-  //       diskSetting.enableFullScreen = value;
-  //       extendAPI.saveBoxData();
-  //     }
-  //     if (mode === "node") {
-  //       let diskSettings = useEditorStore.getState().settings;
-  //       let diskSetting = diskSettings.find((r) => r.nodeID === nodeID);
-
-  //       diskSetting.enableFullScreen = value;
-  //       extendAPI.saveBoxData();
-  //     }
-  //   },
-  //   [extendAPI, mode, nodeID, useEditorStore]
-  // );
-
-  //
   return (
     <>
-      {io && socketMap && (
+      {setting && io && socketMap && (
         <Algorithm
           //
           projectName={projectName}
@@ -316,12 +335,11 @@ export function CodeRun({
           nodeID={nodeID}
           onLoop={onLoop}
           onClean={onClean}
-          useStore={useStore}
+          useRuntime={useRuntime}
           domElement={domElement}
           //
-
-          io={io}
           useAutoSaveData={useAutoSaveData}
+          io={io}
           //
         ></Algorithm>
       )}

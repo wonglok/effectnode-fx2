@@ -28,18 +28,25 @@ export function Runtime({ useAutoSaveData, io }) {
 }
 
 export function NodeBox({ useAutoSaveData }) {
-  let baseColor = useAutoSaveData((r) => r.baseColor);
   return (
     <Html center className="bg-white">
-      <input
-        type="color"
-        value={baseColor}
-        onChange={(va) => {
-          useAutoSaveData.setState({
-            baseColor: va.target.value,
-          });
-        }}
-      />
+      <InputColor useAutoSaveData={useAutoSaveData}></InputColor>
     </Html>
+  );
+}
+
+function InputColor({ useAutoSaveData }) {
+  let baseColor = useAutoSaveData((r) => r.baseColor);
+
+  return (
+    <input
+      type="color"
+      value={baseColor}
+      onChange={(va) => {
+        useAutoSaveData.setState({
+          baseColor: va.target.value,
+        });
+      }}
+    />
   );
 }
