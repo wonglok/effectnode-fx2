@@ -25,7 +25,6 @@
     "detect-device-orientation": "^0.2.1",
     "dropzone": "^6.0.0-beta.2",
     "next": "^15.0.4",
-    "postprocessing": "^6.36.4",
     "react": "^18",
     "react-bezier-curve-editor": "^2.1.0",
     "react-color": "^2.19.3",
