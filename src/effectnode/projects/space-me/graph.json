@@ -56,9 +56,9 @@
       ],
       "title": "edge",
       "metaData": {
-        "baseColor": "#5c85ff",
-        "intensity": "196.3",
-        "lightColor": "#e100ff"
+        "baseColor": "#0040ff",
+        "intensity": "200",
+        "lightColor": "#e414ff"
       }
     },
     {
@@ -86,9 +86,9 @@
       ],
       "title": "light",
       "metaData": {
-        "baseColor": "#5c85ff",
-        "intensity": "196.3",
-        "lightColor": "#e100ff"
+        "baseColor": "#0040ff",
+        "intensity": "200",
+        "lightColor": "#e414ff"
       }
     },
     {
@@ -122,9 +122,9 @@
       ],
       "title": "color",
       "metaData": {
-        "baseColor": "#5c85ff",
-        "intensity": "196.3",
-        "lightColor": "#e100ff"
+        "baseColor": "#0040ff",
+        "intensity": "200",
+        "lightColor": "#e414ff"
       }
     },
     {
@@ -157,9 +157,9 @@
         }
       ],
       "metaData": {
-        "baseColor": "#5c85ff",
-        "intensity": "196.3",
-        "lightColor": "#e100ff"
+        "baseColor": "#0040ff",
+        "intensity": "200",
+        "lightColor": "#e414ff"
       }
     }
   ],

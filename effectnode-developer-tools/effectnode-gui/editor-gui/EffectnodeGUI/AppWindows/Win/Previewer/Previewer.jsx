@@ -1,8 +1,9 @@
-import { EffectNode } from "effectnode-developer-tools/effectnode-runtime/EffectNode";
-import { useEffect, useState } from "react";
+// import { EffectNode } from "effectnode-developer-tools/effectnode-runtime/EffectNode";
+// import { useEffect, useState } from "react";
+import { Output2D } from "../../../EditorRoot";
 
 export function Previewer({ win, useStore }) {
-  let spaceID = useStore((r) => r.spaceID);
+  // let spaceID = useStore((r) => r.spaceID);
   // let getState = useCallback(() => {
   //   return useStore.getState().editorAPI.exportBackup();
   // }, [useStore]);
@@ -34,6 +35,8 @@ export function Previewer({ win, useStore }) {
   return (
     <>
       {/* {ef} */}
+
+      <Output2D></Output2D>
 
       {/* {spaceID && (
         <AppRunner

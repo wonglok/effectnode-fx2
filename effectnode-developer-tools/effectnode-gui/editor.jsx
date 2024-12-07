@@ -20,8 +20,7 @@ export function Editor() {
 
     setHasFile("loading");
 
-    let load = ({ i = 15 }) => {
-      console.log(i);
+    let load = ({}) => {
       useDeveloper
         .getState()
         .hasOne({
@@ -37,7 +36,7 @@ export function Editor() {
         });
     };
 
-    load({ i: 15 });
+    load({});
 
     return () => {
       setHasFile("loading");

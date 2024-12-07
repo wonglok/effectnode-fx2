@@ -129,14 +129,14 @@ export function BeginMenu({ useStore }) {
               👨🏼‍💻 Editor
             </div>
 
-            {/* <div
+            <div
               onClick={() => {
                 openWindow({ winType: "previewer" });
               }}
               className="cursor-pointer mr-3 mb-3 select-none inline-block p-5 px-6 shadow-md hover:shadow-xl hover:bg-gray-100 active:shadow-lg transition-all duration-300 rounded-2xl border-gray-300 border "
             >
               🖼️ Previewer
-            </div> */}
+            </div>
 
             <div
               onClick={() => {

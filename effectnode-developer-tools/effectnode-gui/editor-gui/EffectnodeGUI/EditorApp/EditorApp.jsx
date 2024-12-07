@@ -90,6 +90,8 @@ export function EditorApp({ useStore }) {
             <span className="mx-2">|</span>
 
             <span className=" cursor-pointer inline-block">{spaceID}</span>
+            {/* 
+            
             <span className="mx-2">|</span>
 
             <span
@@ -106,11 +108,13 @@ export function EditorApp({ useStore }) {
               onClick={clone}
             >
               {`Clone`}
-            </span>
+            </span> 
+            
+            */}
           </div>
           <div className=""></div>
           <div className="text-black">
-            <span
+            {/* <span
               onClick={() => {
                 //
                 let confirm = window.prompt(
@@ -133,13 +137,13 @@ export function EditorApp({ useStore }) {
               className=" mr-2 underline inline-block text-xs text-red-500 hover:text-red-500 hover:underline px-3 py-1 hover:bg-white rounded-2xl cursor-pointer"
             >
               Remove Workspace
-            </span>
+            </span> */}
           </div>
         </div>
       </div>
       {/*  */}
       <div
-        className="w-full bg-white"
+        className="w-full"
         style={{
           height: `calc(100% - 1.85rem - 1.85rem * 0.0 - 2.75rem)`,
         }}

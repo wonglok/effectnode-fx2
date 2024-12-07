@@ -19,10 +19,29 @@ import { useRouter } from "next/router";
 // import { getOneWorkspace } from "@/src/pages/api/Workspace";
 import { Vector3 } from "three";
 import { useDeveloper } from "effectnode-developer-tools/effectnode-gui/store/useDeveloper";
+import tunnel from "tunnel-rat";
 //
 // import localforage from "localforage";
 //
-export const EditorRoot = ({ title }) => {
+
+const Tunnel2D = tunnel();
+export const Insert2D = ({ children }) => {
+  return (
+    <>
+      <Tunnel2D.In>{children}</Tunnel2D.In>
+    </>
+  );
+};
+
+export const Output2D = ({}) => {
+  return (
+    <>
+      <Tunnel2D.Out></Tunnel2D.Out>
+    </>
+  );
+};
+
+export const EditorRoot = ({ title, preview }) => {
   //
 
   let [val, setVal] = useState(
@@ -124,7 +143,13 @@ export const EditorRoot = ({ title }) => {
     //
   }, [router, title]);
 
-  return <>{val}</>;
+  return (
+    <>
+      {val}
+
+      <Insert2D>{preview}</Insert2D>
+    </>
+  );
 };
 
 export class EditorCore {
@@ -286,30 +311,35 @@ export class EditorCore {
         });
       }
 
-      // if (!apps.some((r) => r.type === "previewer")) {
-      //   let appID = getID();
+      if (!apps.some((r) => r.type === "previewer")) {
+        let appID = getID();
 
-      //   let app = JSON.parse(
-      //     JSON.stringify(myApps.find((r) => r.type === "previewer"))
-      //   );
-      //   app._id = appID;
+        let app = JSON.parse(
+          JSON.stringify(myApps.find((r) => r.type === "previewer"))
+        );
+        app._id = appID;
 
-      //   let win = JSON.parse(
-      //     JSON.stringify(myWins.find((r) => r.type === "previewer"))
-      //   );
-      //   win._id = getID();
-      //   win.appID = appID;
-      //   win.zIndex = wins.length;
+        let win = JSON.parse(
+          JSON.stringify(myWins.find((r) => r.type === "previewer"))
+        );
+        win._id = getID();
+        win.appID = appID;
+        win.zIndex = wins.length;
 
-      //   apps.push(app);
-      //   wins.push(win);
+        win.top = 10;
+        win.left = window.innerWidth / 2 + 30;
+        win.width = window.innerWidth / 2 - 30 - 15;
+        win.height = window.innerHeight / 2 - 85;
 
-      //   this.setState({
-      //     apps: [...apps],
-      //     wins: [...wins],
-      //     overlayPop: "",
-      //   });
-      // }
+        apps.push(app);
+        wins.push(win);
+
+        this.setState({
+          apps: [...apps],
+          wins: [...wins],
+          overlayPop: "",
+        });
+      }
 
       if (!apps.some((r) => r.type === "files")) {
         let appID = getID();
@@ -365,33 +395,34 @@ export class EditorCore {
       ///////
 
       ///////
-      // {
-      //   let win = wins.find((r) => r.type === "previewer");
-      //   if (win) {
-      //     win.width = window.innerWidth * 0.5;
-      //     win.height = (window.innerHeight - 130) / 2 - 15;
-      //     win.top = (window.innerHeight - 130) / 2 + 30;
-      //     win.left = 10;
-      //   }
+      {
+        let win = wins.find((r) => r.type === "previewer");
+        // if (win) {
+        //   win.width = window.innerWidth * 0.5;
+        //   win.height = (window.innerHeight - 130) / 2 - 15;
+        //   win.top = (window.innerHeight - 130) / 2 + 30;
+        //   win.left = 10;
+        // }
 
-      //   this.setState({
-      //     apps: [...apps],
-      //     wins: [...wins],
-      //     overlayPop: "",
-      //   });
-      // }
+        if (win) {
+          win.width = window.innerWidth * 0.5 - 30;
+          win.height = (window.innerHeight - 130) / 2 - 15;
+          win.top = (window.innerHeight - 130) / 2 + 30;
+          win.left = window.innerWidth * 0.5 + 20;
+        }
+
+        this.setState({
+          apps: [...apps],
+          wins: [...wins],
+          overlayPop: "",
+        });
+      }
 
       ///////
 
       ///////
       {
         let win = wins.find((r) => r.type === "files");
-        // if (win) {
-        //   win.width = window.innerWidth * 0.5 - 30;
-        //   win.height = (window.innerHeight - 130) / 2 - 15;
-        //   win.top = (window.innerHeight - 130) / 2 + 30;
-        //   win.left = window.innerWidth * 0.5 + 20;
-        // }
 
         if (win) {
           win.width = window.innerWidth * 0.5;
