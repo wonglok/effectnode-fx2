@@ -73,6 +73,7 @@ export function NodeBox({ useAutoSaveData }) {
       >
         <InputRange
           name={`intensity`}
+          max={200}
           useAutoSaveData={useAutoSaveData}
         ></InputRange>
         <InputColor

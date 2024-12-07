@@ -56,9 +56,9 @@
       ],
       "title": "edge",
       "metaData": {
-        "baseColor": "#8fabff",
-        "intensity": "20",
-        "lightColor": "#00e038"
+        "baseColor": "#5c85ff",
+        "intensity": "196.3",
+        "lightColor": "#e100ff"
       }
     },
     {
@@ -86,9 +86,9 @@
       ],
       "title": "light",
       "metaData": {
-        "baseColor": "#8fabff",
-        "intensity": "20",
-        "lightColor": "#00e038"
+        "baseColor": "#5c85ff",
+        "intensity": "196.3",
+        "lightColor": "#e100ff"
       }
     },
     {
@@ -122,9 +122,9 @@
       ],
       "title": "color",
       "metaData": {
-        "baseColor": "#8fabff",
-        "intensity": "20",
-        "lightColor": "#00e038"
+        "baseColor": "#5c85ff",
+        "intensity": "196.3",
+        "lightColor": "#e100ff"
       }
     },
     {
@@ -157,9 +157,9 @@
         }
       ],
       "metaData": {
-        "baseColor": "#8fabff",
-        "intensity": "20",
-        "lightColor": "#00e038"
+        "baseColor": "#5c85ff",
+        "intensity": "196.3",
+        "lightColor": "#e100ff"
       }
     }
   ],
@@ -244,9 +244,9 @@
         "_id": "_ck2nyne_fksh47i",
         "title": "light",
         "position": [
-          -4.1697183989289055,
+          -4.315046894082371,
           0,
-          -0.7145204151892612
+          -0.7319785290001939
         ],
         "inputs": [
           {
@@ -318,9 +318,9 @@
         "_id": "_x801t0d_2qm4x7k",
         "title": "color",
         "position": [
-          -1.1909055451948727,
+          -1.254693129609636,
           0,
-          -1.085679216018156
+          -1.4672874686071458
         ],
         "inputs": [
           {
@@ -392,9 +392,9 @@
         "_id": "_0k2x75a_",
         "title": "happy",
         "position": [
-          1.4916753329297472,
+          2.1371101362315565,
           0,
-          -0.6474993645433436
+          -1.3802879035708768
         ],
         "inputs": [
           {

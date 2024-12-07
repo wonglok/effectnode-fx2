@@ -1,7 +1,13 @@
 // import { Box, PerspectiveCamera } from "@react-three/drei";
 // import { useFrame } from "@react-three/fiber";
-import { Environment, Gltf, PerspectiveCamera } from "@react-three/drei";
+import {
+  Environment,
+  Gltf,
+  OrbitControls,
+  PerspectiveCamera,
+} from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
+import { Bloom, EffectComposer } from "@react-three/postprocessing";
 import { EffectNode } from "effectnode-developer-tools/effectnode-runtime/EffectNode";
 import { useEffect, useRef, useState } from "react";
 import { Clock } from "three";
@@ -16,7 +22,11 @@ export function ToolBox({ projectName }) {
           makeDefault
           position={[0, 0, 2.5]}
         ></PerspectiveCamera>
+        <OrbitControls></OrbitControls>
 
+        <EffectComposer>
+          <Bloom mipmapBlur></Bloom>
+        </EffectComposer>
         <Environment files={[`/hdr/studiolighting.hdr`]}></Environment>
       </Canvas>
     </>
@@ -53,6 +63,8 @@ export function Runtime({ io, files, onLoop }) {
           <meshStandardMaterial color={color}></meshStandardMaterial>
         </mesh>
       </group>
+
+      <Gltf src={files["/env/interior.glb"]}></Gltf>
     </>
   );
 }
