@@ -259,6 +259,7 @@ export function CodeRun({
           let diskSetting = diskSettings.find((r) => r.nodeID === nodeID);
 
           diskSetting.metaData = diskSetting.metaData || {};
+
           return diskSetting.metaData;
         }
         if (mode === "runtime") {
@@ -266,6 +267,7 @@ export function CodeRun({
           let runtimeSetting = runtimeSettings.find((r) => r.nodeID === nodeID);
 
           runtimeSetting.metaData = runtimeSetting.metaData || {};
+
           return runtimeSetting.metaData;
         }
       },
@@ -300,28 +302,23 @@ export function CodeRun({
     return eAPI;
   }, [mode, nodeID]);
 
-  // let useAutoSaveData = useMemo(() => {
-  //   let useAutoSaveData = create(() => {
-  //     return extendAPI.boxData || {};
-  //   });
-
-  //   return useAutoSaveData;
-  // }, [extendAPI]);
-
   useEffect(() => {
-    useAutoSaveData.setState(extendAPI.boxData);
+    useAutoSaveData.setState({ ...extendAPI.boxData });
   }, [extendAPI, useAutoSaveData]);
 
   //useAutoSaveData
   useEffect(() => {
+    if (mode === "runtime") {
+      return;
+    }
+
     let timer = 0;
     return useAutoSaveData.subscribe((now, b4) => {
-      clearTimeout(timer);
-      timer = setTimeout(() => {
-        if (mode === "toolbox" || mode === "node") {
-          extendAPI.saveBoxData();
-        }
-      }, 300);
+      for (let each in now) {
+        extendAPI.boxData[each] = now[each];
+      }
+
+      extendAPI.saveBoxData();
     });
   }, [useAutoSaveData, mode, nodeID, useEditorStore, extendAPI]);
 

@@ -1,23 +1,6 @@
 {
   "settings": [
     {
-      "codeID": "_kit5h2c_xgm7ojm",
-      "nodeID": "_ne7rk2f_qwuxwti",
-      "nodeTitle": "node",
-      "spaceID": "new-space",
-      "code": "",
-      "data": [
-        {
-          "_id": "_hc1bmqv_gfx2nsl",
-          "label": "name",
-          "type": "text",
-          "value": "my webgl canvas"
-        }
-      ],
-      "title": "main",
-      "metaData": {}
-    },
-    {
       "codeID": "_6wwhxoe_fp2fg97",
       "nodeID": "_quzfyzi_iybz833",
       "nodeTitle": "node",
@@ -72,7 +55,10 @@
         }
       ],
       "title": "edge",
-      "metaData": {}
+      "metaData": {
+        "baseColor": "#ff5542",
+        "intensity": "7.07"
+      }
     },
     {
       "codeID": "_x027a1w_24c0grb",
@@ -98,48 +84,10 @@
         }
       ],
       "title": "light",
-      "metaData": {}
-    },
-    {
-      "codeID": "_hbuh2ad_05kot3i",
-      "nodeID": "_5zdzfzx_t2sevtt",
-      "nodeTitle": "node",
-      "spaceID": "new-space",
-      "code": "",
-      "data": [
-        {
-          "_id": "_swgs8mf_xsr52yi",
-          "label": "baseColor",
-          "type": "color",
-          "value": "#ff0000"
-        },
-        {
-          "_id": "_ak23u2c_yrx8fim",
-          "label": "name",
-          "type": "text",
-          "value": "hi dear"
-        },
-        {
-          "_id": "_1e6obts_a5r83xl",
-          "label": "positionZ",
-          "type": "range",
-          "min": 0,
-          "max": 1,
-          "step": 0.01,
-          "value": 4.9799999999999995
-        },
-        {
-          "_id": "_e1h29nd_2x7vny0",
-          "label": "speed",
-          "type": "range",
-          "min": 0,
-          "max": 1,
-          "step": 0.01,
-          "value": 0
-        }
-      ],
-      "title": "camera",
-      "metaData": {}
+      "metaData": {
+        "baseColor": "#ff5542",
+        "intensity": "7.07"
+      }
     },
     {
       "codeID": "_e7jaen2_0bdd9xz",
@@ -172,7 +120,8 @@
       ],
       "title": "color",
       "metaData": {
-        "baseColor": "#9b0de7"
+        "baseColor": "#ff5542",
+        "intensity": "7.07"
       }
     }
   ],
@@ -180,86 +129,12 @@
     "nodes": [
       {
         "spaceID": "new-space",
-        "_id": "_ne7rk2f_qwuxwti",
-        "title": "main",
-        "position": [
-          -2.3079220139312033,
-          0,
-          -2.2751058609650268
-        ],
-        "inputs": [
-          {
-            "_id": "_jryjlwi_5v5h9n5",
-            "type": "input",
-            "nodeID": "_ne7rk2f_qwuxwti",
-            "label": ""
-          },
-          {
-            "_id": "_6wp8g5z_tyczfim",
-            "type": "input",
-            "nodeID": "_ne7rk2f_qwuxwti",
-            "label": ""
-          },
-          {
-            "_id": "_j8k4f1z_8hhfesp",
-            "type": "input",
-            "nodeID": "_ne7rk2f_qwuxwti",
-            "label": ""
-          },
-          {
-            "_id": "_0lrrrfm_vtokg3h",
-            "type": "input",
-            "nodeID": "_ne7rk2f_qwuxwti",
-            "label": ""
-          },
-          {
-            "_id": "_1wn7q2h_mkv01l9",
-            "type": "input",
-            "nodeID": "_ne7rk2f_qwuxwti",
-            "label": ""
-          }
-        ],
-        "outputs": [
-          {
-            "_id": "_xkvyio0_o2nfl5d",
-            "type": "output",
-            "nodeID": "_ne7rk2f_qwuxwti",
-            "label": ""
-          },
-          {
-            "_id": "_gafl8xn_jiqa2bo",
-            "type": "output",
-            "nodeID": "_ne7rk2f_qwuxwti",
-            "label": ""
-          },
-          {
-            "_id": "_241hy01_rjtatf9",
-            "type": "output",
-            "nodeID": "_ne7rk2f_qwuxwti",
-            "label": ""
-          },
-          {
-            "_id": "_zusb7ux_0tnil7s",
-            "type": "output",
-            "nodeID": "_ne7rk2f_qwuxwti",
-            "label": ""
-          },
-          {
-            "_id": "_66fn3o5_364yhdf",
-            "type": "output",
-            "nodeID": "_ne7rk2f_qwuxwti",
-            "label": ""
-          }
-        ]
-      },
-      {
-        "spaceID": "new-space",
         "_id": "_q77qs09_mwqkfse",
         "title": "mesh",
         "position": [
-          2.9193754676119923,
+          2.0187459706735895,
           0,
-          2.0944687945590763
+          1.284556144025634
         ],
         "inputs": [
           {
@@ -331,9 +206,9 @@
         "_id": "_ck2nyne_fksh47i",
         "title": "light",
         "position": [
-          -2.1199414551680285,
+          -1.0511050797779342,
           0,
-          -0.1896770382740064
+          -0.1549910094591
         ],
         "inputs": [
           {
@@ -402,86 +277,12 @@
       },
       {
         "spaceID": "new-space",
-        "_id": "_5zdzfzx_t2sevtt",
-        "title": "camera",
-        "position": [
-          0.8645902646087905,
-          0,
-          -2.109231273116839
-        ],
-        "inputs": [
-          {
-            "_id": "_afnl8q0_ostxx2k",
-            "type": "input",
-            "nodeID": "_5zdzfzx_t2sevtt",
-            "label": ""
-          },
-          {
-            "_id": "_d2j94h1_ho110ik",
-            "type": "input",
-            "nodeID": "_5zdzfzx_t2sevtt",
-            "label": ""
-          },
-          {
-            "_id": "_xvolt5l_1sfl324",
-            "type": "input",
-            "nodeID": "_5zdzfzx_t2sevtt",
-            "label": ""
-          },
-          {
-            "_id": "_a3orcxk_eyxde2f",
-            "type": "input",
-            "nodeID": "_5zdzfzx_t2sevtt",
-            "label": ""
-          },
-          {
-            "_id": "_qkwamx4_zfcduag",
-            "type": "input",
-            "nodeID": "_5zdzfzx_t2sevtt",
-            "label": ""
-          }
-        ],
-        "outputs": [
-          {
-            "_id": "_rgyj3e1_dlzfhqt",
-            "type": "output",
-            "nodeID": "_5zdzfzx_t2sevtt",
-            "label": ""
-          },
-          {
-            "_id": "_8btw6u2_ddxj98p",
-            "type": "output",
-            "nodeID": "_5zdzfzx_t2sevtt",
-            "label": ""
-          },
-          {
-            "_id": "_hcfmdky_0cflsy7",
-            "type": "output",
-            "nodeID": "_5zdzfzx_t2sevtt",
-            "label": ""
-          },
-          {
-            "_id": "_vk9t1hq_4nhbkbe",
-            "type": "output",
-            "nodeID": "_5zdzfzx_t2sevtt",
-            "label": ""
-          },
-          {
-            "_id": "_l3am5d2_7lyukhm",
-            "type": "output",
-            "nodeID": "_5zdzfzx_t2sevtt",
-            "label": ""
-          }
-        ]
-      },
-      {
-        "spaceID": "new-space",
         "_id": "_x801t0d_2qm4x7k",
         "title": "color",
         "position": [
-          1.2746318398524012,
+          1.6571567534745077,
           0,
-          -0.20710775555562738
+          -0.7727567723234953
         ],
         "inputs": [
           {

@@ -41,10 +41,6 @@ export function Runtime({ useAutoSaveData, io, files }) {
         color={lightColor}
         position={[-1.5, 0.5, 1]}
       ></pointLight>
-
-      <Environment
-        files={[files["/yoyo/sunflowers_puresky_1k.hdr"]]}
-      ></Environment>
     </>
   );
 }
