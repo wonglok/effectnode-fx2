@@ -57,16 +57,14 @@ function PostProcessing() {
   return (
     <>
       <EffectComposer>
-        <SSR
+        {/* <SSR
           //
           temporalResolve={false}
           intensity={1.0}
           jitter={0.15}
           scene={scene}
           camera={camera}
-        >
-          {/*  */}
-        </SSR>
+        ></SSR> */}
 
         <N8AO intensity={4.0}></N8AO>
         <Bloom mipmapBlur></Bloom>
