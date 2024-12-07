@@ -1,6 +1,6 @@
 // import { Box, PerspectiveCamera } from "@react-three/drei";
 // import { useFrame } from "@react-three/fiber";
-import { Environment, PerspectiveCamera } from "@react-three/drei";
+import { Environment, Gltf, PerspectiveCamera } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { EffectNode } from "effectnode-developer-tools/effectnode-runtime/EffectNode";
 import { useEffect, useRef, useState } from "react";
@@ -23,7 +23,7 @@ export function ToolBox({ projectName }) {
   );
 }
 
-export function Runtime({ io, onLoop }) {
+export function Runtime({ io, files, onLoop }) {
   let ref = useRef();
 
   useEffect(() => {

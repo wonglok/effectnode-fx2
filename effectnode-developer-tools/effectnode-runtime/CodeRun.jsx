@@ -11,7 +11,7 @@ export function CodeRun({
   nodeID,
   domElement,
   socketMap,
-  onLoop,
+  // onLoop,
   useEditorStore,
   mode,
   useAutoSaveData,
@@ -28,6 +28,39 @@ export function CodeRun({
   let setting = settings.find((r) => r.nodeID === nodeID);
 
   //
+
+  let [{ onLoop }, setAPI] = useState({
+    onLoop: () => {},
+  });
+
+  useEffect(() => {
+    let api = {
+      tsk: [],
+      onLoop: (v) => {
+        api.tsk.push(v);
+
+        return () => {
+          api.tsk = api.tsk.filter((r) => r !== v);
+        };
+      },
+    };
+
+    setAPI(api);
+
+    let rAFID = 0;
+    let rAF = async () => {
+      for (let t of api.tsk) {
+        await t();
+      }
+      rAFID = requestAnimationFrame(rAF);
+    };
+    rAFID = requestAnimationFrame(rAF);
+
+    return () => {
+      cancelAnimationFrame(rAFID);
+    };
+  }, []);
+
   let [{ onClean, cleanAll }] = useState(() => {
     let api = {
       cleans: [],

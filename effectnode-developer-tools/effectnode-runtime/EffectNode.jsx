@@ -154,34 +154,6 @@ export function EffectNode({
   //   };
   // }, [randID]);
 
-  let [{ onLoop }, setAPI] = useState({
-    onLoop: () => {},
-  });
-
-  useEffect(() => {
-    let api = {
-      tsk: [],
-      onLoop: (v) => {
-        api.tsk.push(v);
-      },
-    };
-
-    setAPI(api);
-
-    let rAFID = 0;
-    let rAF = async () => {
-      for (let t of api.tsk) {
-        await t();
-      }
-      rAFID = requestAnimationFrame(rAF);
-    };
-    rAFID = requestAnimationFrame(rAF);
-
-    return () => {
-      cancelAnimationFrame(rAFID);
-    };
-  }, []);
-
   let onData = useCallback(
     async (data) => {
       //
@@ -252,7 +224,6 @@ export function EffectNode({
                     projectName={projectName}
                     mode={"runtime"}
                     key={node?._id + codeImple?._id}
-                    onLoop={onLoop}
                     nodeID={node._id}
                     socketMap={socketMap}
                     useRuntime={useRuntime}
@@ -268,7 +239,6 @@ export function EffectNode({
               projectName={projectName}
               mode={"toolbox"}
               key={nodeID + codeImple?._id}
-              onLoop={onLoop}
               nodeID={nodeID}
               socketMap={socketMap}
               useRuntime={useRuntime}
@@ -283,7 +253,6 @@ export function EffectNode({
               projectName={projectName}
               mode={"node"}
               key={nodeID + codeImple?._id}
-              onLoop={onLoop}
               nodeID={nodeID}
               socketMap={socketMap}
               useRuntime={useRuntime}
