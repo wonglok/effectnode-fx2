@@ -56,9 +56,9 @@
       ],
       "title": "edge",
       "metaData": {
-        "baseColor": "#5cffec",
-        "intensity": "17.3",
-        "lightColor": "#ff1414"
+        "baseColor": "#87a0ee",
+        "intensity": "20",
+        "lightColor": "#00e038"
       }
     },
     {
@@ -86,9 +86,9 @@
       ],
       "title": "light",
       "metaData": {
-        "baseColor": "#5cffec",
-        "intensity": "17.3",
-        "lightColor": "#ff1414"
+        "baseColor": "#87a0ee",
+        "intensity": "20",
+        "lightColor": "#00e038"
       }
     },
     {
@@ -122,9 +122,9 @@
       ],
       "title": "color",
       "metaData": {
-        "baseColor": "#5cffec",
-        "intensity": "17.3",
-        "lightColor": "#ff1414"
+        "baseColor": "#87a0ee",
+        "intensity": "20",
+        "lightColor": "#00e038"
       }
     }
   ],
@@ -209,9 +209,9 @@
         "_id": "_ck2nyne_fksh47i",
         "title": "light",
         "position": [
-          -3.2179942643907817,
+          -3.673319391379518,
           0,
-          -0.5525623751536927
+          -0.6764233196691904
         ],
         "inputs": [
           {
