@@ -2,18 +2,11 @@ import { Box, Html } from "@react-three/drei";
 import { useEffect } from "react";
 
 export function ToolBox({ useStore, useAutoSaveData }) {
-  let baseColor = useAutoSaveData((r) => r.baseColor);
   return (
     <>
-      <input
-        type="color"
-        value={baseColor}
-        onChange={(va) => {
-          useAutoSaveData.setState({
-            baseColor: va.target.value,
-          });
-        }}
-      />
+      {/*  */}
+
+      {/*  */}
     </>
   );
 }

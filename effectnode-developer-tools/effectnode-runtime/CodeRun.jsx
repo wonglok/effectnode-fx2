@@ -323,7 +323,7 @@ export function CodeRun({
         }
       }, 300);
     });
-  }, [useAutoSaveData, mode, nodeID, useEditorStore]);
+  }, [useAutoSaveData, mode, nodeID, useEditorStore, extendAPI]);
 
   return (
     <>
