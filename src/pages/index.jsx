@@ -33,7 +33,6 @@ function Content({}) {
 
         <OrbitControls
           target={[0, -3, -7]}
-          rotateSpeed={-1}
           object-position={[0, 0, 30]}
           makeDefault
         ></OrbitControls>
