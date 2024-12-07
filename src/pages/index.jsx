@@ -1,11 +1,10 @@
 import { Environment, OrbitControls } from "@react-three/drei";
 import { Canvas, useThree } from "@react-three/fiber";
-import { Bloom, EffectComposer } from "@react-three/postprocessing";
+import { Bloom, EffectComposer, N8AO } from "@react-three/postprocessing";
 import { EditorShell } from "effectnode-developer-tools/effectnode-gui/editor-gui/EffectnodeGUI/EditorShell";
 import { EffectNode } from "effectnode-developer-tools/effectnode-runtime/EffectNode";
 import { Suspense } from "react";
 import { SSR } from "../vendor/r3f-postprocessing/dist/effects/SSR/index";
-import { N8AO } from "../vendor/r3f-postprocessing/dist/effects/N8AO/index";
 
 //
 
