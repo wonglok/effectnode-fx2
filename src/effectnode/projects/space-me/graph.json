@@ -56,8 +56,8 @@
       ],
       "title": "edge",
       "metaData": {
-        "baseColor": "#ff5542",
-        "intensity": "7.07"
+        "baseColor": "#0400ff",
+        "intensity": "11.9"
       }
     },
     {
@@ -85,8 +85,8 @@
       ],
       "title": "light",
       "metaData": {
-        "baseColor": "#ff5542",
-        "intensity": "7.07"
+        "baseColor": "#0400ff",
+        "intensity": "11.9"
       }
     },
     {
@@ -120,8 +120,8 @@
       ],
       "title": "color",
       "metaData": {
-        "baseColor": "#ff5542",
-        "intensity": "7.07"
+        "baseColor": "#0400ff",
+        "intensity": "11.9"
       }
     }
   ],
@@ -132,9 +132,9 @@
         "_id": "_q77qs09_mwqkfse",
         "title": "mesh",
         "position": [
-          2.0187459706735895,
+          1.9980931807318925,
           0,
-          1.284556144025634
+          1.067879799223672
         ],
         "inputs": [
           {
@@ -206,9 +206,9 @@
         "_id": "_ck2nyne_fksh47i",
         "title": "light",
         "position": [
-          -1.0511050797779342,
+          -1.6856288300588629,
           0,
-          -0.1549910094591
+          0.015022367450492331
         ],
         "inputs": [
           {
@@ -280,9 +280,9 @@
         "_id": "_x801t0d_2qm4x7k",
         "title": "color",
         "position": [
-          1.6571567534745077,
+          1.9377746351708214,
           0,
-          -0.7727567723234953
+          -0.5427118914835529
         ],
         "inputs": [
           {
@@ -352,7 +352,7 @@
     ],
     "edges": [
       {
-        "id": "_wti1806_",
+        "id": "_wf5jqtv_",
         "input": {
           "_id": "_qiynf9j_6a60fn3",
           "type": "input",

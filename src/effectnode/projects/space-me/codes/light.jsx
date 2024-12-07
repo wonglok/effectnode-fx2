@@ -1,4 +1,4 @@
-import { Environment } from "@react-three/drei";
+import { Environment, Html } from "@react-three/drei";
 import { useEffect } from "react";
 
 export function ToolBox({ useAutoSaveData }) {
@@ -47,6 +47,55 @@ export function Runtime({ useAutoSaveData, io, files }) {
 
 //
 
-//
+export function NodeBox({ useAutoSaveData }) {
+  return (
+    <Html
+      center
+      className="bg-white z-50"
+      position={[0, 0, 1]}
+      rotation={[Math.PI * 0.5, 0, 0]}
+      scale={[1, 1, 1]}
+    >
+      <div
+        onMouseDownCapture={(e) => {
+          e.stopPropagation();
+        }}
+        onMouseMoveCapture={(e) => {
+          e.stopPropagation();
+        }}
+        onPointerDownCapture={(e) => {
+          e.stopPropagation();
+        }}
+        onPointerMoveCapture={(e) => {
+          e.stopPropagation();
+        }}
+        className="w-full h-full"
+      >
+        <InputRange
+          name={`intensity`}
+          useAutoSaveData={useAutoSaveData}
+        ></InputRange>
+      </div>
+    </Html>
+  );
+}
 
-//
+function InputRange({ name, step = 0.1, min = 0, max = 20, useAutoSaveData }) {
+  let value = useAutoSaveData((r) => r[name]);
+
+  return (
+    <input
+      className=""
+      type="range"
+      min={min}
+      max={max}
+      step={step}
+      value={value}
+      onChange={(va) => {
+        useAutoSaveData.setState({
+          [name]: va.target.value,
+        });
+      }}
+    />
+  );
+}
