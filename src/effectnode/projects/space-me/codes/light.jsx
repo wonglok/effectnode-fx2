@@ -78,6 +78,20 @@ function MoverGate({ name = "light1", useAutoSaveData, children }) {
       }}
     >
       <group scale={scale}>{children}</group>
+      <Html center transform position={[10, 0, 0]} scale={2}>
+        <button
+          className="bg-white px-3 py-1"
+          onClick={() => {
+            let ev = new Matrix4().identity();
+            ev.copyPosition(m4);
+            useAutoSaveData.setState({
+              [name]: ev.toArray(),
+            });
+          }}
+        >
+          Reset Pivot
+        </button>
+      </Html>
     </PivotControls>
   ) : (
     <group position={position} scale={scale} quaternion={quaternion}>
@@ -110,7 +124,7 @@ export function NodeBox({ useAutoSaveData }) {
         }}
         className="w-full h-full"
       >
-        <Move useAutoSaveData={useAutoSaveData}></Move>
+        <GizmoMove useAutoSaveData={useAutoSaveData}></GizmoMove>
         <InputRange
           name={`intensity`}
           max={200}
@@ -125,7 +139,7 @@ export function NodeBox({ useAutoSaveData }) {
   );
 }
 
-function Move({ useAutoSaveData }) {
+function GizmoMove({ useAutoSaveData }) {
   let name = "gizmo";
   let value = useAutoSaveData((r) => r[name]);
   return (
