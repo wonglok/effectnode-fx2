@@ -1412,19 +1412,14 @@ class TemporalResolvePass extends Pass {
       this.fullscreenMaterial.uniforms.isInteracting.value = 0.0;
     });
 
-    window.addEventListener(
-      "wheel",
-      (ev) => {
-        ev.preventDefault();
-        if (Math.abs(ev.deltaX) > 0.1) {
-          this.fullscreenMaterial.uniforms.isInteracting.value = 3.0;
-        }
-        if (Math.abs(ev.deltaY) > 0.1) {
-          this.fullscreenMaterial.uniforms.isInteracting.value = 3.0;
-        }
-      },
-      { passive: true }
-    );
+    window.addEventListener("wheel", (ev) => {
+      if (Math.abs(ev.deltaX) > 0.1) {
+        this.fullscreenMaterial.uniforms.isInteracting.value = 3.0;
+      }
+      if (Math.abs(ev.deltaY) > 0.1) {
+        this.fullscreenMaterial.uniforms.isInteracting.value = 3.0;
+      }
+    });
 
     setInterval(() => {
       this.fullscreenMaterial.uniforms.isInteracting.value *= 0.96;

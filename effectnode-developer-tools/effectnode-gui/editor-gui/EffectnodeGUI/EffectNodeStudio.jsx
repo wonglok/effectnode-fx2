@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export function EditorAutoHider({
+export function EffectNodeStudio({
   fullscreen = false,
   title,
   children,
