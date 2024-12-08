@@ -4,16 +4,16 @@ import { Canvas, useThree } from "@react-three/fiber";
 import { Bloom, EffectComposer, N8AO } from "@react-three/postprocessing";
 import { EffectNodeStudio } from "effectnode-developer-tools/effectnode-gui/editor-gui/EffectnodeGUI/EffectNodeStudio";
 import { EffectNode } from "effectnode-developer-tools/effectnode-runtime/EffectNode";
-import { Suspense, useState } from "react";
+import { Suspense } from "react";
+
+//
 
 export default function Page() {
   return (
     <>
-      <EffectNodeStudio title="magic">
-        {/*  */}
+      <EffectNodeStudio projectTitle="magic">
         <div className="w-full h-full relative">
           <Canvas shadows={"basic"}>
-            {/*  */}
             <Suspense fallback={null}>
               <EffectNode projectName={"living-room"}></EffectNode>
 
@@ -22,20 +22,13 @@ export default function Page() {
               <Environment files={[`/hdr/studiolighting.hdr`]}></Environment>
             </Suspense>
 
-            {/*  */}
-            <PostProcessing></PostProcessing>
+            {/* <PostProcessing></PostProcessing> */}
 
-            {/*  */}
             <OrbitControls
               object-position={[0, 0, 5]}
               makeDefault
             ></OrbitControls>
           </Canvas>
-          {/*  */}
-
-          {/*  */}
-
-          {/*  */}
 
           <div className=" absolute bottom-0 left-0 px-3 py-3">
             <div className="bg-white p-1 px-3">

@@ -7,6 +7,11 @@ import moment from "moment";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useDeveloper } from "effectnode-developer-tools/effectnode-gui/store/useDeveloper";
+import tunnel from "tunnel-rat";
+
+export const TitleTunnel = tunnel();
+
+export const TitleTunnelIn = TitleTunnel.In;
 
 export function EditorApp({ useStore }) {
   let router = useRouter();
@@ -90,6 +95,8 @@ export function EditorApp({ useStore }) {
             <span className="mx-2">|</span>
 
             <span className=" cursor-pointer inline-block">{spaceID}</span>
+
+            <TitleTunnel.Out></TitleTunnel.Out>
             {/* 
             
             <span className="mx-2">|</span>
