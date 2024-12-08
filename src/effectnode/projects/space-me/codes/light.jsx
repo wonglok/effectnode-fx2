@@ -18,7 +18,7 @@ export function Runtime({ useAutoSaveData, io, files }) {
       {/*  */}
 
       <MoverGate name="light2" useAutoSaveData={useAutoSaveData}>
-        <pointLight color={"#ff0000"} intensity={200}></pointLight>
+        <pointLight color={lightColor} intensity={intensity}></pointLight>
       </MoverGate>
 
       <group>
@@ -46,6 +46,7 @@ function MoverGate({ name = "light1", useAutoSaveData, children }) {
   let moveData =
     useAutoSaveData((r) => r[name]) || new Matrix4().identity().toArray();
 
+  let gizmo = useAutoSaveData((r) => r.gizmo) || false;
   let { m4, position, scale, quaternion } = useMemo(() => {
     let m4 = new Matrix4().fromArray(moveData);
 
@@ -62,10 +63,10 @@ function MoverGate({ name = "light1", useAutoSaveData, children }) {
     };
   }, [moveData]);
 
-  return moveData && process.env.NODE_ENV === "development" ? (
+  return moveData && gizmo && process.env.NODE_ENV === "development" ? (
     <PivotControls
       matrix={m4}
-      scale={5}
+      scale={10}
       onDrag={(ev) => {
         useAutoSaveData.setState({
           [name]: ev.toArray(),
@@ -121,11 +122,11 @@ export function NodeBox({ useAutoSaveData }) {
 }
 
 function Move({ useAutoSaveData }) {
-  let name = "move";
+  let name = "gizmo";
   let value = useAutoSaveData((r) => r[name]);
   return (
     <div>
-      {" Move? "}
+      {" Gismo: "}
       <input
         type="checkbox"
         checked={value}

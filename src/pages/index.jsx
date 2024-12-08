@@ -1,5 +1,5 @@
 import { SSR } from "@/vendor/r3f-postprocessing/dist/effects/SSR";
-import { Environment, OrbitControls } from "@react-three/drei";
+import { CameraControls, Environment, OrbitControls } from "@react-three/drei";
 import { Canvas, useThree } from "@react-three/fiber";
 import { Bloom, EffectComposer, FXAA, N8AO } from "@react-three/postprocessing";
 import { EditorShell } from "effectnode-developer-tools/effectnode-gui/editor-gui/EffectnodeGUI/EditorShell";
@@ -42,16 +42,13 @@ function Content({ core }) {
             useEditorStore={core.store}
             projectName={"space-me"}
           ></EffectNode>
+
           <Environment files={[`/hdr/studiolighting.hdr`]}></Environment>
         </Suspense>
 
         <PostProcessing></PostProcessing>
 
-        <OrbitControls
-          target={[0, -3, -7]}
-          object-position={[0, 0, 20]}
-          makeDefault
-        ></OrbitControls>
+        <OrbitControls object-position={[0, 0, 1]} makeDefault></OrbitControls>
       </Canvas>
       {/*  */}
 

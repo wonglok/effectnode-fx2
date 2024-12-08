@@ -3,6 +3,7 @@ import { EditorBox } from "./Win/EditorBox/EditorBox";
 import { FileGUI } from "./Win/FileGUI/FileGUI";
 import { WinGeneric } from "./Win/Generic/WinGeneric";
 import { Previewer } from "./Win/Previewer/Previewer";
+import { Previewer2 } from "./Win/Previewer2/Previewer2";
 
 export function AppWindows({ useStore }) {
   // let apps = useStore((r) => r.apps)
@@ -28,6 +29,11 @@ export function AppWindows({ useStore }) {
             {win.type === "previewer" && (
               <>
                 <Previewer win={win} useStore={useStore}></Previewer>
+              </>
+            )}
+            {win.type === "previewer2" && (
+              <>
+                <Previewer2 win={win} useStore={useStore}></Previewer2>
               </>
             )}
             {win.type === "coder" && (
