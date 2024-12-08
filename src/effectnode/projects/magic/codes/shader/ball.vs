@@ -75,13 +75,21 @@ void main(void){
 
     float pulse = cnoise(puv + time) * 0.5 + 0.5;
 
-    vec3 ball = fromBall(5.3 * sin(pulse + puv.y) * sin(pulse + puv.x), puv.x * M_PI * 2.0 , puv.y * M_PI * 2.0 );
+    vec3 ball = fromBall(5.3,  puv.x * M_PI * 2.0 , puv.y * M_PI * 2.0 );
 
-    vec3 pos = position * pulse * 5.0 + ball;
+    vec2 ballUV;
+    toBall(ball, ballUV.x, ballUV.y);
+    
+    ballUV.x += cnoise(ball.xy + time);
+    ballUV.y += cnoise(ball.xy + time);
+
+    vec3 positionBall2 = fromBall(5.0, ballUV.x, ballUV.y);
+    
+    vec3 pos = position * 15.0 * pow(pulse, 1.0) + positionBall2;
 
     vDistribution = vec3(ball);
 
-    brightness = abs(pow(pulse, 5.0)) * 5.0 + cnoise(puv + time) * 0.5 + 0.5;
+    brightness = abs(pow(pulse, 5.0)) * 5.0 + (cnoise(puv + time) * 0.5 + 0.5);
 
     gl_Position = projectionMatrix * modelViewMatrix * vec4(pos,1.0);
 }

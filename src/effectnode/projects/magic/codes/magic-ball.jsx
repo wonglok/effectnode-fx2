@@ -39,7 +39,7 @@ export function ToolBox({ projectName }) {
 
 export function Runtime({ io, files, onLoop, useAutoSaveData, isEditing }) {
   const [countX, setStateX] = useState(1024);
-  const [countY, setStateY] = useState(1024);
+  const [countY, setStateY] = useState(512);
 
   useEffect(() => {
     // return io.in0(() => {});
@@ -51,22 +51,16 @@ export function Runtime({ io, files, onLoop, useAutoSaveData, isEditing }) {
 
   let baseGeometry = useMemo(() => {
     //
-    let box = new ConeGeometry(0.005, 0.005, 3, 1);
+    let box = new BoxGeometry(0.002, 0.002, 0.002);
 
     return box.toNonIndexed();
   }, []);
 
-  //
-
-  let geometryBase = useMemo(() => {
-    let geometry = new InstancedBufferGeometry();
-    geometry.copy(baseGeometry);
-    geometry.instanceCount = count;
-
-    return geometry;
-  }, [baseGeometry, count]);
-
   let geometry = useMemo(() => {
+    let geometryBase = new InstancedBufferGeometry();
+    geometryBase.copy(baseGeometry);
+    geometryBase.instanceCount = count;
+
     let offsets = [];
     let rot = [];
     let puv = [];
@@ -104,7 +98,7 @@ export function Runtime({ io, files, onLoop, useAutoSaveData, isEditing }) {
     );
 
     return geometryBase;
-  }, [geometryBase, countX, countY]);
+  }, [baseGeometry, count, countX, countY]);
 
   let shader = useMemo(() => {
     let shader = new ShaderMaterial({
@@ -143,6 +137,7 @@ export function Runtime({ io, files, onLoop, useAutoSaveData, isEditing }) {
 }
 
 function MoverGate({
+  show = false,
   isEditing,
   name = "MagicBall",
   useAutoSaveData,
@@ -167,7 +162,10 @@ function MoverGate({
     };
   }, [moveData]);
 
-  return isEditing && moveData && process.env.NODE_ENV === "development" ? (
+  return isEditing &&
+    show &&
+    moveData &&
+    process.env.NODE_ENV === "development" ? (
     <PivotControls
       matrix={m4}
       scale={10}
