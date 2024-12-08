@@ -13,6 +13,9 @@ import {
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
   BoxGeometry,
+  CircleGeometry,
+  ConeGeometry,
+  DoubleSide,
   InstancedBufferAttribute,
   InstancedBufferGeometry,
   Mesh,
@@ -20,7 +23,10 @@ import {
   ShaderMaterial,
   StaticReadUsage,
 } from "three";
-import { clone } from "three/examples/jsm/utils/SkeletonUtils";
+// import { clone } from "three/examples/jsm/utils/SkeletonUtils";
+import fragmentShader from "./shader/ball.fs";
+import vertexShader from "./shader/ball.vs";
+import { useFrame } from "@react-three/fiber";
 
 export function ToolBox({ projectName }) {
   ///
@@ -28,64 +34,87 @@ export function ToolBox({ projectName }) {
 }
 
 export function Runtime({ io, files, onLoop }) {
+  const [countX, setStateX] = useState(1024);
+  const [countY, setStateY] = useState(1024);
+
+  useEffect(() => {
+    // return io.in0(() => {});
+  }, [io]);
+
   let count = useMemo(() => {
-    return 300;
-  }, []);
+    return countX * countY;
+  }, [countX, countY]);
 
   let baseGeometry = useMemo(() => {
-    return new BoxGeometry(0.1, 0.1, 0.1).toNonIndexed();
+    //
+    let box = new ConeGeometry(0.005, 0.005, 3, 1);
+
+    box.rotateX(Math.PI * Math.random());
+    box.rotateY(Math.PI * Math.random());
+    box.rotateZ(Math.PI * Math.random());
+
+    return box.toNonIndexed();
   }, []);
 
-  let offsets = useMemo(() => {
-    let offsets = [];
+  //
 
-    for (let i = 0; i < count; i++) {
-      offsets.push(Math.random() * 5 - 2.5);
-      offsets.push(Math.random() * 5 - 2.5);
-      offsets.push(Math.random() * 5 - 2.5);
-    }
-
-    return offsets;
-  }, [count]);
-
-  let vertexShader = `
-    attribute vec3 offsets;
-    void main(void){
-      vec3 pos = position + offsets;
-      gl_Position = projectionMatrix * modelViewMatrix * vec4(pos,1.0);
-    }
-  `;
-
-  let fragmentShader = `
-    void main(void){
-      gl_FragColor = vec4(1.0,0.0,0.0,1.0);
-    }
-  `;
-
-  let shader = useMemo(() => {
-    let shader = new ShaderMaterial({
-      vertexShader,
-      fragmentShader,
-      transparent: true,
-      uniforms: {},
-    });
-
-    return shader;
-  }, [vertexShader, fragmentShader]);
-
-  let geometry = useMemo(() => {
+  let geometryBase = useMemo(() => {
     let geometry = new InstancedBufferGeometry();
     geometry.copy(baseGeometry);
-
-    geometry.setAttribute(
-      "offsets",
-      new InstancedBufferAttribute(new Float32Array(offsets), 3)
-    );
-
     geometry.instanceCount = count;
 
     return geometry;
-  }, [baseGeometry, offsets, count]);
+  }, [baseGeometry, count]);
+
+  let geometry = useMemo(() => {
+    let offsets = [];
+    let puv = [];
+    let idx = [];
+
+    let ii = 0;
+    for (let i = 0; i < countY; i++) {
+      for (let j = 0; j < countX; j++) {
+        puv.push(j / countX, i / countY);
+
+        offsets.push(Math.random() * 10 - 5.0);
+        offsets.push(Math.random() * 10 - 5.0);
+        offsets.push(Math.random() * 10 - 5.0);
+
+        idx.push(ii);
+        ii++;
+      }
+    }
+
+    geometryBase.setAttribute(
+      "offsets",
+      new InstancedBufferAttribute(new Float32Array(offsets), 3)
+    );
+    geometryBase.setAttribute(
+      "puv",
+      new InstancedBufferAttribute(new Float32Array(puv), 2)
+    );
+
+    return geometryBase;
+  }, [geometryBase, countX, countY]);
+
+  let shader = useMemo(() => {
+    let shader = new ShaderMaterial({
+      vertexShader: vertexShader,
+      fragmentShader: fragmentShader,
+      transparent: true,
+      uniforms: {
+        time: { value: 0 },
+      },
+      side: DoubleSide,
+    });
+
+    return shader;
+  }, []);
+  useFrame((st, dt) => {
+    if (shader) {
+      shader.uniforms.time.value = window.performance.now() / 1000;
+    }
+  });
 
   let mesh = useMemo(() => {
     return <primitive object={new Mesh(geometry, shader)}></primitive>;

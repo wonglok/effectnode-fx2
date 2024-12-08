@@ -30,8 +30,6 @@ export function EffectNode({
     useEditorStore = core.store;
   }
 
-  //
-
   if (useEditorStore) {
     let store = useEditorStore.getState();
     if (store.spaceID !== projectName) {

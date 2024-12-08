@@ -11,7 +11,7 @@ export default function Page() {
     <>
       <EffectNodeStudio projectName="magic">
         <div className="w-full h-full relative">
-          <Canvas shadows={"basic"}>
+          <Canvas gl={{ antialias: false }} shadows={"basic"}>
             <Suspense fallback={null}>
               <EffectNode projectName={"living-room"}></EffectNode>
 
@@ -20,7 +20,7 @@ export default function Page() {
               <Environment files={[`/hdr/studiolighting.hdr`]}></Environment>
             </Suspense>
 
-            {/* <PostProcessing></PostProcessing> */}
+            <PostProcessing></PostProcessing>
 
             <OrbitControls
               object-position={[0, 0, 5]}
@@ -52,8 +52,8 @@ function PostProcessing() {
 
   return (
     <>
-      <EffectComposer>
-        <SSR
+      <EffectComposer multisampling={0}>
+        {/* <SSR
           //
           ior={1.5}
           intensity={0.5}
@@ -62,7 +62,7 @@ function PostProcessing() {
           camera={camera}
         ></SSR>
 
-        <N8AO quality="performance" intensity={3}></N8AO>
+        <N8AO quality="performance" intensity={3}></N8AO> */}
 
         <Bloom mipmapBlur></Bloom>
       </EffectComposer>
