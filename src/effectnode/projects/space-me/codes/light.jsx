@@ -106,40 +106,36 @@ function MoverGate({ name = "light1", useAutoSaveData, children }) {
 
 export function NodeBox({ useAutoSaveData }) {
   return (
-    <Html
-      center
-      className="bg-white z-50"
-      position={[0, 0, 1.3]}
-      rotation={[Math.PI * 0.5, 0, 0]}
-      scale={[1, 1, 1]}
-    >
-      <div
-        onMouseDownCapture={(e) => {
-          e.stopPropagation();
-        }}
-        onMouseMoveCapture={(e) => {
-          e.stopPropagation();
-        }}
-        onPointerDownCapture={(e) => {
-          e.stopPropagation();
-        }}
-        onPointerMoveCapture={(e) => {
-          e.stopPropagation();
-        }}
-        className="w-full h-full"
-      >
-        <GizmoMove useAutoSaveData={useAutoSaveData}></GizmoMove>
-        <InputRange
-          name={`intensity`}
-          max={500}
-          useAutoSaveData={useAutoSaveData}
-        ></InputRange>
-        <InputColor
-          name={`lightColor`}
-          useAutoSaveData={useAutoSaveData}
-        ></InputColor>
-      </div>
-    </Html>
+    <group rotation={[Math.PI * -0.5, 0, 0]}>
+      <Html distanceFactor={5} position={[1.2, 0.4, 0]} className=" z-50">
+        <div
+          onMouseDownCapture={(e) => {
+            e.stopPropagation();
+          }}
+          onMouseMoveCapture={(e) => {
+            e.stopPropagation();
+          }}
+          onPointerDownCapture={(e) => {
+            e.stopPropagation();
+          }}
+          onPointerMoveCapture={(e) => {
+            e.stopPropagation();
+          }}
+          className="w-full h-full"
+        >
+          <GizmoMove useAutoSaveData={useAutoSaveData}></GizmoMove>
+          <InputRange
+            name={`intensity`}
+            max={500}
+            useAutoSaveData={useAutoSaveData}
+          ></InputRange>
+          <InputColor
+            name={`lightColor`}
+            useAutoSaveData={useAutoSaveData}
+          ></InputColor>
+        </div>
+      </Html>
+    </group>
   );
 }
 
