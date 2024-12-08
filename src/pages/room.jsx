@@ -62,7 +62,9 @@ function PostProcessing() {
           camera={camera}
         ></SSR>
 
-        <N8AO quality="performance" intensity={3}></N8AO> */}
+         */}
+
+        <N8AO quality="performance" intensity={2.5}></N8AO>
 
         <Bloom mipmapBlur></Bloom>
       </EffectComposer>
