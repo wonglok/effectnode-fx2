@@ -30,7 +30,11 @@ export default function Page() {
 
   return (
     <>
-      <EditorShell title="space-me" onCoreReady={onCoreReady}>
+      <EditorShell
+        fullscreen={false}
+        title="space-me"
+        onCoreReady={onCoreReady}
+      >
         {<Content core={core}></Content>}
       </EditorShell>
       {/*  */}

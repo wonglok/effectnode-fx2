@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 
-export function EditorShell({ title, children, onCoreReady = () => {} }) {
+export function EditorShell({
+  fullscreen = false,
+  title,
+  children,
+  onCoreReady = () => {},
+}) {
   let [editor, setEditor] = useState(null);
 
   useEffect(() => {
@@ -33,6 +38,9 @@ export function EditorShell({ title, children, onCoreReady = () => {} }) {
     }
   }, [title, children, onCoreReady]);
 
+  if (fullscreen) {
+    return children;
+  }
   return (
     <>{process.env.NODE_ENV === "development" ? editor : <>{children}</>}</>
   );
