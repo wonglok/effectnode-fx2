@@ -53,7 +53,9 @@ function Content({}) {
 }
 
 function PostProcessing() {
+  //
   let scene = useThree((s) => s.scene);
+  //
   let camera = useThree((s) => s.camera);
 
   return (
