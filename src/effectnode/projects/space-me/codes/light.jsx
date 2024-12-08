@@ -21,14 +21,18 @@ export function Runtime({ useAutoSaveData, io, files }) {
         <pointLight color={lightColor} intensity={intensity}></pointLight>
       </MoverGate>
 
+      <MoverGate name="light3" useAutoSaveData={useAutoSaveData}>
+        <pointLight color={lightColor} intensity={intensity}></pointLight>
+      </MoverGate>
+
       <group>
-        <pointLight
+        {/* <pointLight
           intensity={intensity}
           color={lightColor}
           position={[
             -14.104092376040242, -2.0109753853309202, -20.02041405731383,
           ]}
-        ></pointLight>
+        ></pointLight> */}
 
         <pointLight
           intensity={intensity}
