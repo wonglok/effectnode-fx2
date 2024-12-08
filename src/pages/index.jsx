@@ -1,11 +1,19 @@
 import { SSR } from "@/vendor/r3f-postprocessing/dist/effects/SSR";
 import { CameraControls, Environment, OrbitControls } from "@react-three/drei";
 import { Canvas, useThree } from "@react-three/fiber";
-import { Bloom, EffectComposer, FXAA, N8AO } from "@react-three/postprocessing";
+import {
+  Autofocus,
+  Bloom,
+  Depth,
+  DepthOfField,
+  EffectComposer,
+  FXAA,
+  N8AO,
+  SSAO,
+} from "@react-three/postprocessing";
 import { EditorShell } from "effectnode-developer-tools/effectnode-gui/editor-gui/EffectnodeGUI/EditorShell";
 import { EffectNode } from "effectnode-developer-tools/effectnode-runtime/EffectNode";
 import { Suspense, useCallback, useState } from "react";
-// import { SSR } from "../vendor/r3f-postprocessing/dist/effects/SSR/index";
 
 //
 
@@ -48,7 +56,7 @@ function Content({ core }) {
 
         <PostProcessing></PostProcessing>
 
-        <OrbitControls object-position={[0, 0, 1]} makeDefault></OrbitControls>
+        <OrbitControls object-position={[0, 0, 5]} makeDefault></OrbitControls>
       </Canvas>
       {/*  */}
 
@@ -74,22 +82,21 @@ function Content({ core }) {
 function PostProcessing() {
   //
   let scene = useThree((s) => s.scene);
-  //
   let camera = useThree((s) => s.camera);
 
   return (
     <>
-      <EffectComposer resolutionScale={1} multisampling={0}>
-        <SSR
+      <EffectComposer multisampling={0}>
+        {/* <SSR
           //
           ior={2.48}
           intensity={0.5}
           jitter={0.15}
           scene={scene}
           camera={camera}
-        ></SSR>
+        ></SSR> */}
 
-        <N8AO intensity={4.0}></N8AO>
+        <N8AO quality="performance" intensity={3}></N8AO>
 
         <Bloom mipmapBlur></Bloom>
       </EffectComposer>
