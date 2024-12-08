@@ -4,6 +4,7 @@ import {
   Box,
   // Environment,
   Gltf,
+  Html,
   PivotControls,
   TransformControls,
   useGLTF,
@@ -18,10 +19,13 @@ import {
   DoubleSide,
   InstancedBufferAttribute,
   InstancedBufferGeometry,
+  Matrix4,
   Mesh,
   MeshStandardMaterial,
+  Quaternion,
   ShaderMaterial,
   StaticReadUsage,
+  Vector3,
 } from "three";
 // import { clone } from "three/examples/jsm/utils/SkeletonUtils";
 import fragmentShader from "./shader/ball.fs";
@@ -33,7 +37,7 @@ export function ToolBox({ projectName }) {
   return <>{/*  */}</>;
 }
 
-export function Runtime({ io, files, onLoop }) {
+export function Runtime({ io, files, onLoop, useAutoSaveData, isEditing }) {
   const [countX, setStateX] = useState(1024);
   const [countY, setStateY] = useState(1024);
 
@@ -125,5 +129,76 @@ export function Runtime({ io, files, onLoop }) {
     return <primitive object={new Mesh(geometry, shader)}></primitive>;
   }, [geometry, shader]);
 
-  return <>{mesh}</>;
+  return (
+    <>
+      <MoverGate
+        name="magic-ball"
+        isEditing={isEditing}
+        useAutoSaveData={useAutoSaveData}
+      >
+        {mesh}
+      </MoverGate>
+    </>
+  );
+}
+
+function MoverGate({
+  isEditing,
+  name = "MagicBall",
+  useAutoSaveData,
+  children,
+}) {
+  let moveData =
+    useAutoSaveData((r) => r[name]) || new Matrix4().identity().toArray();
+
+  let { m4, position, scale, quaternion } = useMemo(() => {
+    let m4 = new Matrix4().fromArray(moveData);
+
+    let position = new Vector3(0, 0, 0);
+    let quaternion = new Quaternion().identity();
+    let scale = new Vector3(0, 0, 0);
+    m4.decompose(position, quaternion, scale);
+
+    return {
+      m4,
+      position: position.toArray(),
+      scale: scale.toArray(),
+      quaternion: quaternion.toArray(),
+    };
+  }, [moveData]);
+
+  return isEditing && moveData && process.env.NODE_ENV === "development" ? (
+    <PivotControls
+      matrix={m4}
+      scale={10}
+      onDrag={(ev) => {
+        useAutoSaveData.setState({
+          [name]: ev.toArray(),
+        });
+      }}
+    >
+      <group scale={scale}>{children}</group>
+      <Html center transform position={[0, 15, 0]} scale={2}>
+        <button className="bg-white px-3 py-1">{name}</button>
+      </Html>
+      <Html center transform position={[20, 0, 0]} scale={2}>
+        <button
+          className="bg-white px-3 py-1"
+          onClick={() => {
+            let ev = new Matrix4().identity();
+            ev.copyPosition(m4);
+            useAutoSaveData.setState({
+              [name]: ev.toArray(),
+            });
+          }}
+        >
+          Reset Pivot
+        </button>
+      </Html>
+    </PivotControls>
+  ) : (
+    <group position={position} scale={scale} quaternion={quaternion}>
+      {children}
+    </group>
+  );
 }
