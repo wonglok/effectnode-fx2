@@ -26,6 +26,8 @@ import {
   VideoTexture,
   DataTexture,
   FloatType,
+  Euler,
+  MathUtils,
 } from "three";
 
 const boxBlur =
@@ -886,6 +888,8 @@ const temporalResolve =
   #define MAX_NEIGHBOR_DEPTH_DIFFERENCE 0.001
   #define FLOAT_EPSILON 0.00001
   #define FLOAT_ONE_MINUS_EPSILON 0.99999
+  uniform float time;
+  uniform float isInteracting;
 
   #include <common>
 
@@ -923,7 +927,10 @@ const temporalResolve =
     vec4 velocity = textureLod(velocityTexture, vUv, 0.0);
     bool isMoving = alpha < 1.0 || dot(velocity.xy, velocity.xy) > 0.0;
     // skip reprojection if the pixel is not moving
-    if (isMoving || true) {
+    //isMoving ||
+
+
+    if (isInteracting >= 0.3 || isMoving) {
       vec3 minNeighborColor = inputColor;
       vec3 maxNeighborColor = inputColor;
       vec3 col;
@@ -1007,7 +1014,8 @@ const temporalResolve =
       }
 
       // modify the accumulated color based on the velocity disocclusion
-      if (rand(vec2(accumulatedColor.x + accumulatedColor.y + accumulatedColor.z)) >= 0.5 || velocity.r > FLOAT_ONE_MINUS_EPSILON && velocity.g > FLOAT_ONE_MINUS_EPSILON) {
+      //
+      if (velocity.r > FLOAT_ONE_MINUS_EPSILON && velocity.g > FLOAT_ONE_MINUS_EPSILON) {
         alpha = 0.0;
         velocityDisocclusion = 1.0;
       }
@@ -1041,6 +1049,19 @@ class TemporalResolveMaterial extends ShaderMaterial {
         correction: new Uniform(1),
         exponent: new Uniform(1),
         invTexSize: new Uniform(new Vector2()),
+        isInteracting: {
+          value: 0.0,
+        },
+        time: {
+          get value() {
+            return window.performance.now() / 1000;
+          },
+          _time: 0,
+          set value(v) {
+            this._time = v;
+            return true;
+          },
+        },
       },
       defines: {
         correctionRadius: 1,
@@ -1367,6 +1388,42 @@ class TemporalResolvePass extends Pass {
     if (options.boxBlur) this.fullscreenMaterial.defines.boxBlur = "";
     this.setupFramebuffers(1, 1);
     this.checkCanUseSharedVelocityTexture();
+
+    window.addEventListener("touchstart", () => {
+      this.fullscreenMaterial.uniforms.isInteracting.value = 3.0;
+    });
+    window.addEventListener("touchmove", () => {
+      this.fullscreenMaterial.uniforms.isInteracting.value = 3.0;
+    });
+    window.addEventListener("touchend", () => {
+      this.fullscreenMaterial.uniforms.isInteracting.value = 0.0;
+    });
+    window.addEventListener("touchcancel", () => {
+      this.fullscreenMaterial.uniforms.isInteracting.value = 0.0;
+    });
+
+    window.addEventListener("mousedown", () => {
+      this.fullscreenMaterial.uniforms.isInteracting.value = 3.0;
+    });
+    window.addEventListener("mousemove", () => {
+      this.fullscreenMaterial.uniforms.isInteracting.value = 3.0;
+    });
+    window.addEventListener("mouseup", () => {
+      this.fullscreenMaterial.uniforms.isInteracting.value = 0.0;
+    });
+
+    window.addEventListener("wheel", (ev) => {
+      if (Math.abs(ev.deltaX) > 0.1) {
+        this.fullscreenMaterial.uniforms.isInteracting.value = 3.0;
+      }
+      if (Math.abs(ev.deltaY) > 0.1) {
+        this.fullscreenMaterial.uniforms.isInteracting.value = 3.0;
+      }
+    });
+
+    setInterval(() => {
+      this.fullscreenMaterial.uniforms.isInteracting.value *= 0.96;
+    });
   }
   dispose() {
     if (
