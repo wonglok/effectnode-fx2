@@ -1,9 +1,11 @@
+import Link from "next/link";
+
 export default function Index() {
   return (
     <>
       <div>Index</div>
-
-      <a href="/room">Room</a>
+      <Link href="/room">Room</Link>
+      <Link href="/station">Station</Link>
     </>
   );
 }
