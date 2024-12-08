@@ -49,6 +49,7 @@ export function EffectNodeStudio({ projectName = "", children }) {
           {
             <CoreContext.Provider value={core}>
               <EditorRoot
+                key={title + "editor-root"}
                 onCoreReady={({ core }) => {
                   setCore(core);
                 }}
