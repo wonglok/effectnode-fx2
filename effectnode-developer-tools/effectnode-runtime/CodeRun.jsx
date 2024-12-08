@@ -373,6 +373,7 @@ export function CodeRun({
           useRuntime={useRuntime}
           domElement={domElement}
           //
+          isEditing={useEditorStore}
           useAutoSaveData={useAutoSaveData}
           io={io}
           //

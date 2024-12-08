@@ -1,5 +1,5 @@
 import { SSR } from "@/vendor/r3f-postprocessing/dist/effects/SSR";
-import { CameraControls, Environment, OrbitControls } from "@react-three/drei";
+import { Environment, OrbitControls } from "@react-three/drei";
 import { Canvas, useThree } from "@react-three/fiber";
 import { Bloom, EffectComposer, N8AO } from "@react-three/postprocessing";
 import { EffectNodeStudio } from "effectnode-developer-tools/effectnode-gui/editor-gui/EffectnodeGUI/EffectNodeStudio";
@@ -9,9 +9,11 @@ import { Suspense, useState } from "react";
 export default function Page() {
   return (
     <>
-      <EffectNodeStudio title="living-room">
+      <EffectNodeStudio title="magic">
+        {/*  */}
         <div className="w-full h-full relative">
           <Canvas shadows={"basic"}>
+            {/*  */}
             <Suspense fallback={null}>
               <EffectNode projectName={"living-room"}></EffectNode>
 

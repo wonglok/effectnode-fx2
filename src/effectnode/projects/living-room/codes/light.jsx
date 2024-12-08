@@ -7,7 +7,7 @@ export function ToolBox({ useAutoSaveData }) {
   return <></>;
 }
 
-export function Runtime({ useAutoSaveData, io, files }) {
+export function Runtime({ isEditing, useAutoSaveData, io, files }) {
   //
   let lightColor = useAutoSaveData((r) => r.lightColor) || "#ffffff";
   let intensity = useAutoSaveData((r) => r.intensity) || 1;
@@ -16,7 +16,11 @@ export function Runtime({ useAutoSaveData, io, files }) {
   return (
     <>
       {/*  */}
-      <MoverGate name="light2-plant" useAutoSaveData={useAutoSaveData}>
+      <MoverGate
+        name="light2-plant"
+        isEditing={isEditing}
+        useAutoSaveData={useAutoSaveData}
+      >
         <pointLight
           castShadow
           shadow-bias={-0.0002}
@@ -25,7 +29,11 @@ export function Runtime({ useAutoSaveData, io, files }) {
         ></pointLight>
       </MoverGate>
 
-      <MoverGate name="light-lamp-2" useAutoSaveData={useAutoSaveData}>
+      <MoverGate
+        name="light-lamp-2"
+        isEditing={isEditing}
+        useAutoSaveData={useAutoSaveData}
+      >
         <pointLight
           castShadow
           shadow-bias={-0.0002}
@@ -47,7 +55,7 @@ export function Runtime({ useAutoSaveData, io, files }) {
   );
 }
 
-function MoverGate({ name = "light1", useAutoSaveData, children }) {
+function MoverGate({ isEditing, name = "light1", useAutoSaveData, children }) {
   let moveData =
     useAutoSaveData((r) => r[name]) || new Matrix4().identity().toArray();
 
@@ -68,7 +76,10 @@ function MoverGate({ name = "light1", useAutoSaveData, children }) {
     };
   }, [moveData]);
 
-  return moveData && gizmo && process.env.NODE_ENV === "development" ? (
+  return isEditing &&
+    moveData &&
+    gizmo &&
+    process.env.NODE_ENV === "development" ? (
     <PivotControls
       matrix={m4}
       scale={10}
