@@ -5,7 +5,6 @@ export default function Index() {
     <>
       <div>Index</div>
       <Link href="/room">Room</Link>
-      <Link href="/station">Station</Link>
     </>
   );
 }

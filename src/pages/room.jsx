@@ -1,49 +1,29 @@
 import { SSR } from "@/vendor/r3f-postprocessing/dist/effects/SSR";
 import { CameraControls, Environment, OrbitControls } from "@react-three/drei";
 import { Canvas, useThree } from "@react-three/fiber";
-import {
-  Autofocus,
-  Bloom,
-  Depth,
-  DepthOfField,
-  EffectComposer,
-  FXAA,
-  N8AO,
-  SSAO,
-} from "@react-three/postprocessing";
+import { Bloom, EffectComposer, N8AO } from "@react-three/postprocessing";
 import { EffectNodeStudio } from "effectnode-developer-tools/effectnode-gui/editor-gui/EffectnodeGUI/EffectNodeStudio";
 import { EffectNode } from "effectnode-developer-tools/effectnode-runtime/EffectNode";
-import { Suspense, useCallback, useState } from "react";
+import { Suspense, useState } from "react";
 
 export default function Page() {
-  let [core, setCore] = useState(null);
-
-  let onCoreReady = useCallback(
-    ({ core }) => {
-      console.log("core", core);
-      setCore(core);
-    },
-    [setCore]
-  );
-
   return (
     <>
-      {/*  */}
-
-      <EffectNodeStudio title="living-room" onCoreReady={onCoreReady}>
+      <EffectNodeStudio title="living-room">
         <div className="w-full h-full relative">
-          <Canvas shadows>
+          <Canvas shadows={"basic"}>
             <Suspense fallback={null}>
-              <EffectNode
-                projectName={"living-room"}
-                useEditorStore={core?.store}
-              ></EffectNode>
+              <EffectNode projectName={"living-room"}></EffectNode>
+
+              <EffectNode projectName={"magic"}></EffectNode>
 
               <Environment files={[`/hdr/studiolighting.hdr`]}></Environment>
             </Suspense>
 
+            {/*  */}
             <PostProcessing></PostProcessing>
 
+            {/*  */}
             <OrbitControls
               object-position={[0, 0, 5]}
               makeDefault

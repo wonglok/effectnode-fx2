@@ -1,47 +1,36 @@
-import { useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
+import { EditorRoot } from "./EditorRoot";
+export const CoreContext = createContext(null);
 
-export function EffectNodeStudio({
-  fullscreen = false,
-  title,
-  children,
-  onCoreReady = () => {},
-}) {
-  let [editor, setEditor] = useState(null);
+export function EffectNodeStudio({ title, children }) {
+  const [core, setCore] = useState(null);
 
-  useEffect(() => {
-    if (!title) {
-      setEditor(<div>Missing title</div>);
-      return;
-    }
-    if (process.env.NODE_ENV === "development") {
-      import("./EditorRoot").then((module) => {
-        let { EditorRoot } = module;
-
-        setEditor(
+  if (!title) {
+    return (
+      <div className="w-full h-full flex items-center justify-center">
+        Needs Title
+      </div>
+    );
+  }
+  return (
+    <>
+      <CoreContext.Provider value={core}>
+        {process.env.NODE_ENV === "development" ? (
           <div className=" absolute top-0 left-0 w-full h-full">
             {
               <EditorRoot
-                onCoreReady={onCoreReady}
-                preview={
-                  <>
-                    {/*  */}
-
-                    {children}
-                  </>
-                }
+                onCoreReady={({ core }) => {
+                  setCore(core);
+                }}
+                preview={<>{children}</>}
                 title={title}
               ></EditorRoot>
             }
           </div>
-        );
-      });
-    }
-  }, [title, children, onCoreReady]);
-
-  if (fullscreen) {
-    return children;
-  }
-  return (
-    <>{process.env.NODE_ENV === "development" ? editor : <>{children}</>}</>
+        ) : (
+          <>{children}</>
+        )}
+      </CoreContext.Provider>
+    </>
   );
 }

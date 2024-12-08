@@ -1,4 +1,11 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
 import md5 from "md5";
 import { create } from "zustand";
@@ -6,21 +13,29 @@ import { Emit } from "./Emit";
 import { getSignature } from "./tools/getSignature";
 import { usePopStore } from "./tools/usePopStore";
 import { CodeRun } from "./CodeRun";
+import { CoreContext } from "effectnode-developer-tools/effectnode-gui/editor-gui/EffectnodeGUI/EffectNodeStudio";
 
 const RunTimeStoreMap = new Map();
 const BoxDataMap = new Map();
 
 export function EffectNode({
-  projectName, //
+  projectName,
 
-  // optional for toolbox
   mode = "runtime",
   nodeID = false,
   useEditorStore = false,
 }) {
-  //
-  // projectName = projectName.toLowerCase();
-  //
+  const core = useContext(CoreContext);
+  if (core && core.store && !useEditorStore) {
+    useEditorStore = core.store;
+  }
+
+  if (useEditorStore) {
+    let store = useEditorStore.getState();
+    if (store.spaceID !== projectName) {
+      useEditorStore = false;
+    }
+  }
 
   let useAutoSaveData = useMemo(() => {
     let make = () => {

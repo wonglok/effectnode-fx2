@@ -10,7 +10,7 @@ import {
   // PerspectiveCamera,
 } from "@react-three/drei";
 import { useEffect, useRef, useState } from "react";
-import { Clock } from "three";
+// import { Clock } from "three";
 import { clone } from "three/examples/jsm/utils/SkeletonUtils";
 
 export function ToolBox({ projectName }) {

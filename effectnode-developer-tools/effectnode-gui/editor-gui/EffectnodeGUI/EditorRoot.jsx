@@ -42,8 +42,6 @@ export const Output2D = ({}) => {
 };
 
 export const EditorRoot = ({ title, preview, onCoreReady = () => {} }) => {
-  //
-
   let [val, setVal] = useState(
     <div className="w-full h-full flex items-center justify-center">
       <div className=" text-center">Loading...</div>
