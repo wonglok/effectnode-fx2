@@ -85,7 +85,7 @@ void main(void){
 
     brightness = abs(pow(pulse, 5.0)) * 5.0 + (cnoise(puv + time) * 0.5 + 0.5);
 
-    vec3 positionBall2 = fromBall(5.0, ballUV.x, ballUV.y);
+    vec3 positionBall2 = fromBall(8.0, ballUV.x, ballUV.y);
 
     vec3 pos = position * 15.0 * pow(pulse, 1.8) + positionBall2;
 
