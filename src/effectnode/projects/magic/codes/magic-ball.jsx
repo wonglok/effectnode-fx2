@@ -120,7 +120,10 @@ export function Runtime({ io, files, onLoop, useAutoSaveData, isEditing }) {
   });
 
   let mesh = useMemo(() => {
-    return <primitive object={new Mesh(geometry, shader)}></primitive>;
+    let mm = new Mesh(geometry, shader);
+
+    mm.frustumCulled = false;
+    return <primitive object={mm}></primitive>;
   }, [geometry, shader]);
 
   return (
