@@ -42,7 +42,10 @@ export function Runtime({ io, files, onLoop, useAutoSaveData, isEditing }) {
   const [countY, setStateY] = useState(512);
 
   useEffect(() => {
-    // return io.in0(() => {});
+    io.in(0, (config) => {
+      setStateX(config.countX);
+      setStateY(config.countY);
+    });
   }, [io]);
 
   let count = useMemo(() => {
@@ -164,6 +167,8 @@ function MoverGate({
       quaternion: quaternion.toArray(),
     };
   }, [moveData]);
+
+  // console.log(position);
 
   return isEditing &&
     show &&
