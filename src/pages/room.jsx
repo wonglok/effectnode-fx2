@@ -52,9 +52,8 @@ function PostProcessing() {
 
   return (
     <>
-      <EffectComposer multisampling={0}>
+      <EffectComposer resolutionScale={0.5} multisampling={0}>
         {/* <SSR
-          //
           ior={1.5}
           intensity={0.5}
           jitter={0.15}
@@ -66,7 +65,7 @@ function PostProcessing() {
 
         <N8AO quality="performance" intensity={2.5}></N8AO>
 
-        <Bloom mipmapBlur></Bloom>
+        <Bloom mipmapBlur width={512} height={512}></Bloom>
       </EffectComposer>
     </>
   );
