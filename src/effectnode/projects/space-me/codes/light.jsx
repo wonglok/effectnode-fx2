@@ -17,16 +17,22 @@ export function Runtime({ useAutoSaveData, io, files }) {
     <>
       {/*  */}
 
-      <MoverGate name="light2" useAutoSaveData={useAutoSaveData}>
-        <pointLight color={lightColor} intensity={intensity}></pointLight>
+      <MoverGate name="light2-plant" useAutoSaveData={useAutoSaveData}>
+        <pointLight
+          castShadow
+          shadow-bias={-0.0002}
+          color={lightColor}
+          intensity={intensity}
+        ></pointLight>
       </MoverGate>
 
-      <MoverGate name="light3" useAutoSaveData={useAutoSaveData}>
-        <pointLight color={lightColor} intensity={intensity}></pointLight>
-      </MoverGate>
-
-      <MoverGate name="light1-lamp" useAutoSaveData={useAutoSaveData}>
-        <pointLight color={lightColor} intensity={intensity}></pointLight>
+      <MoverGate name="light-lamp-2" useAutoSaveData={useAutoSaveData}>
+        <pointLight
+          castShadow
+          shadow-bias={-0.0002}
+          color={lightColor}
+          intensity={intensity}
+        ></pointLight>
       </MoverGate>
 
       <group>
@@ -85,7 +91,7 @@ function MoverGate({ name = "light1", useAutoSaveData, children }) {
       <Html center transform position={[0, 15, 0]} scale={2}>
         <button className="bg-white px-3 py-1">{name}</button>
       </Html>
-      <Html center transform position={[10, 0, 0]} scale={2}>
+      <Html center transform position={[20, 0, 0]} scale={2}>
         <button
           className="bg-white px-3 py-1"
           onClick={() => {
@@ -134,7 +140,7 @@ export function NodeBox({ useAutoSaveData }) {
         <GizmoMove useAutoSaveData={useAutoSaveData}></GizmoMove>
         <InputRange
           name={`intensity`}
-          max={200}
+          max={500}
           useAutoSaveData={useAutoSaveData}
         ></InputRange>
         <InputColor

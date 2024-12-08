@@ -5,11 +5,13 @@ import {
   Gltf,
   PivotControls,
   TransformControls,
+  useGLTF,
   // OrbitControls,
   // PerspectiveCamera,
 } from "@react-three/drei";
 import { useEffect, useRef, useState } from "react";
 import { Clock } from "three";
+import { clone } from "three/examples/jsm/utils/SkeletonUtils";
 
 export function ToolBox({ projectName }) {
   ///
@@ -38,6 +40,19 @@ export function Runtime({ io, files, onLoop }) {
   //   });
   // }, [io]);
 
+  let gltf = useGLTF(files["/env/interior.glb"]);
+
+  let cloned = clone(gltf.scene);
+
+  useEffect(() => {
+    cloned.traverse((it) => {
+      if (it.isMesh) {
+        it.castShadow = true;
+        it.receiveShadow = true;
+      }
+    });
+  }, [cloned]);
+
   return (
     <>
       {/* <group ref={ref}>
@@ -52,7 +67,7 @@ export function Runtime({ io, files, onLoop }) {
           console.log("clicked", ev.point.toArray(), ev.object.name);
         }}
       >
-        <Gltf src={files["/env/interior.glb"]}></Gltf>
+        <primitive object={cloned}></primitive>
       </group>
     </>
   );
