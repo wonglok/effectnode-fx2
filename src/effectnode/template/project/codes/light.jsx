@@ -1,82 +1,183 @@
-import { Environment, Html } from "@react-three/drei";
-import { useEffect } from "react";
+import { Box, Center, Html, PivotControls, Sphere } from "@react-three/drei";
+import { useMemo } from "react";
+import { Quaternion, Vector3 } from "three";
+import { Matrix4 } from "three";
 
 export function ToolBox({ useAutoSaveData }) {
-  let lightColor = useAutoSaveData((r) => r.lightColor) || "#ffffff";
-  let intensity = useAutoSaveData((r) => r.intensity) || 1;
-
-  return (
-    <>
-      <input
-        type="color"
-        value={lightColor}
-        onChange={(e) => {
-          useAutoSaveData.setState({ lightColor: e.target.value });
-        }}
-      ></input>
-      {/*  */}
-      <input
-        type="range"
-        min={0}
-        max={10}
-        step={0.01}
-        value={intensity}
-        onChange={(e) => {
-          useAutoSaveData.setState({ intensity: e.target.value });
-        }}
-      ></input>
-    </>
-  );
+  return <></>;
 }
 
 export function Runtime({ useAutoSaveData, io, files }) {
+  //
   let lightColor = useAutoSaveData((r) => r.lightColor) || "#ffffff";
   let intensity = useAutoSaveData((r) => r.intensity) || 1;
 
   //
   return (
     <>
-      <pointLight
-        intensity={intensity}
-        color={lightColor}
-        position={[-1.5, 0.5, 1]}
-      ></pointLight>
+      {/*  */}
+      <MoverGate name="light2-plant" useAutoSaveData={useAutoSaveData}>
+        <pointLight
+          castShadow
+          shadow-bias={-0.0002}
+          color={lightColor}
+          intensity={intensity}
+        ></pointLight>
+      </MoverGate>
+
+      <MoverGate name="light-lamp-2" useAutoSaveData={useAutoSaveData}>
+        <pointLight
+          castShadow
+          shadow-bias={-0.0002}
+          color={lightColor}
+          intensity={intensity}
+        ></pointLight>
+      </MoverGate>
+
+      <group>
+        <pointLight
+          intensity={intensity}
+          color={lightColor}
+          position={[22.0973094478636, -5.32978595305698, -20.045753251723227]}
+        ></pointLight>
+      </group>
+
+      {/*   */}
     </>
   );
 }
 
-//
+function MoverGate({ name = "light1", useAutoSaveData, children }) {
+  let moveData =
+    useAutoSaveData((r) => r[name]) || new Matrix4().identity().toArray();
+
+  let gizmo = useAutoSaveData((r) => r.gizmo) || false;
+  let { m4, position, scale, quaternion } = useMemo(() => {
+    let m4 = new Matrix4().fromArray(moveData);
+
+    let position = new Vector3(0, 0, 0);
+    let quaternion = new Quaternion().identity();
+    let scale = new Vector3(0, 0, 0);
+    m4.decompose(position, quaternion, scale);
+
+    return {
+      m4,
+      position: position.toArray(),
+      scale: scale.toArray(),
+      quaternion: quaternion.toArray(),
+    };
+  }, [moveData]);
+
+  return moveData && gizmo && process.env.NODE_ENV === "development" ? (
+    <PivotControls
+      matrix={m4}
+      scale={10}
+      onDrag={(ev) => {
+        useAutoSaveData.setState({
+          [name]: ev.toArray(),
+        });
+      }}
+    >
+      <group scale={scale}>{children}</group>
+      <Html center transform position={[0, 15, 0]} scale={2}>
+        <button className="bg-white px-3 py-1">{name}</button>
+      </Html>
+      <Html center transform position={[20, 0, 0]} scale={2}>
+        <button
+          className="bg-white px-3 py-1"
+          onClick={() => {
+            let ev = new Matrix4().identity();
+            ev.copyPosition(m4);
+            useAutoSaveData.setState({
+              [name]: ev.toArray(),
+            });
+          }}
+        >
+          Reset Pivot
+        </button>
+      </Html>
+    </PivotControls>
+  ) : (
+    <group position={position} scale={scale} quaternion={quaternion}>
+      {children}
+    </group>
+  );
+}
 
 export function NodeBox({ useAutoSaveData }) {
   return (
-    <Html
-      center
-      className="bg-white z-50"
-      position={[0, 0, 1]}
-      rotation={[Math.PI * 0.5, 0, 0]}
-      scale={[1, 1, 1]}
-    >
-      <div
-        onMouseDownCapture={(e) => {
-          e.stopPropagation();
+    <group rotation={[0, 0, 0]}>
+      <Center>
+        <Html
+          distanceFactor={5}
+          position={[1.25, 0.0, -0.35]}
+          className=" z-50"
+        >
+          <div
+            onMouseDownCapture={(e) => {
+              e.stopPropagation();
+            }}
+            onMouseMoveCapture={(e) => {
+              e.stopPropagation();
+            }}
+            onPointerDownCapture={(e) => {
+              e.stopPropagation();
+            }}
+            onPointerMoveCapture={(e) => {
+              e.stopPropagation();
+            }}
+            className="w-full h-full"
+          >
+            <GizmoMove useAutoSaveData={useAutoSaveData}></GizmoMove>
+            <InputRange
+              name={`intensity`}
+              max={500}
+              useAutoSaveData={useAutoSaveData}
+            ></InputRange>
+            <InputColor
+              name={`lightColor`}
+              useAutoSaveData={useAutoSaveData}
+            ></InputColor>
+          </div>
+        </Html>
+      </Center>
+    </group>
+  );
+}
+
+function GizmoMove({ useAutoSaveData }) {
+  let name = "gizmo";
+  let value = useAutoSaveData((r) => r[name]);
+  return (
+    <div>
+      {" Gismo: "}
+      <input
+        type="checkbox"
+        checked={value}
+        onChange={() => {
+          useAutoSaveData.setState({
+            [name]: !value,
+          });
         }}
-        onMouseMoveCapture={(e) => {
-          e.stopPropagation();
-        }}
-        onPointerDownCapture={(e) => {
-          e.stopPropagation();
-        }}
-        onPointerMoveCapture={(e) => {
-          e.stopPropagation();
-        }}
-        className="w-full h-full"
-      >
-        <InputRange
-          name={`intensity`}
-          useAutoSaveData={useAutoSaveData}
-        ></InputRange>
-      </div>
-    </Html>
+      ></input>
+    </div>
+  );
+}
+
+function InputColor({ name, useAutoSaveData }) {
+  let value = useAutoSaveData((r) => r[name]);
+
+  return (
+    <input
+      className=""
+      type="color"
+      value={value}
+      onChange={(va) => {
+        useAutoSaveData.setState({
+          [name]: va.target.value,
+        });
+      }}
+    />
   );
 }
 

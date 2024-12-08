@@ -63,8 +63,8 @@
       "title": "light",
       "metaData": {
         "baseColor": "#ffffff",
-        "intensity": "348.4",
-        "lightColor": "#c79323",
+        "intensity": "258.9",
+        "lightColor": "#e1ba66",
         "move": false,
         "light1": [
           0.9993393322328581,
@@ -209,8 +209,8 @@
       "title": "mesh",
       "metaData": {
         "baseColor": "#ffffff",
-        "intensity": "348.4",
-        "lightColor": "#c79323",
+        "intensity": "258.9",
+        "lightColor": "#e1ba66",
         "move": false,
         "light1": [
           0.9993393322328581,
@@ -331,9 +331,9 @@
         "_id": "_ck2nyne_fksh47i",
         "title": "light",
         "position": [
-          -2.984372585451906,
+          -3.7198069508116762,
           0,
-          -1.5067961488249058
+          -1.2646733739893665
         ],
         "inputs": [
           {

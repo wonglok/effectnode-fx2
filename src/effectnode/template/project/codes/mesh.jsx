@@ -1,61 +1,79 @@
 // import { Box, PerspectiveCamera } from "@react-three/drei";
 // import { useFrame } from "@react-three/fiber";
-import { Environment, PerspectiveCamera } from "@react-three/drei";
-import { Canvas } from "@react-three/fiber";
-import { EffectNode } from "effectnode-developer-tools/effectnode-runtime/EffectNode";
+import {
+  // Environment,
+  Gltf,
+  PivotControls,
+  TransformControls,
+  useGLTF,
+  // OrbitControls,
+  // PerspectiveCamera,
+} from "@react-three/drei";
 import { useEffect, useRef, useState } from "react";
 import { Clock } from "three";
+import { clone } from "three/examples/jsm/utils/SkeletonUtils";
 
 export function ToolBox({ projectName }) {
   ///
-  return (
-    <>
-      <Canvas>
-        <EffectNode projectName={projectName}></EffectNode>
-        <PerspectiveCamera
-          makeDefault
-          position={[0, 0, 2.5]}
-        ></PerspectiveCamera>
-
-        <Environment files={[`/hdr/studiolighting.hdr`]}></Environment>
-      </Canvas>
-    </>
-  );
+  return <>{/*  */}</>;
 }
 
-export function Runtime({ io, onLoop }) {
-  let ref = useRef();
+export function Runtime({ io, files, onLoop }) {
+  // let ref = useRef();
+
+  // useEffect(() => {
+  //   let clock = new Clock();
+  //   return onLoop(() => {
+  //     let dt = clock.getDelta();
+
+  //     if (ref.current) {
+  //       ref.current.rotation.y += dt * 1.0;
+  //     }
+  //   });
+  // }, [onLoop]);
+
+  // let [color, setColor] = useState("#ffffff");
+
+  // useEffect(() => {
+  //   io.in(0, (color) => {
+  //     setColor(color);
+  //   });
+  // }, [io]);
+
+  let gltf = useGLTF(files["/env/interior.glb"]);
+
+  let cloned = clone(gltf.scene);
 
   useEffect(() => {
-    let clock = new Clock();
-    return onLoop(() => {
-      let dt = clock.getDelta();
-
-      if (ref.current) {
-        ref.current.rotation.y += dt * 1.0;
+    cloned.traverse((it) => {
+      if (it.isMesh) {
+        it.castShadow = true;
+        it.receiveShadow = true;
       }
     });
-  }, [onLoop]);
-
-  let [color, setColor] = useState("#ffffff");
-
-  useEffect(() => {
-    io.in(0, (color) => {
-      setColor(color);
-    });
-  }, [io]);
+  }, [cloned]);
 
   return (
     <>
-      <group ref={ref}>
+      {/* <group ref={ref}>
         <mesh position={[0, 0, 0]}>
           <boxGeometry></boxGeometry>
           <meshStandardMaterial color={color}></meshStandardMaterial>
         </mesh>
+      </group> */}
+
+      <group
+        onClick={(ev) => {
+          console.log("clicked", ev.point.toArray(), ev.object.name);
+        }}
+      >
+        <primitive object={cloned}></primitive>
       </group>
     </>
   );
 }
+
+//
 
 //
 

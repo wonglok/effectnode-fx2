@@ -11,7 +11,7 @@ import {
   N8AO,
   SSAO,
 } from "@react-three/postprocessing";
-import { EditorShell } from "effectnode-developer-tools/effectnode-gui/editor-gui/EffectnodeGUI/EditorShell";
+import { EditorAutoHider } from "effectnode-developer-tools/effectnode-gui/editor-gui/EffectnodeGUI/EditorAutoHider";
 import { EffectNode } from "effectnode-developer-tools/effectnode-runtime/EffectNode";
 import { Suspense, useCallback, useState } from "react";
 
@@ -28,13 +28,13 @@ export default function Page() {
 
   return (
     <>
-      <EditorShell
+      <EditorAutoHider
         fullscreen={false}
         title="space-me"
         onCoreReady={onCoreReady}
       >
         {<Content core={core}></Content>}
-      </EditorShell>
+      </EditorAutoHider>
     </>
   );
 }
@@ -56,7 +56,7 @@ function Content({ core = { store: false } }) {
           <Environment files={[`/hdr/studiolighting.hdr`]}></Environment>
         </Suspense>
 
-        {/* <PostProcessing></PostProcessing> */}
+        <PostProcessing></PostProcessing>
 
         <OrbitControls object-position={[0, 0, 5]} makeDefault></OrbitControls>
       </Canvas>
@@ -81,27 +81,27 @@ function Content({ core = { store: false } }) {
   );
 }
 
-// function PostProcessing() {
-//   //
-//   let scene = useThree((s) => s.scene);
-//   let camera = useThree((s) => s.camera);
+function PostProcessing() {
+  //
+  let scene = useThree((s) => s.scene);
+  let camera = useThree((s) => s.camera);
 
-//   return (
-//     <>
-//       <EffectComposer multisampling={0}>
-//         <SSR
-//           //
-//           ior={2.48}
-//           intensity={0.5}
-//           jitter={0.15}
-//           scene={scene}
-//           camera={camera}
-//         ></SSR>
+  return (
+    <>
+      <EffectComposer multisampling={0}>
+        <SSR
+          //
+          ior={1.5}
+          intensity={0.5}
+          jitter={0.15}
+          scene={scene}
+          camera={camera}
+        ></SSR>
 
-//         <N8AO quality="performance" intensity={3}></N8AO>
+        <N8AO quality="performance" intensity={3}></N8AO>
 
-//         <Bloom mipmapBlur></Bloom>
-//       </EffectComposer>
-//     </>
-//   );
-// }
+        <Bloom mipmapBlur></Bloom>
+      </EffectComposer>
+    </>
+  );
+}

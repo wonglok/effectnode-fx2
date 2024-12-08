@@ -1,4 +1,4 @@
-import { Box, Html, PivotControls } from "@react-three/drei";
+import { Box, Center, Html, PivotControls, Sphere } from "@react-three/drei";
 import { useMemo } from "react";
 import { Quaternion, Vector3 } from "three";
 import { Matrix4 } from "three";
@@ -106,35 +106,41 @@ function MoverGate({ name = "light1", useAutoSaveData, children }) {
 
 export function NodeBox({ useAutoSaveData }) {
   return (
-    <group rotation={[Math.PI * -0.5, 0, 0]}>
-      <Html distanceFactor={5} position={[1.2, 0.4, 0]} className=" z-50">
-        <div
-          onMouseDownCapture={(e) => {
-            e.stopPropagation();
-          }}
-          onMouseMoveCapture={(e) => {
-            e.stopPropagation();
-          }}
-          onPointerDownCapture={(e) => {
-            e.stopPropagation();
-          }}
-          onPointerMoveCapture={(e) => {
-            e.stopPropagation();
-          }}
-          className="w-full h-full"
+    <group rotation={[0, 0, 0]}>
+      <Center>
+        <Html
+          distanceFactor={5}
+          position={[1.25, 0.0, -0.35]}
+          className=" z-50"
         >
-          <GizmoMove useAutoSaveData={useAutoSaveData}></GizmoMove>
-          <InputRange
-            name={`intensity`}
-            max={500}
-            useAutoSaveData={useAutoSaveData}
-          ></InputRange>
-          <InputColor
-            name={`lightColor`}
-            useAutoSaveData={useAutoSaveData}
-          ></InputColor>
-        </div>
-      </Html>
+          <div
+            onMouseDownCapture={(e) => {
+              e.stopPropagation();
+            }}
+            onMouseMoveCapture={(e) => {
+              e.stopPropagation();
+            }}
+            onPointerDownCapture={(e) => {
+              e.stopPropagation();
+            }}
+            onPointerMoveCapture={(e) => {
+              e.stopPropagation();
+            }}
+            className="w-full h-full"
+          >
+            <GizmoMove useAutoSaveData={useAutoSaveData}></GizmoMove>
+            <InputRange
+              name={`intensity`}
+              max={500}
+              useAutoSaveData={useAutoSaveData}
+            ></InputRange>
+            <InputColor
+              name={`lightColor`}
+              useAutoSaveData={useAutoSaveData}
+            ></InputColor>
+          </div>
+        </Html>
+      </Center>
     </group>
   );
 }
