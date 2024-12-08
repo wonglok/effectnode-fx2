@@ -83,13 +83,14 @@ void main(void){
     ballUV.x += cnoise(ball.xy + time);
     ballUV.y += cnoise(ball.xy + time);
 
+    brightness = abs(pow(pulse, 5.0)) * 5.0 + (cnoise(puv + time) * 0.5 + 0.5);
+
     vec3 positionBall2 = fromBall(5.0, ballUV.x, ballUV.y);
-    
+
     vec3 pos = position * 15.0 * pow(pulse, 1.8) + positionBall2;
 
-    vDistribution = vec3(ball);
 
-    brightness = abs(pow(pulse, 5.0)) * 5.0 + (cnoise(puv + time) * 0.5 + 0.5);
+    vDistribution = vec3(ball);
 
     gl_Position = projectionMatrix * modelViewMatrix * vec4(pos,1.0);
 }
