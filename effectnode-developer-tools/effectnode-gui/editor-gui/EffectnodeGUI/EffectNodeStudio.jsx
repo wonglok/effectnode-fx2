@@ -1,47 +1,65 @@
 import { createContext, useEffect, useState } from "react";
 import { EditorRoot } from "./EditorRoot";
 import { TitleTunnelIn } from "./EditorApp/EditorApp";
+import { usePopStore } from "effectnode-developer-tools/effectnode-runtime/tools/usePopStore";
 export const CoreContext = createContext(null);
 
-export function EffectNodeStudio({ projectTitle = "", children }) {
+export function EffectNodeStudio({ projectName = "", children }) {
+  let [title, setTitle] = useState(projectName);
+  let projects = usePopStore((r) => r.projects);
+
+  // console.log(projects);
   const [core, setCore] = useState(null);
 
-  if (!projectTitle) {
+  if (process.env.NODE_ENV !== "development") {
+    return children;
+  }
+
+  if (!projectName) {
     return (
       <div className="w-full h-full flex items-center justify-center">
-        Needs Title
+        Please Specfiy Project Title
       </div>
     );
   }
   return (
     <>
       <TitleTunnelIn>
-        {/* {titles &&
-          titles.map((r) => {
+        <span className="mx-2">{`|`}</span>
+        <span className="mr-2">{`Other Projects 🫱🏻`}</span>
+
+        {projects &&
+          projects.map((r, i) => {
+            // let isLast = i === projects.length - 1;
             return (
-              <div key={r.name + "title"} className="mx-2">
-                {r.name}
+              <div key={r._id + "title"} className="">
+                <span
+                  onClick={() => {
+                    setTitle(r.title);
+                  }}
+                  className="underline bg-gray-100 p-1 px-2 mr-1"
+                >
+                  {r.projectName}
+                </span>
               </div>
             );
-          })} */}
+          })}
       </TitleTunnelIn>
-      <CoreContext.Provider value={core}>
-        {process.env.NODE_ENV === "development" ? (
-          <div className=" absolute top-0 left-0 w-full h-full">
-            {
+      {
+        <div className=" absolute top-0 left-0 w-full h-full">
+          {
+            <CoreContext.Provider value={core}>
               <EditorRoot
                 onCoreReady={({ core }) => {
                   setCore(core);
                 }}
                 preview={<>{children}</>}
-                title={projectTitle}
+                title={title}
               ></EditorRoot>
-            }
-          </div>
-        ) : (
-          <>{children}</>
-        )}
-      </CoreContext.Provider>
+            </CoreContext.Provider>
+          }
+        </div>
+      }
     </>
   );
 }

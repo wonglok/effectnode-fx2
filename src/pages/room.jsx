@@ -6,12 +6,10 @@ import { EffectNodeStudio } from "effectnode-developer-tools/effectnode-gui/edit
 import { EffectNode } from "effectnode-developer-tools/effectnode-runtime/EffectNode";
 import { Suspense } from "react";
 
-//
-
 export default function Page() {
   return (
     <>
-      <EffectNodeStudio projectTitle="magic">
+      <EffectNodeStudio projectName="magic">
         <div className="w-full h-full relative">
           <Canvas shadows={"basic"}>
             <Suspense fallback={null}>

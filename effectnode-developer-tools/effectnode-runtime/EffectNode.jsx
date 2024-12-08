@@ -7,7 +7,6 @@ import {
   useState,
 } from "react";
 
-import md5 from "md5";
 import { create } from "zustand";
 import { Emit } from "./Emit";
 import { getSignature } from "./tools/getSignature";
@@ -25,10 +24,13 @@ export function EffectNode({
   nodeID = false,
   useEditorStore = false,
 }) {
+  //
   const core = useContext(CoreContext);
   if (core && core.store && !useEditorStore) {
     useEditorStore = core.store;
   }
+
+  //
 
   if (useEditorStore) {
     let store = useEditorStore.getState();
