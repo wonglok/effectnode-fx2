@@ -49,10 +49,6 @@ export function Runtime({ io, files, onLoop }) {
     //
     let box = new ConeGeometry(0.005, 0.005, 3, 1);
 
-    box.rotateX(Math.PI * Math.random());
-    box.rotateY(Math.PI * Math.random());
-    box.rotateZ(Math.PI * Math.random());
-
     return box.toNonIndexed();
   }, []);
 
@@ -68,6 +64,7 @@ export function Runtime({ io, files, onLoop }) {
 
   let geometry = useMemo(() => {
     let offsets = [];
+    let rot = [];
     let puv = [];
     let idx = [];
 
@@ -80,6 +77,10 @@ export function Runtime({ io, files, onLoop }) {
         offsets.push(Math.random() * 10 - 5.0);
         offsets.push(Math.random() * 10 - 5.0);
 
+        rot.push(Math.PI * Math.random());
+        rot.push(Math.PI * Math.random());
+        rot.push(Math.PI * Math.random());
+
         idx.push(ii);
         ii++;
       }
@@ -88,6 +89,10 @@ export function Runtime({ io, files, onLoop }) {
     geometryBase.setAttribute(
       "offsets",
       new InstancedBufferAttribute(new Float32Array(offsets), 3)
+    );
+    geometryBase.setAttribute(
+      "rot",
+      new InstancedBufferAttribute(new Float32Array(rot), 3)
     );
     geometryBase.setAttribute(
       "puv",

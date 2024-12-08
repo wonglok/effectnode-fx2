@@ -30,7 +30,6 @@ export function EffectNodeStudio({ projectName = "", children }) {
 
         {projects &&
           projects.map((r, i) => {
-            // let isLast = i === projects.length - 1;
             return (
               <div key={r._id + "title"} className="">
                 <span

@@ -1,11 +1,13 @@
 #include <common>
 
+attribute vec3 rot;
 attribute vec3 offsets;
 attribute vec2 puv;
 
 uniform float time;
-varying float ra;
+varying float brightness;
 varying vec3 vDistribution;
+
 
 #define M_PI 3.1415926535897932384626433832795
 
@@ -74,13 +76,12 @@ void main(void){
     float pulse = cnoise(puv + time) * 0.5 + 0.5;
 
     vec3 ball = fromBall(5.3 * puv.x + sin(pulse + puv.y), puv.x * M_PI * 2.0 , puv.y * M_PI * 2.0 );
-    
 
-    vec3 pos = position * pulse * 4.0 + ball;
+    vec3 pos = position * pulse * 5.0 + ball;
 
     vDistribution = vec3(ball);
 
-    ra = abs(pow(pulse, 5.0)) * 5.0;
+    brightness = abs(pow(pulse, 5.0)) * 5.0 + cnoise(puv + time) * 0.5 + 0.5;
 
     gl_Position = projectionMatrix * modelViewMatrix * vec4(pos,1.0);
 }
