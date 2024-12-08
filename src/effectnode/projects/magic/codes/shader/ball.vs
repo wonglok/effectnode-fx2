@@ -75,7 +75,7 @@ void main(void){
 
     float pulse = cnoise(puv + time) * 0.5 + 0.5;
 
-    vec3 ball = fromBall(5.3 * puv.x + sin(pulse + puv.y), puv.x * M_PI * 2.0 , puv.y * M_PI * 2.0 );
+    vec3 ball = fromBall(5.3 * sin(pulse + puv.y) * sin(pulse + puv.x), puv.x * M_PI * 2.0 , puv.y * M_PI * 2.0 );
 
     vec3 pos = position * pulse * 5.0 + ball;
 
