@@ -23,7 +23,7 @@ export default function Page() {
   return (
     <>
       <EditorShell title="space-me" onCoreReady={onCoreReady}>
-        {core && <Content core={core}></Content>}
+        {<Content core={core}></Content>}
       </EditorShell>
       {/*  */}
     </>
@@ -39,7 +39,7 @@ function Content({ core }) {
       <Canvas shadows>
         <Suspense fallback={null}>
           <EffectNode
-            useEditorStore={core.store}
+            useEditorStore={core?.store}
             projectName={"space-me"}
           ></EffectNode>
 
@@ -60,6 +60,7 @@ function Content({ core }) {
         <div className="bg-white p-1 px-3">
           <a
             className="underline"
+            target="_blank"
             href={`https://www.fab.com/listings/a926d36d-6460-4c6e-8aaa-c22667cb075f`}
           >
             Scene Credit

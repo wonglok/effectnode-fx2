@@ -63,7 +63,7 @@
       "title": "light",
       "metaData": {
         "baseColor": "#ffffff",
-        "intensity": "210",
+        "intensity": "178.4",
         "lightColor": "#ffe5ad",
         "move": false,
         "light1": [
@@ -209,7 +209,7 @@
       "title": "mesh",
       "metaData": {
         "baseColor": "#ffffff",
-        "intensity": "210",
+        "intensity": "178.4",
         "lightColor": "#ffe5ad",
         "move": false,
         "light1": [
@@ -405,9 +405,9 @@
         "_id": "_p0j5ukb_",
         "title": "mesh",
         "position": [
-          1.6778521149607182,
+          1.3676909709103675,
           0,
-          -0.5552803280563302
+          0.369972204426078
         ],
         "inputs": [
           {
