@@ -88,7 +88,7 @@ function PostProcessing() {
 
   return (
     <>
-      <EffectComposer multisampling={0}>
+      <EffectComposer>
         <SSR
           //
           ior={1.5}

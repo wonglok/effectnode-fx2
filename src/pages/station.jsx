@@ -46,12 +46,18 @@ function Content({ name, core = { store: false } }) {
             projectName={name}
           ></EffectNode>
 
-          <Environment files={[`/hdr/studiolighting.hdr`]}></Environment>
+          <Environment
+            files={[`/hdr/autumn_field_puresky_1k.hdr`]}
+          ></Environment>
         </Suspense>
 
         <PostProcessing></PostProcessing>
 
-        <OrbitControls object-position={[0, 0, 5]} makeDefault></OrbitControls>
+        <OrbitControls
+          object-position={[0, 1.5, 5]}
+          target={[0, 1.5, 0]}
+          makeDefault
+        ></OrbitControls>
       </Canvas>
 
       {/*  */}

@@ -1,6 +1,7 @@
 // import { Box, PerspectiveCamera } from "@react-three/drei";
 // import { useFrame } from "@react-three/fiber";
 import {
+  Center,
   useGLTF,
   // OrbitControls,
   // PerspectiveCamera,
@@ -35,7 +36,7 @@ export function Runtime({ io, files, onLoop }) {
   //   });
   // }, [io]);
 
-  let gltf = useGLTF(files["/env/interior.glb"]);
+  let gltf = useGLTF(files["/env/cmd-center.glb"]);
 
   let cloned = clone(gltf.scene);
 
@@ -61,8 +62,11 @@ export function Runtime({ io, files, onLoop }) {
         onClick={(ev) => {
           console.log("clicked", ev.point.toArray(), ev.object.name);
         }}
+        rotation={[0, Math.PI * -0.5, 0]}
       >
-        <primitive object={cloned}></primitive>
+        <Center>
+          <primitive object={cloned}></primitive>
+        </Center>
       </group>
     </>
   );

@@ -16,7 +16,7 @@ export function Runtime({ useAutoSaveData, io, files }) {
   return (
     <>
       {/*  */}
-      <MoverGate name="light2-plant" useAutoSaveData={useAutoSaveData}>
+      {/* <MoverGate name="light2-plant" useAutoSaveData={useAutoSaveData}>
         <pointLight
           castShadow
           shadow-bias={-0.0002}
@@ -32,15 +32,15 @@ export function Runtime({ useAutoSaveData, io, files }) {
           color={lightColor}
           intensity={intensity}
         ></pointLight>
-      </MoverGate>
+      </MoverGate> */}
 
-      <group>
+      {/* <group>
         <pointLight
           intensity={intensity}
           color={lightColor}
           position={[22.0973094478636, -5.32978595305698, -20.045753251723227]}
         ></pointLight>
-      </group>
+      </group> */}
 
       {/*   */}
     </>
