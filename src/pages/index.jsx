@@ -4,29 +4,44 @@ import { Canvas, useThree } from "@react-three/fiber";
 import { Bloom, EffectComposer, FXAA, N8AO } from "@react-three/postprocessing";
 import { EditorShell } from "effectnode-developer-tools/effectnode-gui/editor-gui/EffectnodeGUI/EditorShell";
 import { EffectNode } from "effectnode-developer-tools/effectnode-runtime/EffectNode";
-import { Suspense } from "react";
+import { Suspense, useCallback, useState } from "react";
 // import { SSR } from "../vendor/r3f-postprocessing/dist/effects/SSR/index";
 
 //
 
 export default function Page() {
+  let [core, setCore] = useState(null);
+
+  let onCoreReady = useCallback(
+    ({ core }) => {
+      console.log("core", core);
+      setCore(core);
+    },
+    [setCore]
+  );
+
   return (
     <>
-      <EditorShell title="space-me">
-        <Content></Content>
+      <EditorShell title="space-me" onCoreReady={onCoreReady}>
+        {core && <Content core={core}></Content>}
       </EditorShell>
       {/*  */}
     </>
   );
-  //
 }
 
-function Content({}) {
+function Content({ core }) {
+  //
+
+  //
   return (
     <div className="w-full h-full relative">
       <Canvas shadows>
         <Suspense fallback={null}>
-          <EffectNode projectName={"space-me"}></EffectNode>
+          <EffectNode
+            useEditorStore={core.store}
+            projectName={"space-me"}
+          ></EffectNode>
           <Environment files={[`/hdr/studiolighting.hdr`]}></Environment>
         </Suspense>
 
@@ -38,6 +53,12 @@ function Content({}) {
           makeDefault
         ></OrbitControls>
       </Canvas>
+      {/*  */}
+
+      {/*  */}
+
+      {/*  */}
+
       <div className=" absolute bottom-0 left-0 px-3 py-3">
         <div className="bg-white p-1 px-3">
           <a

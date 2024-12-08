@@ -307,7 +307,11 @@ export function CodeRun({
 
       tt: 0,
       saveBoxData: () => {
-        if (mode === "toolbox" || mode === "node") {
+        if (
+          mode === "toolbox" ||
+          mode === "node" ||
+          (mode === "runtime" && useEditorStore)
+        ) {
           console.log("[OK] Saving in Toolbox Phase");
           let diskSettings = useEditorStore.getState().settings;
           let diskSetting = diskSettings.find((r) => r.nodeID === nodeID);
@@ -324,26 +328,27 @@ export function CodeRun({
             });
           }, 300);
         }
-        if (mode === "runtime") {
-          if (process.env.NODE_ENV === "development") {
-            console.log("cant saveBoxData in runtime");
-          }
+
+        if (mode === "runtime" && !useEditorStore) {
+          console.log("missing useEditorStore");
         }
+        // if (mode === "runtime") {
+        //   if (process.env.NODE_ENV === "development") {
+        //     console.log("cant saveBoxData in runtime");
+        //   }
+        // }
       },
     };
 
     return eAPI;
-  }, [mode, nodeID]);
+  }, [mode, nodeID, useEditorStore]);
 
   useEffect(() => {
     useAutoSaveData.setState({ ...extendAPI.boxData });
   }, [extendAPI, useAutoSaveData]);
 
-  //useAutoSaveData
   useEffect(() => {
-    if (mode === "runtime") {
-      return;
-    }
+    //
 
     let timer = 0;
     return useAutoSaveData.subscribe((now, b4) => {

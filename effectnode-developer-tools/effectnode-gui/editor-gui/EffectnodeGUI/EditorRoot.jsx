@@ -41,7 +41,7 @@ export const Output2D = ({}) => {
   );
 };
 
-export const EditorRoot = ({ title, preview }) => {
+export const EditorRoot = ({ title, preview, onCoreReady = () => {} }) => {
   //
 
   let [val, setVal] = useState(
@@ -61,6 +61,7 @@ export const EditorRoot = ({ title, preview }) => {
     }
 
     let core = new EditorCore();
+    onCoreReady({ core });
 
     core.setState({
       spaceID: title,

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export function EditorShell({ title, children }) {
+export function EditorShell({ title, children, onCoreReady = () => {} }) {
   let [editor, setEditor] = useState(null);
 
   useEffect(() => {
@@ -16,6 +16,7 @@ export function EditorShell({ title, children }) {
           <div className=" absolute top-0 left-0 w-full h-full">
             {
               <EditorRoot
+                onCoreReady={onCoreReady}
                 preview={
                   <>
                     {/*  */}
@@ -30,7 +31,7 @@ export function EditorShell({ title, children }) {
         );
       });
     }
-  }, [title, children]);
+  }, [title, children, onCoreReady]);
 
   return (
     <>{process.env.NODE_ENV === "development" ? editor : <>{children}</>}</>
