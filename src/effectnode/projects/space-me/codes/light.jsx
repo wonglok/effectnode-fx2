@@ -25,6 +25,10 @@ export function Runtime({ useAutoSaveData, io, files }) {
         <pointLight color={lightColor} intensity={intensity}></pointLight>
       </MoverGate>
 
+      <MoverGate name="light1-lamp" useAutoSaveData={useAutoSaveData}>
+        <pointLight color={lightColor} intensity={intensity}></pointLight>
+      </MoverGate>
+
       <group>
         {/* <pointLight
           intensity={intensity}
@@ -78,6 +82,9 @@ function MoverGate({ name = "light1", useAutoSaveData, children }) {
       }}
     >
       <group scale={scale}>{children}</group>
+      <Html center transform position={[0, 15, 0]} scale={2}>
+        <button className="bg-white px-3 py-1">{name}</button>
+      </Html>
       <Html center transform position={[10, 0, 0]} scale={2}>
         <button
           className="bg-white px-3 py-1"
