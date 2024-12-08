@@ -63,7 +63,7 @@
       "title": "light",
       "metaData": {
         "baseColor": "#ffffff",
-        "intensity": "126.7",
+        "intensity": "210",
         "lightColor": "#ffe5ad",
         "move": false,
         "light1": [
@@ -102,7 +102,7 @@
           -26.34963401666557,
           1
         ],
-        "gizmo": true,
+        "gizmo": false,
         "light3": [
           1,
           0,
@@ -209,7 +209,7 @@
       "title": "mesh",
       "metaData": {
         "baseColor": "#ffffff",
-        "intensity": "126.7",
+        "intensity": "210",
         "lightColor": "#ffe5ad",
         "move": false,
         "light1": [
@@ -248,7 +248,7 @@
           -26.34963401666557,
           1
         ],
-        "gizmo": true,
+        "gizmo": false,
         "light3": [
           1,
           0,
