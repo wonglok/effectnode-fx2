@@ -67,11 +67,11 @@ export function OneCard({ data }) {
 
         <div className="absolute bottom-0 left-0 w-full ">
           <div className="p-4 sm:p-6">
-            <a href="#" className="mb-2 inline-block">
+            <span className="mb-2 inline-block">
               <h3 className="mt-0.5 text-lg text-white">
                 {data.title || `My Title`}
               </h3>
-            </a>
+            </span>
 
             <span className="block text-xs text-white/90">
               Created: {moment(new Date(data.createdAt)).format("YYYY-M-D")}
@@ -94,13 +94,13 @@ export function OneCard({ data }) {
                 </p>
             */}
 
-            <div className="text-right w-full">
+            {/* <div className="text-right w-full">
               <Link href={`/dev/projects/${data.title}`}>
                 <button className="text-white/95 text-sm p-4 py-1 border border-white rounded-lg hover:bg-gray-800 transition-colors duration-300">
                   Enter
                 </button>
               </Link>
-            </div>
+            </div> */}
           </div>
         </div>
       </article>

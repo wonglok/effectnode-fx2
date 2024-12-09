@@ -11,6 +11,9 @@ export default function Index() {
         <Link className=" px-4 py-1 bg-gray-200 inline-block mx-2" href="/ball">
           Ball
         </Link>
+        <Link className=" px-4 py-1 bg-gray-200 inline-block mx-2" href="/ball">
+          Hair
+        </Link>
       </div>
     </>
   );
