@@ -20,9 +20,9 @@ void main (void) {
 
     vec3 center = vec3(0.0, 0.0, 0.0);
 
-    vec3 dir = normalize(center - posColor.rgb);
+    vec3 dir = -normalize(posColor.rgb - center);
 
-    velColor.rgb += dir * dt * 0.1;
+    velColor.rgb += dir / pow(length(dir), 2.0) * dt * 0.1;
 
     gl_FragColor = vec4(velColor.rgb, 1.0);
 }

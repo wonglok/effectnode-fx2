@@ -119,6 +119,7 @@ export function Runtime({ io, files, onLoop }) {
     ({ material }) => {
       //
       material.uniforms.time = { value: 0.0 };
+      material.uniforms.dt = { value: 0.0 };
 
       material.uniforms.uResolution = { value: new Vector2(resX, resY) };
 
@@ -191,8 +192,13 @@ export function Runtime({ io, files, onLoop }) {
     //
   }, [gpu, varPosition, varVelocity]);
 
-  useFrame(() => {
+  useFrame((st, dt) => {
     gpu.compute();
+
+    varPosition.material.uniforms.time.value += dt;
+    varVelocity.material.uniforms.time.value += dt;
+    varPosition.material.uniforms.dt.value = dt;
+    varVelocity.material.uniforms.dt.value = dt;
   });
 
   useEffect(() => {
