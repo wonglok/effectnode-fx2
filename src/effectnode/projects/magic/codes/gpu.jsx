@@ -33,6 +33,7 @@ import { FloatType, Vector2 } from "three";
 import { GPUComputationRenderer } from "three-stdlib";
 import texturePosition from "./compute/texturePosition.fs";
 import textureVelocity from "./compute/textureVelocity.fs";
+import textureLifeCycle from "./compute/textureLifeCycle.fs";
 
 export function ToolBox({ projectName }) {
   ///
@@ -158,10 +159,10 @@ export function Runtime({ io, files, onLoop }) {
     let initTexture = gpu.createTexture();
 
     for (let i = 0; i < countX * countY * countZ; i++) {
-      initTexture.image.data[i * 4 + 0] = (Math.random() - 0.5) * 0.1;
-      initTexture.image.data[i * 4 + 1] = (Math.random() - 0.5) * 0.1;
-      initTexture.image.data[i * 4 + 2] = (Math.random() - 0.5) * 0.1;
-      initTexture.image.data[i * 4 + 3] = (Math.random() - 0.5) * 0.1;
+      initTexture.image.data[i * 4 + 0] = (Math.random() - 0.5) * 0.0;
+      initTexture.image.data[i * 4 + 1] = (Math.random() - 0.5) * 0.0;
+      initTexture.image.data[i * 4 + 2] = (Math.random() - 0.5) * 0.0;
+      initTexture.image.data[i * 4 + 3] = Math.random() * 2.0 - 1.0;
     }
 
     initTexture.needsUpdate = true;
@@ -177,28 +178,57 @@ export function Runtime({ io, files, onLoop }) {
     return { initTexture, variable, material };
   }, [countX, countY, countZ, gpu, applyUniforms]);
 
+  const varLifeCycle = useMemo(() => {
+    let initTexture = gpu.createTexture();
+
+    for (let i = 0; i < countX * countY * countZ; i++) {
+      initTexture.image.data[i * 4 + 0] = (Math.random() - 0.5) * 0.001;
+      initTexture.image.data[i * 4 + 1] = (Math.random() - 0.5) * 0.001;
+      initTexture.image.data[i * 4 + 2] = (Math.random() - 0.5) * 0.001;
+      initTexture.image.data[i * 4 + 3] = 0.0;
+    }
+
+    initTexture.needsUpdate = true;
+
+    let variable = gpu.addVariable(
+      "textureLifeCycle",
+      textureLifeCycle,
+      initTexture
+    );
+
+    let material = applyUniforms({ material: variable.material });
+
+    return { initTexture, variable, material };
+  }, [countX, countY, countZ, gpu, applyUniforms]);
+
   useMemo(() => {
     gpu.setVariableDependencies(varPosition.variable, [
       varPosition.variable,
       varVelocity.variable,
+      varLifeCycle.variable,
     ]);
     gpu.setVariableDependencies(varVelocity.variable, [
       varPosition.variable,
       varVelocity.variable,
     ]);
+    gpu.setVariableDependencies(varLifeCycle.variable, [
+      varPosition.variable,
+      //
+      //
+    ]);
 
     gpu.init();
 
     //
-  }, [gpu, varPosition, varVelocity]);
+  }, [gpu, varLifeCycle.variable, varPosition.variable, varVelocity.variable]);
 
   useFrame((st, dt) => {
     gpu.compute();
 
-    varPosition.material.uniforms.time.value += dt;
-    varVelocity.material.uniforms.time.value += dt;
-    varPosition.material.uniforms.dt.value = dt;
-    varVelocity.material.uniforms.dt.value = dt;
+    varPosition.material.uniforms.time.value += 0.01;
+    varVelocity.material.uniforms.time.value += 0.01;
+    varPosition.material.uniforms.dt.value = 0.01;
+    varVelocity.material.uniforms.dt.value = 0.01;
   });
 
   useEffect(() => {

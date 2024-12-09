@@ -4,6 +4,7 @@ uniform vec2 uResolution;
 uniform sampler2D uvTex;
 uniform sampler2D xyzTex;
 uniform float time;
+uniform float dt;
 
 
 
@@ -171,6 +172,7 @@ float cnoise(vec3 P)
   return 2.2 * n_xyz;
 }
 
+uniform sampler2D textureLifeCycle;
 
 void main (void) {
 
@@ -179,15 +181,19 @@ void main (void) {
 
     vec4 uvColor = texture2D(uvTex, uv);
     vec4 xyzColor = texture2D(xyzTex, uv);
-    vec4 velColor = texture2D(textureVelocity, uv);
     vec4 posColor = texture2D(texturePosition, uv);
-    vec4 lifeColor = texture2D(textureLifeCycle, uv);
+    vec4 lifeColor = texture2D(textureLifeCycle, uvColor.xy);
 
-    posColor.rgb += velColor.rgb;
-
-    if (lifeColor.w <= 0.0) {
-        posColor.xyz = vec3(rand(uv + xyzColor.x) * 2.0 - 1.0, rand(uv + xyzColor.y) * 2.0 - 1.0, rand(uv + xyzColor.z) * 2.0 - 1.0);
+    lifeColor.a += rand(vec2(uv));
+    
+    if (lifeColor.a >= 1.0 || posColor.y <= -8.0) {
+        lifeColor.a = -1.0;
     }
 
-    gl_FragColor = posColor;
+    gl_FragColor = lifeColor;
 }
+
+//
+
+
+//

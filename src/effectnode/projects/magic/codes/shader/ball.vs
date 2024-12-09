@@ -137,15 +137,9 @@ void main(void){
 
     vec3 positionBall2 = fromBall(8.0, ballUV.x, ballUV.y);
 
-    float speed = length(dataVelocity.rgb);
-    if (speed <= 0.1) {
-        speed = 0.1;
-    }
+    vec3 pos = position * 15.0 + dataPosition.xyz;// + positionBall2;
 
-    vec3 pos = position * 5.0 * pow(pulse, 1.8) * (1.0 / speed) + dataPosition.xyz;// + positionBall2;
-
-
-    vDistribution = vec3(ball);
+    vDistribution = normalize(pos);
 
     gl_Position = projectionMatrix * modelViewMatrix * vec4(pos,1.0);
 

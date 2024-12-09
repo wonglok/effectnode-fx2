@@ -50,7 +50,7 @@ void main(void){
     
     gl_FragColor = vec4(1.0);
 
-    gl_FragColor.rgb = vec3(brightness) * vec3(normalize(dataVelocity.rgb) * rotation3dX(dataPosition.x) * rotation3dY(dataPosition.y) * rotation3dZ(dataPosition.z) * 0.5 + 0.5);
+    gl_FragColor.rgb = vec3(brightness) * vec3(vec3(0.0, 1.0, 0.0) * rotation3dX(dataPosition.x) * rotation3dY(dataPosition.y) * rotation3dZ(dataPosition.z) * 0.5 + 0.5);
 }
 
 // 

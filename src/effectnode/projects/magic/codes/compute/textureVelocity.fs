@@ -216,17 +216,10 @@ void main (void) {
 
     vec4 uvColor = texture2D(uvTex, uv);
     vec4 xyzColor = texture2D(xyzTex, uv);
-
     vec4 posColor = texture2D(texturePosition, uv);
     vec4 velColor = texture2D(textureVelocity, uv);
 
-    vec3 center = vec3(0.0, 0.0, 0.0);
-
-    vec3 dir = -normalize(posColor.rgb - center);
-
-    velColor.r = cnoise(posColor.rgb * 0.2 + time + cnoise(0.1 * xyzColor.rgb + 0.1));
-    velColor.y = cnoise(posColor.rgb * 0.2 + time + cnoise(0.1 * xyzColor.rgb - 0.0));
-    velColor.z = cnoise(posColor.rgb * 0.2 + time + cnoise(0.1 * xyzColor.rgb - 0.1));
+    velColor.y = -1.0 * rand(vec2(uv)) * dt;
 
     gl_FragColor = vec4(velColor.rgb, 1.0);
 }
