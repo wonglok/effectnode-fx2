@@ -57,6 +57,7 @@ void main() {
 
 
     vTransformed = transformed;
+    vTransformed.y = schema.y / ty;
     //
 
     #include <morphtarget_vertex>
