@@ -109,7 +109,7 @@ void main() {
 	#include <aomap_fragment>
 	vec3 totalDiffuse = reflectedLight.directDiffuse + reflectedLight.indirectDiffuse;
 	
-	totalDiffuse.y *= vTransformed.y * 2.0 - 1.0;
+	totalDiffuse.y = vTransformed.y * 0.5 + 0.5;
 	
 	vec3 totalSpecular = reflectedLight.directSpecular + reflectedLight.indirectSpecular;
 	#include <transmission_fragment>
