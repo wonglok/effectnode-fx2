@@ -44,22 +44,20 @@ export function EffectNodeStudio({ projectName = "", children }) {
             );
           })}
       </TitleTunnelIn>
-      {
-        <div className=" absolute top-0 left-0 w-full h-full">
-          {
-            <CoreContext.Provider value={core}>
-              <EditorRoot
-                key={title + "editor-root"}
-                onCoreReady={({ core }) => {
-                  setCore(core);
-                }}
-                preview={<>{children}</>}
-                title={title}
-              ></EditorRoot>
-            </CoreContext.Provider>
-          }
-        </div>
-      }
+      <div className=" absolute top-0 left-0 w-full h-full">
+        {
+          <CoreContext.Provider value={core}>
+            <EditorRoot
+              key={title + "editor-root"}
+              onCoreReady={({ core }) => {
+                setCore(core);
+              }}
+              preview={<>{children}</>}
+              title={title}
+            ></EditorRoot>
+          </CoreContext.Provider>
+        }
+      </div>
     </>
   );
 }

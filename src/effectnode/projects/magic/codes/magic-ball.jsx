@@ -22,6 +22,7 @@ import {
   Matrix4,
   Mesh,
   MeshStandardMaterial,
+  Object3D,
   Quaternion,
   ShaderMaterial,
   StaticReadUsage,
@@ -38,19 +39,30 @@ export function ToolBox({ projectName }) {
 }
 
 export function Runtime({ io, files, onLoop, useAutoSaveData, isEditing }) {
-  const [countX, setStateX] = useState(1024);
-  const [countY, setStateY] = useState(512);
+  const [countX, setStateX] = useState(100);
+  const [countY, setStateY] = useState(100);
+  const [countZ, setStateZ] = useState(100);
 
   useEffect(() => {
     io.in(0, (config) => {
       setStateX(config.countX);
       setStateY(config.countY);
+      setStateZ(config.countZ);
     });
   }, [io]);
 
+  const [gpuInfo, setGPU] = useState(false);
+  useEffect(() => {
+    io.in(1, (gpuInfo) => {
+      setGPU(gpuInfo);
+    });
+  }, [io]);
+
+  console.log(gpuInfo);
+
   let count = useMemo(() => {
-    return countX * countY;
-  }, [countX, countY]);
+    return countX * countY * countZ;
+  }, [countX, countY, countZ]);
 
   let baseGeometry = useMemo(() => {
     //
@@ -70,20 +82,29 @@ export function Runtime({ io, files, onLoop, useAutoSaveData, isEditing }) {
     let idx = [];
 
     let ii = 0;
-    for (let i = 0; i < countY; i++) {
-      for (let j = 0; j < countX; j++) {
-        puv.push(j / countX, i / countY);
+    for (let z = 0; z < countZ; z++) {
+      for (let y = 0; y < countY; y++) {
+        for (let x = 0; x < countX; x++) {
+          offsets.push(Math.random() * 10 - 5.0);
+          offsets.push(Math.random() * 10 - 5.0);
+          offsets.push(Math.random() * 10 - 5.0);
 
-        offsets.push(Math.random() * 10 - 5.0);
-        offsets.push(Math.random() * 10 - 5.0);
-        offsets.push(Math.random() * 10 - 5.0);
+          rot.push(Math.PI * Math.random());
+          rot.push(Math.PI * Math.random());
+          rot.push(Math.PI * Math.random());
 
-        rot.push(Math.PI * Math.random());
-        rot.push(Math.PI * Math.random());
-        rot.push(Math.PI * Math.random());
+          idx.push(ii);
+          ii++;
+        }
+      }
+    }
 
-        idx.push(ii);
-        ii++;
+    let dimension = Math.sqrt(count, 1 / 2);
+
+    for (let ry = 0; ry < dimension; ry++) {
+      for (let rx = 0; rx < dimension; rx++) {
+        puv.push(rx / dimension);
+        puv.push(ry / dimension);
       }
     }
 
@@ -101,7 +122,7 @@ export function Runtime({ io, files, onLoop, useAutoSaveData, isEditing }) {
     );
 
     return geometryBase;
-  }, [baseGeometry, count, countX, countY]);
+  }, [baseGeometry, count, countX, countY, countZ]);
 
   let shader = useMemo(() => {
     let shader = new ShaderMaterial({
@@ -110,6 +131,9 @@ export function Runtime({ io, files, onLoop, useAutoSaveData, isEditing }) {
       transparent: true,
       uniforms: {
         time: { value: 0 },
+        uvTex: { value: null },
+        varPosition: { value: null },
+        varVelocity: { value: null },
       },
       side: DoubleSide,
     });
@@ -122,13 +146,68 @@ export function Runtime({ io, files, onLoop, useAutoSaveData, isEditing }) {
     }
   });
 
-  let mesh = useMemo(() => {
-    let mm = new Mesh(geometry, shader);
+  //
+  let [{ mesh, display }, setAPI] = useState(() => {
+    //
 
-    mm.frustumCulled = false;
-    return <primitive object={mm}></primitive>;
-  }, [geometry, shader]);
+    return {
+      mesh: new Object3D(),
+      display: <group></group>,
+    };
+    //
+  });
+  //
 
+  // attach the gpuInfo to the geometry and shader
+  //
+  useEffect(() => {
+    // console.log(gpuInfo.uvInfo);
+
+    // console.log("gpuInfo.uvInfo.array", gpuInfo.uvInfo.array.length);
+    // console.log(
+    //   "geometry.attributes.puv",
+    //   geometry.attributes.puv.array.length
+    // );
+
+    if (gpuInfo) {
+      geometry.setAttribute(
+        "tuv",
+        new InstancedBufferAttribute(new Float32Array(gpuInfo.uvInfo.array), 2)
+      );
+
+      geometry.needsUpdate = true;
+
+      shader.uniforms.uvTex = { value: gpuInfo.uvInfo.tex };
+
+      shader.uniforms.varPosition = { value: null };
+      shader.uniforms.varVelocity = { value: null };
+
+      let mm = new Mesh(geometry, shader);
+
+      mm.frustumCulled = false;
+
+      setAPI({
+        mesh: mm,
+        display: <primitive object={mm}></primitive>,
+      });
+    }
+  }, [gpuInfo, shader, geometry]);
+
+  useFrame(() => {
+    if (gpuInfo) {
+      shader.uniforms.varPosition = {
+        value: gpuInfo.gpu.getCurrentRenderTarget(gpuInfo.varPosition.variable)
+          .texture,
+      };
+      shader.uniforms.varVelocity = {
+        value: gpuInfo.gpu.getCurrentRenderTarget(gpuInfo.varVelocity.variable)
+          .texture,
+      };
+    }
+  });
+  //
+
+  //
   return (
     <>
       <MoverGate
@@ -136,7 +215,7 @@ export function Runtime({ io, files, onLoop, useAutoSaveData, isEditing }) {
         isEditing={isEditing}
         useAutoSaveData={useAutoSaveData}
       >
-        {mesh}
+        {display}
       </MoverGate>
     </>
   );
@@ -149,6 +228,7 @@ function MoverGate({
   useAutoSaveData,
   children,
 }) {
+  //
   let moveData =
     useAutoSaveData((r) => r[name]) || new Matrix4().identity().toArray();
 

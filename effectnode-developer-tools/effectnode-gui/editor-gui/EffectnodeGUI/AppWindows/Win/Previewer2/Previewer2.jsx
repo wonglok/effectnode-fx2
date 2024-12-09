@@ -1,9 +1,11 @@
 // import { EffectNode } from "effectnode-developer-tools/effectnode-runtime/EffectNode";
 // import { useEffect, useState } from "react";
+// import { EffectNode } from "effectnode-developer-tools/effectnode-runtime/EffectNode";
 import { Output2D } from "../../../EditorRoot";
 
 export function Previewer2({ win, useStore }) {
   // let spaceID = useStore((r) => r.spaceID);
+
   // let getState = useCallback(() => {
   //   return useStore.getState().editorAPI.exportBackup();
   // }, [useStore]);
@@ -24,17 +26,22 @@ export function Previewer2({ win, useStore }) {
 
   // let [ef, setEf] = useState(null);
   // useEffect(() => {
-  //   setEf(
-  //     <EffectNode
-  //       key={spaceID}
-  //       useEditorStore={useStore}
-  //       projectName={spaceID}
-  //     ></EffectNode>
-  //   );
-  // }, [spaceID, useStore]);
+  //   console.log(useStore.getState());
+
+  //   // setEf(
+  //   //   <EffectNode
+  //   //     key={spaceID}
+  //   //     useEditorStore={useStore}
+  //   //     projectName={spaceID}
+  //   //     mode="preview"
+  //   //     nodeID={}
+  //   //   ></EffectNode>
+  //   // );
+  // }, [useStore, spaceID]);
+
   return (
     <>
-      {/* {ef} */}
+      {ef}
 
       <Output2D></Output2D>
 

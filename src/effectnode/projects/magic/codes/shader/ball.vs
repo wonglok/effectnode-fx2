@@ -8,6 +8,11 @@ uniform float time;
 varying float brightness;
 varying vec3 vDistribution;
 
+attribute vec2 tuv;
+uniform sampler2D varPosition;
+uniform sampler2D varVelocity;
+varying vec2 vTUV;
+
 
 #define M_PI 3.1415926535897932384626433832795
 
@@ -70,6 +75,12 @@ float cnoise(vec2 P){
 }
 
 void main(void){
+    vTUV = tuv;
+
+    vec4 dataPosition = texture2D(varPosition, tuv);
+    vec4 dataVelocity = texture2D(varVelocity, tuv);
+    
+    
     float r = rand(puv + sin(puv.x + time * 0.001));
 
 
@@ -87,10 +98,13 @@ void main(void){
 
     vec3 positionBall2 = fromBall(8.0, ballUV.x, ballUV.y);
 
-    vec3 pos = position * 15.0 * pow(pulse, 1.8) + positionBall2;
+    vec3 pos = position * 15.0 * pow(pulse, 1.8) + dataPosition.xyz;// + positionBall2;
 
 
     vDistribution = vec3(ball);
 
     gl_Position = projectionMatrix * modelViewMatrix * vec4(pos,1.0);
+
+
+   
 }

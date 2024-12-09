@@ -89,7 +89,7 @@ export function EditorApp({ useStore }) {
       >
         <div className="w-full h-full flex items-center justify-between px-2 text-sm">
           <div className="flex">
-            <Link href={`/dev`} className="underline text-black">
+            <Link href={`/`} className="underline text-black">
               EffectNode FX
             </Link>
             <span className="mx-2">|</span>

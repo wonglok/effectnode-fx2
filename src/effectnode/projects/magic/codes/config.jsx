@@ -4,11 +4,16 @@ export function Runtime({ io }) {
   useEffect(() => {
     io.out(0, {
       name: "config",
-      countX: 1024,
-      countY: 1024,
+      countX: 100,
+      countY: 100,
+      countZ: 100,
+
+      resX: 1000,
+      resY: 1000,
     });
   }, [io]);
 
   return null;
 }
+
 export function ToolBox() {}

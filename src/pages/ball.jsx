@@ -12,9 +12,8 @@ export default function Page() {
       <div className="w-full h-full relative overflow-hidden">
         <EffectNodeStudio projectName="magic">
           <Canvas gl={{ antialias: false }} shadows={"basic"}>
+            <color attach={"background"} args={["#000000"]}></color>
             <Suspense fallback={null}>
-              <EffectNode projectName={"living-room"}></EffectNode>
-
               <EffectNode projectName={"magic"}></EffectNode>
 
               <Environment files={[`/hdr/studiolighting.hdr`]}></Environment>
