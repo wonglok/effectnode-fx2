@@ -45,15 +45,14 @@ void main() {
     transformed = vec3(0.0);
 
     float yTrans = ((schema.y + terminal) / ty);
-    
-    float swingX = 0.5 * sin(yTrans + time) * cos(yTrans + time) * schema.y / ty * scale;
-    float swingZ = 0.5 * sin(yTrans + time) * sin(yTrans + time) * schema.y / ty * scale;
+
+    float swingX = 2.5 * cos(yTrans + time) * schema.y / ty * scale;
+    float swingZ = 2.5 * sin(yTrans + time) * schema.y / ty * scale;
 
     transformed.x = (schema.x / tx - 0.5) * scale + swingX;
-    transformed.y = ((schema.y + terminal) / ty) * scale;
+    transformed.y = ((schema.y + terminal) / ty);
     transformed.z = (schema.z / tz - 0.5) * scale + swingZ;
-    
-    //
+
     //
 
     #include <morphtarget_vertex>
