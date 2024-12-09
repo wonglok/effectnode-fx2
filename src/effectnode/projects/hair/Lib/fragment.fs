@@ -81,6 +81,9 @@ varying vec3 vViewPosition;
 #include <metalnessmap_pars_fragment>
 #include <logdepthbuf_pars_fragment>
 #include <clipping_planes_pars_fragment>
+
+varying vec3 vTransformed;
+
 void main() {
 	vec4 diffuseColor = vec4( diffuse, opacity );
 	#include <clipping_planes_fragment>
@@ -105,6 +108,9 @@ void main() {
 	#include <lights_fragment_end>
 	#include <aomap_fragment>
 	vec3 totalDiffuse = reflectedLight.directDiffuse + reflectedLight.indirectDiffuse;
+	
+	totalDiffuse.y *= vTransformed.y * 2.0 - 1.0;
+	
 	vec3 totalSpecular = reflectedLight.directSpecular + reflectedLight.indirectSpecular;
 	#include <transmission_fragment>
 	vec3 outgoingLight = totalDiffuse + totalSpecular + totalEmissiveRadiance;

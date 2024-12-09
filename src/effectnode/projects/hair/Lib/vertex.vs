@@ -26,6 +26,8 @@ uniform float tx;
 uniform float ty;
 uniform float tz;
 
+varying vec3 vTransformed;
+
 void main() {
 	#include <uv_vertex>
 	#include <color_vertex>
@@ -53,6 +55,8 @@ void main() {
     transformed.y = ((schema.y + terminal) / ty);
     transformed.z = (schema.z / tz - 0.5) * scale + swingZ;
 
+
+    vTransformed = transformed;
     //
 
     #include <morphtarget_vertex>
