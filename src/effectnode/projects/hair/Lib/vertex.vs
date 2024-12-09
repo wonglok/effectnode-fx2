@@ -40,14 +40,14 @@ void main() {
 	#include <normal_vertex>
 	#include <begin_vertex>
     
-    float scale = 2.5;
+    float scale = 1.5;
 
     transformed = vec3(0.0);
 
     float yTrans = ((schema.y + terminal) / ty);
 
-    float swingX = 2.5 * cos(yTrans + time) * schema.y / ty * scale;
-    float swingZ = 2.5 * sin(yTrans + time) * schema.y / ty * scale;
+    float swingX = 1.0 * cos(yTrans + time) * schema.y / ty * scale;
+    float swingZ = 1.0 * sin(yTrans + time) * schema.y / ty * scale;
 
     transformed.x = (schema.x / tx - 0.5) * scale + swingX;
     transformed.y = ((schema.y + terminal) / ty);
