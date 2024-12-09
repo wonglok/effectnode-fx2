@@ -292,7 +292,17 @@ export function Runtime({ io, files, onLoop }) {
         ref={refPlane}
         args={[1000, 1000]}
       ></Plane>
-      <Sphere ref={refSphere}></Sphere>
+      {/*  */}
+      <Sphere ref={refSphere}>
+        <meshPhysicalMaterial
+          transmission={1}
+          roughness={0.1}
+          metalness={0.0}
+          transparent={true}
+          opacity={0.5}
+          thickness={1.25}
+        ></meshPhysicalMaterial>
+      </Sphere>
     </>
   );
 }

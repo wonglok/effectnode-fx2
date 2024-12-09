@@ -216,13 +216,13 @@ uniform vec3 mouseLast;
 void collisionMouseSphere (inout vec4 particlePos, inout vec3 particleVel, float sphereRadius) {
   vec3 dif = (mouseNow) - particlePos.xyz;
   if( length( dif ) - sphereRadius < 0.0 ){
-    particleVel -= normalize(dif) * dt * 5.0;
+    particleVel -= normalize(dif) * dt * 2.0;
     vec3 mouseForce = mouseNow - mouseLast;
-    particleVel += mouseForce * dt * 2.0;
+    particleVel += mouseForce * dt * 20.0;
   } else if (length( dif ) - sphereRadius < sphereRadius * 0.5) {
-    particleVel += normalize(dif) * dt * 5.0;
+    particleVel += normalize(dif) * dt * 2.0;
     vec3 mouseForce = mouseNow - mouseLast;
-    particleVel += mouseForce * dt * 2.0;
+    particleVel += mouseForce * dt * 20.0;
   }
 }
 
@@ -256,6 +256,9 @@ void collisionStaticSphere (inout vec4 particlePos, inout vec3 particleVel, vec3
 
 void handleCollision (inout vec4 pos, inout vec3 vel) {
   collisionMouseSphere(pos, vel, 1.5);
+
+
+  collisionStaticSphere(pos, vel, mouseNow, 2.0);
 }
 
 
@@ -267,7 +270,7 @@ void main (void) {
     vec4 posColor = texture2D(texturePosition, uv);
     vec4 velColor = texture2D(textureVelocity, uv);
 
-    velColor.y += -5.0 * rand(vec2(uv)) * dt;
+    velColor.y += -1.5 * rand(vec2(uv)) * dt;
 
     velColor.z += 0.2 * rand(vec2(uv)) * dt;
 
