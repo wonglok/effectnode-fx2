@@ -38,6 +38,8 @@ export default function Page() {
               </a>
             </div>
           </div>
+          {/*  */}
+          {/*  */}
         </EffectNodeStudio>
       </div>
     </>
@@ -54,9 +56,9 @@ function Ctrls() {
       keyEvents={true}
       enableDamping
       args={[camera, gl.domElement]}
-      object-position={[0, -1.6387593800344429, 6]}
+      object-position={[0, 0, 5]}
       makeDefault
-      target={[0, -1.6387593800344429, -11.182383796060732]}
+      target={[0, 0, 0]}
     ></OrbitControls>
   );
 }
