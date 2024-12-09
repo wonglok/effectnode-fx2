@@ -225,11 +225,9 @@ void main (void) {
 
     vec3 center = vec3(0.0, 0.0, 0.0);
 
-    center.y = sin(time * 5.0) * 1.0;
-
     vec3 dir = -normalize(posColor.rgb - center);
 
-    float div = pow(length(dir), 5.0);
+    float div = pow(length(dir), 2.0);
 
     if (div <= 0.1) {
         div = 0.1;
@@ -243,7 +241,6 @@ void main (void) {
     if (length(velColor.rgb) >= 2.0) {
         velColor.rgb = normalize(velColor.rgb) * 2.0;
     }
-
-
+    
     gl_FragColor = vec4(velColor.rgb, 1.0);
 }

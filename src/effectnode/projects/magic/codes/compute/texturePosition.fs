@@ -53,10 +53,6 @@ void main (void) {
     vec4 velColor = texture2D(textureVelocity, uv);
     vec4 posColor = texture2D(texturePosition, uv);
 
-
-    vec3 rz = rotation3dY(time) * posColor.rgb * 0.01;
-
-    rz.y = 0.0;
-
-    gl_FragColor = vec4(posColor.rgb + velColor.rgb + rz, 1.0);
+  
+    gl_FragColor = vec4(posColor.rgb + velColor.rgb, 1.0);
 }

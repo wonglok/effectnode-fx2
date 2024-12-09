@@ -23,6 +23,7 @@ import {
   Mesh,
   MeshStandardMaterial,
   Object3D,
+  PlaneGeometry,
   Quaternion,
   ShaderMaterial,
   StaticReadUsage,
@@ -66,7 +67,7 @@ export function Runtime({ io, files, onLoop, useAutoSaveData, isEditing }) {
 
   let baseGeometry = useMemo(() => {
     //
-    let box = new BoxGeometry(0.002, 0.002, 0.002);
+    let box = new BoxGeometry(0.001, 0.001, 0.001);
 
     return box.toNonIndexed();
   }, []);

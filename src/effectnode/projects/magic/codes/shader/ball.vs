@@ -99,8 +99,8 @@ void main(void){
     vec3 positionBall2 = fromBall(8.0, ballUV.x, ballUV.y);
 
     float speed = length(dataVelocity.rgb);
-    if (speed <= 0.05) {
-        speed = 0.05;
+    if (speed <= 0.1) {
+        speed = 0.1;
     }
 
     vec3 pos = position * 5.0 * pow(pulse, 1.8) * (1.0 / speed) + dataPosition.xyz;// + positionBall2;
