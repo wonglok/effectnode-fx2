@@ -210,16 +210,70 @@ mat3 rotation3dZ(float angle) {
   );
 }
 
+uniform vec3 mouseNow;
+uniform vec3 mouseLast;
+// holdarea
+void collisionMouseSphere (inout vec4 particlePos, inout vec3 particleVel, float sphereRadius) {
+  vec3 dif = (mouseNow) - particlePos.xyz;
+  if( length( dif ) - sphereRadius < 0.0 ){
+    particleVel -= normalize(dif) * dt * 5.0;
+    vec3 mouseForce = mouseNow - mouseLast;
+    particleVel += mouseForce * dt * 2.0;
+  } else if (length( dif ) - sphereRadius < sphereRadius * 0.5) {
+    particleVel += normalize(dif) * dt * 5.0;
+    vec3 mouseForce = mouseNow - mouseLast;
+    particleVel += mouseForce * dt * 2.0;
+  }
+}
+
+float sdBox( vec3 p, vec3 b ) {
+  vec3 q = abs(p) - b;
+  return length(max(q,0.0)) + min(max(q.x,max(q.y,q.z)),0.0);
+}
+
+void collisionStaticBox (inout vec4 particlePos, inout vec3 particleVel, vec3 colliderBoxPosition, vec3 boxSize) {
+  vec3 p = (colliderBoxPosition) - particlePos.xyz;
+
+  if(sdBox(p, boxSize) < 0.0){
+    float EPSILON_A = 0.05;
+
+    vec3 boxNormal = normalize(vec3(
+      sdBox(vec3(p.x + EPSILON_A, p.y, p.z),  boxSize) - sdBox(vec3(p.x - EPSILON_A, p.y, p.z), boxSize),
+      sdBox(vec3(p.x, p.y + EPSILON_A, p.z),  boxSize) - sdBox(vec3(p.x, p.y - EPSILON_A, p.z), boxSize),
+      sdBox(vec3(p.x, p.y, p.z  + EPSILON_A), boxSize) - sdBox(vec3(p.x, p.y, p.z - EPSILON_A), boxSize)
+    ));
+
+    particleVel -= boxNormal * dt * 1.0;
+  }
+}
+
+void collisionStaticSphere (inout vec4 particlePos, inout vec3 particleVel, vec3 colliderSpherePosition, float sphereRadius) {
+  vec3 dif = (colliderSpherePosition) - particlePos.xyz;
+  if( length( dif ) < sphereRadius ){
+    particleVel -= normalize(dif) * dt * 1.0;
+  }
+}
+
+void handleCollision (inout vec4 pos, inout vec3 vel) {
+  collisionMouseSphere(pos, vel, 1.5);
+}
+
+
 void main (void) {
     vec2 uv = gl_FragCoord.xy / uResolution.xy;
-
 
     vec4 uvColor = texture2D(uvTex, uv);
     vec4 xyzColor = texture2D(xyzTex, uv);
     vec4 posColor = texture2D(texturePosition, uv);
     vec4 velColor = texture2D(textureVelocity, uv);
 
-    velColor.y = -1.0 * rand(vec2(uv)) * dt;
+    velColor.y += -5.0 * rand(vec2(uv)) * dt;
+
+    velColor.z += 0.2 * rand(vec2(uv)) * dt;
+
+    handleCollision(posColor, velColor.xyz);
+
+    velColor.rgb *= 0.9;
 
     gl_FragColor = vec4(velColor.rgb, 1.0);
 }

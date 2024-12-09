@@ -2,14 +2,15 @@ import { useEffect } from "react";
 
 export function Runtime({ io }) {
   useEffect(() => {
+    let unit = 64;
     io.out(0, {
       name: "config",
-      countX: 100,
-      countY: 100,
-      countZ: 100,
+      countX: unit,
+      countY: unit,
+      countZ: unit,
 
-      resX: 1000,
-      resY: 1000,
+      resX: Math.pow(Math.pow(unit, 3), 0.5),
+      resY: Math.pow(Math.pow(unit, 3), 0.5),
     });
   }, [io]);
 

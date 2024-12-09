@@ -186,7 +186,7 @@ void main (void) {
 
     lifeColor.a += rand(vec2(uv));
     
-    if (lifeColor.a >= 1.0 || posColor.y <= -8.0) {
+    if (lifeColor.a >= 1.0 || posColor.y <= -10.0) {
         lifeColor.a = -1.0;
     }
 

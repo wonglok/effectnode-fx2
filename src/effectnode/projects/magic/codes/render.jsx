@@ -213,13 +213,13 @@ export function Runtime({ io, files, onLoop, useAutoSaveData, isEditing }) {
 
   return (
     <>
+      {display}
+      {/* 
       <MoverGate
         name="magic-ball"
         isEditing={isEditing}
         useAutoSaveData={useAutoSaveData}
-      >
-        {display}
-      </MoverGate>
+      ></MoverGate> */}
     </>
   );
 }
