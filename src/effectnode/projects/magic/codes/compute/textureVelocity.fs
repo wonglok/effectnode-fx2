@@ -211,9 +211,6 @@ mat3 rotation3dZ(float angle) {
 }
 
 void main (void) {
-    //
-
-    //  
     vec2 uv = gl_FragCoord.xy / uResolution.xy;
 
 
@@ -227,20 +224,9 @@ void main (void) {
 
     vec3 dir = -normalize(posColor.rgb - center);
 
-    float div = pow(length(dir), 2.0);
+    velColor.r = cnoise(posColor.rgb * 0.2 + time + cnoise(0.1 * xyzColor.rgb + 0.1));
+    velColor.y = cnoise(posColor.rgb * 0.2 + time + cnoise(0.1 * xyzColor.rgb - 0.0));
+    velColor.z = cnoise(posColor.rgb * 0.2 + time + cnoise(0.1 * xyzColor.rgb - 0.1));
 
-    if (div <= 0.1) {
-        div = 0.1;
-    }
-    if (div >= 10.0) {
-        div = 10.0;
-    }
-    
-    velColor.rgb += dir / div * dt * 0.25;
-
-    if (length(velColor.rgb) >= 2.0) {
-        velColor.rgb = normalize(velColor.rgb) * 2.0;
-    }
-    
     gl_FragColor = vec4(velColor.rgb, 1.0);
 }
