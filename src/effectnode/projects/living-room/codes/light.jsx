@@ -4,7 +4,9 @@ import { Quaternion, Vector3 } from "three";
 import { Matrix4 } from "three";
 
 export function ToolBox({ useAutoSaveData }) {
-  return <></>;
+  return <>
+    Toolbox
+  </>;
 }
 
 export function Runtime({ isEditing, useAutoSaveData, io, files }) {
