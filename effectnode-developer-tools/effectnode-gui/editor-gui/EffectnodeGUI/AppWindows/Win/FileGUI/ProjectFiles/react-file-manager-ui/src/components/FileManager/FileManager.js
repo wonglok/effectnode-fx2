@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
  */
-import Dropzone from "dropzone";
+// import Dropzone from "dropzone";
 import React, { useEffect, useRef, useState } from "react";
 import TopBar from "./TopBar";
 import Footer from "./Footer";

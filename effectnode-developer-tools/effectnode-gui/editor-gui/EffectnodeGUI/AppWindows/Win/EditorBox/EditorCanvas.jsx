@@ -328,7 +328,7 @@ export function EditorCanvas({ useStore }) {
             },
           });
         }}
-        //
+      //
       >
         {/*  */}
         <Canvas>
