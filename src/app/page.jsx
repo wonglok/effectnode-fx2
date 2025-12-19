@@ -15,6 +15,11 @@ export default function Index() {
           </Link>
         </div>
       </div> */}
+
+      {/*  */}
+
+      {/*  */}
+
       <div>
         <div className="text-2xl p-2">Room</div>
         <div className="p-2">
@@ -26,6 +31,11 @@ export default function Index() {
           </Link>
         </div>
       </div>
+
+      {/*  */}
+
+      {/*  */}
+
     </>
   );
 }
