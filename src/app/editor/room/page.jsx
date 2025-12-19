@@ -24,7 +24,7 @@ export default function Page() {
           </Canvas>
 
           <div className=" absolute bottom-0 left-0 px-3 py-3">
-            <div className="bg-white p-1 px-3">
+            <div className="bg-white p-2 px-4 text-xs rounded-2xl">
               <a
                 className="underline"
                 target="_blank"
