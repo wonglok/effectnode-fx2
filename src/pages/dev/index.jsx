@@ -4,8 +4,8 @@ import { useEffect } from "react";
 export default process.env.NODE_ENV === "development"
   ? Projects
   : function Page() {
-      useEffect(() => {
-        location.assign("/");
-      }, []);
-      return <></>;
-    };
+    useEffect(() => {
+      location.assign("/");
+    }, []);
+    return <></>;
+  };
