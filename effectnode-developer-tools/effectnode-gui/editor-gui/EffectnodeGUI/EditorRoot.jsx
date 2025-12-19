@@ -15,7 +15,7 @@ import { EditorApp } from "./EditorApp/EditorApp";
 import { useEffect, useRef, useState } from "react";
 import { getID } from "./utils/getID";
 import { myApps, myWins } from "./utils/myApps";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 // import { getOneWorkspace } from "@/src/pages/api/Workspace";
 import { Vector3 } from "three";
 import { useDeveloper } from "effectnode-developer-tools/effectnode-gui/store/useDeveloper";

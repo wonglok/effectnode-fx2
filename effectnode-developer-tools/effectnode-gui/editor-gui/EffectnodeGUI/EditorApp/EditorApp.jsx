@@ -5,7 +5,7 @@ import { AppWindows } from "../AppWindows/AppWindows";
 import Link from "next/link";
 import moment from "moment";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useDeveloper } from "effectnode-developer-tools/effectnode-gui/store/useDeveloper";
 import tunnel from "tunnel-rat";
 
@@ -14,7 +14,7 @@ export const TitleTunnel = tunnel();
 export const TitleTunnelIn = TitleTunnel.In;
 
 export function EditorApp({ useStore }) {
-  let router = useRouter();
+  // let router = useRouter();
   let spaceID = useStore((r) => r.spaceID);
 
   // let [dateString, setDate] = useState(
