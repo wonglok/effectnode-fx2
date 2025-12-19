@@ -111,13 +111,13 @@ export function BeginMenu({ useStore }) {
             left: `calc(50% - 500px / 2)`,
           }}
         >
-          <div className="absolute -top-10 -right-10 p-5  shadow-lg  rounded-2xl border-gray-300 border   bg-white ">
+          {/* <div className="absolute -top-10 -right-10 p-5  shadow-lg  rounded-2xl border-gray-300 border   bg-white ">
             <img
               className="h-12 select-none "
               src={logo}
               alt="effectnode"
             ></img>
-          </div>
+          </div> */}
 
           <div>
             <div

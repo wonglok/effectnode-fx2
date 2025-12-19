@@ -6,7 +6,7 @@
     "dev": "concurrently \"npm run devnext\" \"npm run devtools\"",
     "devnext": "next dev --webpack",
     "devtools": "nodemon ./effectnode-developer-tools/effectnode-api/api.mjs --ignore ./src",
-    "build": "next build",
+    "build": "next build --webpack",
     "start": "next start",
     "lint": "next lint"
   },

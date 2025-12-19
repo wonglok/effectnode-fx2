@@ -10,27 +10,31 @@ export default function Page() {
   return (
     <>
       <div className="w-full h-full relative overflow-hidden">
-        <Canvas gl={{ antialias: false }} shadows={"basic"}>
-          <Suspense fallback={null}>
-            <EffectNode projectName={"living-room"}></EffectNode>
+        <EffectNodeStudio projectName="living-room">
+          {/*  */}
 
-            <Environment files={[`/hdr/studiolighting.hdr`]}></Environment>
-          </Suspense>
+          <Canvas gl={{ antialias: false }} shadows={"basic"}>
+            <Suspense fallback={null}>
+              <EffectNode projectName={"living-room"}></EffectNode>
 
-          <Ctrls></Ctrls>
-        </Canvas>
+              <Environment files={[`/hdr/studiolighting.hdr`]}></Environment>
+            </Suspense>
 
-        <div className=" absolute bottom-0 left-0 px-3 py-3">
-          <div className="bg-white p-1 px-3">
-            <a
-              className="underline"
-              target="_blank"
-              href={`https://www.fab.com/listings/a926d36d-6460-4c6e-8aaa-c22667cb075f`}
-            >
-              Scene Credit
-            </a>
+            <Ctrls></Ctrls>
+          </Canvas>
+
+          <div className=" absolute bottom-0 left-0 px-3 py-3">
+            <div className="bg-white p-1 px-3">
+              <a
+                className="underline"
+                target="_blank"
+                href={`https://www.fab.com/listings/a926d36d-6460-4c6e-8aaa-c22667cb075f`}
+              >
+                Scene Credit
+              </a>
+            </div>
           </div>
-        </div>
+        </EffectNodeStudio>
       </div>
     </>
   );

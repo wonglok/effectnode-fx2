@@ -16,13 +16,9 @@ import { useEffect, useRef, useState } from "react";
 import { getID } from "./utils/getID";
 import { myApps, myWins } from "./utils/myApps";
 import { useRouter } from "next/navigation";
-// import { getOneWorkspace } from "@/src/pages/api/Workspace";
 import { Vector3 } from "three";
 import { useDeveloper } from "effectnode-developer-tools/effectnode-gui/store/useDeveloper";
 import tunnel from "tunnel-rat";
-//
-// import localforage from "localforage";
-//
 
 const Tunnel2D = tunnel();
 export const Insert2D = ({ children }) => {

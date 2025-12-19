@@ -8,12 +8,12 @@ export const CoreContext = createContext(null);
 export function EffectNodeStudio({ projectName = "", children }) {
   let [title, setTitle] = useState(projectName);
   let projects = usePopStore((r) => r.projects);
+  console.log(projects);
 
-  // console.log(projects);
   const [core, setCore] = useState(null);
 
   if (process.env.NODE_ENV !== "development") {
-    return children;
+    return <>Please use a computer to edit the files</>;
   }
 
   if (!projectName) {
@@ -26,10 +26,10 @@ export function EffectNodeStudio({ projectName = "", children }) {
   return (
     <>
       <TitleTunnelIn>
-        <span className="mx-2">{`|`}</span>
-        <span className="mr-2">{`Other Projects 🫱🏻`}</span>
+        {/* <span className="mx-2">{`|`}</span>
+        <span className="mr-2">{`Other Projects 🫱🏻`}</span> */}
 
-        {projects &&
+        {/* {projects &&
           projects.map((r, i) => {
             return (
               <div key={r._id + "title"} className="">
@@ -43,18 +43,19 @@ export function EffectNodeStudio({ projectName = "", children }) {
                 </span>
               </div>
             );
-          })}
+          })} */}
       </TitleTunnelIn>
-      <div className=" absolute top-0 left-0 w-full h-full">
+      {/*  */}
+      <div className="  w-full h-full">
         {
           <CoreContext.Provider value={core}>
             <EditorRoot
-              key={title + "editor-root"}
+              key={projectName + "editor-root"}
               onCoreReady={({ core }) => {
                 setCore(core);
               }}
               preview={<>{children}</>}
-              title={title}
+              title={projectName}
             ></EditorRoot>
           </CoreContext.Provider>
         }
