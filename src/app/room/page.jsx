@@ -10,11 +10,13 @@ export default function Page() {
   return (
     <>
       <div className="w-full h-full relative overflow-hidden">
-        <Canvas gl={{ antialias: false }} shadows={"basic"}>
+        <Canvas gl={{ antialias: false }} shadows={"soft"}>
           <Suspense fallback={null}>
+
             <EffectNode projectName={"living-room"}></EffectNode>
 
             <Environment files={[`/hdr/studiolighting.hdr`]}></Environment>
+
           </Suspense>
 
           <Ctrls></Ctrls>
